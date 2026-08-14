@@ -1,6 +1,6 @@
 package br.com.matheusfragadev.api.shared.infra.repository.exam;
 
-import br.com.matheusfragadev.api.exams.domain.entity.Exam;
+import br.com.matheusfragadev.api.domain.exams.entity.Exam;
 import lombok.AccessLevel;
 import lombok.NoArgsConstructor;
 import org.springframework.data.jpa.domain.Specification;

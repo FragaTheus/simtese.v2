@@ -1,6 +1,6 @@
-package br.com.matheusfragadev.api.exams.domain.repository;
+package br.com.matheusfragadev.api.domain.exams.repository;
 
-import br.com.matheusfragadev.api.exams.domain.entity.Exam;
+import br.com.matheusfragadev.api.domain.exams.entity.Exam;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.JpaSpecificationExecutor;
 import org.springframework.stereotype.Repository;

@@ -1,4 +1,4 @@
-package br.com.matheusfragadev.api.exams.domain.entity;
+package br.com.matheusfragadev.api.domain.exams.entity;
 
 import br.com.matheusfragadev.api.shared.auditory.Auditory;
 import jakarta.persistence.Column;
