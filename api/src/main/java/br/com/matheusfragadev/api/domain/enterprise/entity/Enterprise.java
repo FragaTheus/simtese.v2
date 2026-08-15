@@ -34,6 +34,10 @@ public class Enterprise extends Auditory {
 
     //Construtores
     public Enterprise(String name, CNPJ cnpj) {
+        if (cnpj == null) {
+            throw new EnterpriseException("CNPJ é obrigatório");
+        }
+
         this.name = validName(name);
         this.cnpj = cnpj;
         this.account = null;

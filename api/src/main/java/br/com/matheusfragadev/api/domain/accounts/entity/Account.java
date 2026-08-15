@@ -10,6 +10,7 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
+import java.util.function.Function;
 import java.util.regex.Pattern;
 
 @Getter
@@ -53,8 +54,19 @@ public class Account extends Auditory {
         this.name = name;
     }
 
-    public void changePassword(Password password){
-        this.password = password;
+    public void changePassword(String newPassword, String confirmNewPassword, Function<String, String> hasher){
+        var validateNewPassword = newPassword == null || newPassword.isBlank();
+        var validateConfirmPassword = confirmNewPassword == null || confirmNewPassword.isBlank();
+
+        if (validateNewPassword || validateConfirmPassword) {
+            throw new AccountException("Senha e confirmação de senha são obrigatórios");
+        }
+
+        if (!newPassword.equals(confirmNewPassword)) {
+            throw new AccountException("As senhas não coincidem");
+        }
+
+        this.password = Password.of(confirmNewPassword, hasher);
     }
 
     public void deactivate(){
@@ -75,6 +87,15 @@ public class Account extends Auditory {
     private Account(String name, String email, Password password, Role role) {
         verifyIfInputNameIsValid(name);
         verifyIfEmailIsValid(email);
+
+        if (password == null) {
+            throw new AccountException("Senha é obrigatória");
+        }
+
+        if (role == null) {
+            throw new AccountException("Role é obrigatória");
+        }
+
         this.name = name;
         this.email = email;
         this.password = password;
