@@ -1,11 +1,11 @@
 package br.com.matheusfragadev.api.domain.enterprise.entity;
 
+import br.com.matheusfragadev.api.domain.accounts.entity.Account;
+import br.com.matheusfragadev.api.domain.accounts.exception.AccountException;
 import br.com.matheusfragadev.api.domain.enterprise.aggregate.CNPJ;
 import br.com.matheusfragadev.api.domain.enterprise.exception.EnterpriseException;
 import br.com.matheusfragadev.api.shared.auditory.Auditory;
-import jakarta.persistence.Column;
-import jakarta.persistence.Embedded;
-import jakarta.persistence.Entity;
+import jakarta.persistence.*;
 import lombok.AccessLevel;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -25,6 +25,10 @@ public class Enterprise extends Auditory {
     @Embedded
     private CNPJ cnpj;
 
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "account_id")
+    private Account account;
+
     @Column(nullable = false)
     private boolean active;
 
@@ -32,10 +36,24 @@ public class Enterprise extends Auditory {
     public Enterprise(String name, CNPJ cnpj) {
         this.name = validName(name);
         this.cnpj = cnpj;
+        this.account = null;
         this.active = true;
     }
 
     //Metodos setters
+    public void linkAccount(Account account) {
+        if (account == null) throw new AccountException("Conta não pode ser nula");
+        if (this.account != null) throw new AccountException("Empresa já está vinculada a uma conta");
+        this.account = account;
+    }
+
+    public void unlinkAccount(Account account){
+        if (account == null) throw new AccountException("Conta não pode ser nula");
+        if (this.account == null) return;
+        if (!this.account.equals(account)) throw new AccountException("Empresa não está vinculada a essa conta");
+        this.account = null;
+    }
+
     public void changeName(String newName){
         var validName = validName(newName);
         if (this.name.equals(validName)) {
