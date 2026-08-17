@@ -6,25 +6,44 @@ import org.springframework.data.jpa.domain.Specification;
 
 public class AccountSpec {
 
-    public static Specification<Account> accountFilter(String search, Role role, Boolean active){
-        return Specification.where(search(search)).and(role(role)).and(active(active));
+    public static Specification<Account> accountFilter(
+            String search,
+            Role role,
+            Boolean active
+    ) {
+        return search(search)
+                .and(role(role))
+                .and(active(active));
     }
 
-    private static Specification<Account> search(String search){
-        return (root, query, criteriaBuilder) -> criteriaBuilder.or(
-                criteriaBuilder.like(criteriaBuilder.lower(root.get("name")), "%" + search.toLowerCase() + "%"),
-                criteriaBuilder.like(criteriaBuilder.lower(root.get("email")), "%" + search.toLowerCase() + "%")
+    private static Specification<Account> search(String search) {
+        if (search == null || search.isBlank()) {
+            return Specification.unrestricted();
+        }
+
+        String value = "%" + search.toLowerCase() + "%";
+
+        return (root, query, cb) -> cb.or(
+                cb.like(cb.lower(root.get("name")), value),
+                cb.like(cb.lower(root.get("email")), value)
         );
     }
 
-    private static Specification<Account> role(Role role){
-        return (root, query, criteriaBuilder)
-                -> criteriaBuilder.equal(root.get("role"), role);
+    private static Specification<Account> role(Role role) {
+        if (role == null) {
+            return Specification.unrestricted();
+        }
+
+        return (root, query, cb) ->
+                cb.equal(root.get("role"), role);
     }
 
-    private static Specification<Account> active(Boolean active){
-        return (root, query, criteriaBuilder)
-                -> criteriaBuilder.equal(root.get("active"), active);
-    }
+    private static Specification<Account> active(Boolean active) {
+        if (active == null) {
+            return Specification.unrestricted();
+        }
 
+        return (root, query, cb) ->
+                cb.equal(root.get("active"), active);
+    }
 }

@@ -8,21 +8,34 @@ import org.springframework.data.jpa.domain.Specification;
 @NoArgsConstructor(access = AccessLevel.PRIVATE)
 public class EnterpriseSpec {
 
-    public static Specification<Enterprise> enterpriseFilter(String search, Boolean active){
-        return Specification.where(search(search)).and(active(active));
+    public static Specification<Enterprise> enterpriseFilter(
+            String search,
+            Boolean active
+    ) {
+        return search(search)
+                .and(active(active));
     }
 
-    private static Specification<Enterprise> search(String search){
-        return (root, query, criteriaBuilder) ->
-                criteriaBuilder.or(
-                        criteriaBuilder.like(criteriaBuilder.lower(root.get("name")), "%" + search.toLowerCase() + "%"),
-                        criteriaBuilder.like(criteriaBuilder.lower(root.get("cnpj")), "%" + search.toLowerCase() + "%")
+    private static Specification<Enterprise> search(String search) {
+        if (search == null || search.isBlank()) {
+            return Specification.unrestricted();
+        }
+
+        String value = "%" + search.toLowerCase() + "%";
+
+        return (root, query, cb) ->
+                cb.or(
+                        cb.like(cb.lower(root.get("name")), value),
+                        cb.like(cb.lower(root.get("cnpj")), value)
                 );
     }
 
-    private static Specification<Enterprise> active(Boolean active){
-        return (root, query, criteriaBuilder) ->
-                criteriaBuilder.equal(root.get("active"), active);
-    }
+    private static Specification<Enterprise> active(Boolean active) {
+        if (active == null) {
+            return Specification.unrestricted();
+        }
 
+        return (root, query, cb) ->
+                cb.equal(root.get("active"), active);
+    }
 }
