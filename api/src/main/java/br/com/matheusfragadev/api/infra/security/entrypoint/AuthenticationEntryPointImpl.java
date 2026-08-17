@@ -1,4 +1,4 @@
-package br.com.matheusfragadev.api.shared.infra.security.entrypoint;
+package br.com.matheusfragadev.api.infra.security.entrypoint;
 
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;

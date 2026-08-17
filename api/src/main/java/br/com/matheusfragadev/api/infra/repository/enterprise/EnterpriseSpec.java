@@ -1,4 +1,4 @@
-package br.com.matheusfragadev.api.shared.infra.repository.enterprise;
+package br.com.matheusfragadev.api.infra.repository.enterprise;
 
 import br.com.matheusfragadev.api.domain.enterprise.entity.Enterprise;
 import lombok.AccessLevel;

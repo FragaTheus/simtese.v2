@@ -1,4 +1,4 @@
-package br.com.matheusfragadev.api.shared.infra.repository.appointment.aggregate;
+package br.com.matheusfragadev.api.infra.repository.appointment.aggregate;
 
 import br.com.matheusfragadev.api.domain.appointment.aggregate.ExamStatus;
 import br.com.matheusfragadev.api.domain.appointment.aggregate.Shift;

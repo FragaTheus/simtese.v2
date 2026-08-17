@@ -7,7 +7,7 @@ import br.com.matheusfragadev.api.domain.enterprise.aggregate.CNPJ;
 import br.com.matheusfragadev.api.domain.enterprise.entity.Enterprise;
 import br.com.matheusfragadev.api.domain.enterprise.exception.EnterpriseException;
 import br.com.matheusfragadev.api.domain.enterprise.repository.EnterpriseRepository;
-import br.com.matheusfragadev.api.shared.infra.repository.enterprise.EnterpriseSpec;
+import br.com.matheusfragadev.api.infra.repository.enterprise.EnterpriseSpec;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
 import org.springframework.stereotype.Service;

@@ -1,9 +1,9 @@
-package br.com.matheusfragadev.api.shared.infra.repository.appointment;
+package br.com.matheusfragadev.api.infra.repository.appointment;
 
 import br.com.matheusfragadev.api.domain.appointment.aggregate.ExamStatus;
 import br.com.matheusfragadev.api.domain.appointment.aggregate.Shift;
 import br.com.matheusfragadev.api.domain.appointment.entity.Appointment;
-import br.com.matheusfragadev.api.shared.infra.repository.appointment.aggregate.AppointmentSpecCommand;
+import br.com.matheusfragadev.api.infra.repository.appointment.aggregate.AppointmentSpecCommand;
 import lombok.AccessLevel;
 import lombok.NoArgsConstructor;
 import org.springframework.data.jpa.domain.Specification;

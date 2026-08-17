@@ -1,5 +1,6 @@
-package br.com.matheusfragadev.api.shared.infra.security.config;
+package br.com.matheusfragadev.api.infra.config;
 
+import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -11,10 +12,13 @@ import org.springframework.web.cors.UrlBasedCorsConfigurationSource;
 import java.util.List;
 
 @Configuration
+@RequiredArgsConstructor
 public class CorsConfig {
 
+    private final String frontUrlBase;
+
     @Bean
-    public CorsConfigurationSource corsConfigurationSource(@Value("${front.base.url}") String frontUrlBase){
+    public CorsConfigurationSource corsConfigurationSource(String frontUrlBase){
         CorsConfiguration config = new CorsConfiguration();
         config.setAllowedOrigins(List.of(frontUrlBase));
 

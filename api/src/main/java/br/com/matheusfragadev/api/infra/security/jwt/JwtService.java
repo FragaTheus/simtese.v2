@@ -1,4 +1,4 @@
-package br.com.matheusfragadev.api.shared.infra.security.jwt;
+package br.com.matheusfragadev.api.infra.security.jwt;
 
 import io.jsonwebtoken.Jwts;
 import lombok.RequiredArgsConstructor;

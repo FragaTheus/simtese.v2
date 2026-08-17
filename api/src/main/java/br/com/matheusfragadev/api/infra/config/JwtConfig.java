@@ -1,4 +1,4 @@
-package br.com.matheusfragadev.api.shared.infra.security.config;
+package br.com.matheusfragadev.api.infra.config;
 
 import io.jsonwebtoken.io.Decoders;
 import io.jsonwebtoken.security.Keys;

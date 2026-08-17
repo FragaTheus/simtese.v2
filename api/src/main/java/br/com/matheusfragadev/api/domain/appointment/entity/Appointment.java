@@ -7,15 +7,13 @@ import br.com.matheusfragadev.api.domain.appointment.aggregate.Shift;
 import br.com.matheusfragadev.api.domain.appointment.exception.AppointmentException;
 import br.com.matheusfragadev.api.domain.enterprise.entity.Enterprise;
 import br.com.matheusfragadev.api.domain.exams.entity.Exam;
-import br.com.matheusfragadev.api.shared.auditory.Auditory;
+import br.com.matheusfragadev.api.infra.auditory.Auditory;
 import jakarta.persistence.*;
 import lombok.AccessLevel;
-import lombok.Cleanup;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 
 import java.util.Set;
-import java.util.regex.Pattern;
 
 @Getter
 @Entity

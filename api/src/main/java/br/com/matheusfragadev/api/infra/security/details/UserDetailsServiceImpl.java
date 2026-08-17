@@ -1,9 +1,8 @@
-package br.com.matheusfragadev.api.shared.infra.security.details;
+package br.com.matheusfragadev.api.infra.security.details;
 
 import br.com.matheusfragadev.api.domain.accounts.repository.AccountRepository;
 import lombok.RequiredArgsConstructor;
 import org.jspecify.annotations.NonNull;
-import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;

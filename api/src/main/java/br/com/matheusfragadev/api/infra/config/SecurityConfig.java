@@ -1,7 +1,7 @@
-package br.com.matheusfragadev.api.shared.infra.security.config;
+package br.com.matheusfragadev.api.infra.config;
 
-import br.com.matheusfragadev.api.shared.infra.security.entrypoint.AuthenticationEntryPointImpl;
-import br.com.matheusfragadev.api.shared.infra.security.jwt.JwtFilter;
+import br.com.matheusfragadev.api.infra.security.entrypoint.AuthenticationEntryPointImpl;
+import br.com.matheusfragadev.api.infra.security.jwt.JwtFilter;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;

@@ -1,7 +1,7 @@
-package br.com.matheusfragadev.api.shared.infra.security.jwt;
+package br.com.matheusfragadev.api.infra.security.jwt;
 
-import br.com.matheusfragadev.api.shared.infra.security.details.UserDetailsImpl;
-import br.com.matheusfragadev.api.shared.infra.security.details.UserDetailsServiceImpl;
+import br.com.matheusfragadev.api.infra.security.details.UserDetailsImpl;
+import br.com.matheusfragadev.api.infra.security.details.UserDetailsServiceImpl;
 import io.jsonwebtoken.JwtException;
 import jakarta.servlet.FilterChain;
 import jakarta.servlet.ServletException;

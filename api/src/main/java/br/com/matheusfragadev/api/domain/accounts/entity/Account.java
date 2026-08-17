@@ -3,12 +3,11 @@ package br.com.matheusfragadev.api.domain.accounts.entity;
 import br.com.matheusfragadev.api.domain.accounts.aggregate.Password;
 import br.com.matheusfragadev.api.domain.accounts.aggregate.Role;
 import br.com.matheusfragadev.api.domain.accounts.exception.AccountException;
-import br.com.matheusfragadev.api.shared.auditory.Auditory;
+import br.com.matheusfragadev.api.infra.auditory.Auditory;
 import jakarta.persistence.*;
 import lombok.AccessLevel;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
-import lombok.Setter;
 
 import java.util.function.Function;
 import java.util.regex.Pattern;

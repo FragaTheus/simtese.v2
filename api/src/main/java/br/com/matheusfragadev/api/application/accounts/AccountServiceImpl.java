@@ -7,7 +7,7 @@ import br.com.matheusfragadev.api.domain.accounts.aggregate.Role;
 import br.com.matheusfragadev.api.domain.accounts.entity.Account;
 import br.com.matheusfragadev.api.domain.accounts.exception.AccountException;
 import br.com.matheusfragadev.api.domain.accounts.repository.AccountRepository;
-import br.com.matheusfragadev.api.shared.infra.repository.account.AccountSpec;
+import br.com.matheusfragadev.api.infra.repository.account.AccountSpec;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
 import org.springframework.security.crypto.password.PasswordEncoder;

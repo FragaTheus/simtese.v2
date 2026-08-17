@@ -8,8 +8,8 @@ import br.com.matheusfragadev.api.domain.appointment.exception.AppointmentExcept
 import br.com.matheusfragadev.api.domain.appointment.repository.AppointmentRepository;
 import br.com.matheusfragadev.api.domain.enterprise.aggregate.CNPJ;
 import br.com.matheusfragadev.api.domain.enterprise.entity.Enterprise;
-import br.com.matheusfragadev.api.shared.infra.repository.appointment.AppointmentSpec;
-import br.com.matheusfragadev.api.shared.infra.repository.appointment.aggregate.AppointmentSpecCommand;
+import br.com.matheusfragadev.api.infra.repository.appointment.AppointmentSpec;
+import br.com.matheusfragadev.api.infra.repository.appointment.aggregate.AppointmentSpecCommand;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
 import org.springframework.stereotype.Service;

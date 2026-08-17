@@ -1,4 +1,4 @@
-package br.com.matheusfragadev.api.shared.infra.security.details;
+package br.com.matheusfragadev.api.infra.security.details;
 
 import br.com.matheusfragadev.api.domain.accounts.entity.Account;
 import lombok.RequiredArgsConstructor;

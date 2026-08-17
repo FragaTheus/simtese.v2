@@ -1,4 +1,4 @@
-package br.com.matheusfragadev.api.shared.infra.repository.account;
+package br.com.matheusfragadev.api.infra.repository.account;
 
 import br.com.matheusfragadev.api.domain.accounts.aggregate.Role;
 import br.com.matheusfragadev.api.domain.accounts.entity.Account;

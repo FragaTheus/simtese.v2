@@ -1,4 +1,4 @@
-package br.com.matheusfragadev.api.shared.infra.repository.exam;
+package br.com.matheusfragadev.api.infra.repository.exam;
 
 import br.com.matheusfragadev.api.domain.exams.entity.Exam;
 import lombok.AccessLevel;

@@ -1,7 +1,7 @@
 package br.com.matheusfragadev.api.domain.exams.entity;
 
 import br.com.matheusfragadev.api.domain.exams.exception.ExamException;
-import br.com.matheusfragadev.api.shared.auditory.Auditory;
+import br.com.matheusfragadev.api.infra.auditory.Auditory;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import lombok.AccessLevel;
