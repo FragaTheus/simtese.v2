@@ -51,7 +51,7 @@ public class SecurityConfig {
                 .exceptionHandling(ex -> ex.authenticationEntryPoint(authenticationEntryPoint))
                 .authorizeHttpRequests(
                         auth ->
-                                auth.requestMatchers("/h2-console/**") //Somente em dev para h2
+                                auth.requestMatchers("/h2-console/**", "/api/v1/auth") //Somente em dev para h2
                                         .permitAll()
                                         .anyRequest().authenticated())
                 .addFilterBefore(jwtFilter, UsernamePasswordAuthenticationFilter.class)
