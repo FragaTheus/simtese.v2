@@ -17,6 +17,7 @@ import org.springframework.data.domain.Sort;
 import org.springframework.data.web.PageableDefault;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.UUID;
@@ -30,6 +31,7 @@ public class ExamsController {
     private final AuditingResolver auditingResolver;
 
     @GetMapping("/{targetId}")
+    @PreAuthorize("isAuthenticated()")
     public ResponseEntity<ExamInfo> info(@PathVariable("targetId")UUID targetId){
         var exam = examService.findExamById(targetId);
         var auditInfo = auditingResolver.resolve(exam);
@@ -38,6 +40,7 @@ public class ExamsController {
     }
 
     @GetMapping
+    @PreAuthorize("permitAll()")
     public ResponseEntity<Page<ExamSummary>> all(
             @RequestParam(required = false) String search,
             @RequestParam(required = false) Boolean active,
@@ -53,12 +56,14 @@ public class ExamsController {
     }
 
     @PostMapping
+    @PreAuthorize("hasAuthority('ADMIN')")
     public ResponseEntity<UUID> create(@Valid @RequestBody CreateExamRequest request){
         var exam = examService.createExam(request.name());
         return ResponseEntity.status(HttpStatus.CREATED).body(exam.getId());
     }
 
     @PatchMapping("/{targetId}/name")
+    @PreAuthorize("hasAuthority('ADMIN')")
     public ResponseEntity<Void> change
             (@PathVariable("targetId") UUID targetId, @Valid @RequestBody CreateExamRequest request){
         examService.changeExam(targetId, request.name());
@@ -66,18 +71,21 @@ public class ExamsController {
     }
 
     @PatchMapping("/{targetId}/deactivate")
+    @PreAuthorize("hasAuthority('ADMIN')")
     public ResponseEntity<Void> deactivate(@PathVariable("targetId") UUID targetId){
         examService.deactivate(targetId);
         return ResponseEntity.noContent().build();
     }
 
     @PatchMapping("/{targetId}/activate")
+    @PreAuthorize("hasAuthority('ADMIN')")
     public ResponseEntity<Void> activate(@PathVariable("targetId") UUID targetId){
         examService.activate(targetId);
         return ResponseEntity.noContent().build();
     }
 
     @DeleteMapping("/{targetId}")
+    @PreAuthorize("hasAuthority('ADMIN')")
     public ResponseEntity<Void> delete(@PathVariable("targetId") UUID targetId){
         examService.deleteExam(targetId);
         return ResponseEntity.noContent().build();

@@ -21,7 +21,6 @@ public class AuthController {
     private final AuthenticationService authenticationService;
 
     @GetMapping
-    @PreAuthorize("isAuthenticated()")
     public ResponseEntity<AuthResponse> me(@AuthenticationPrincipal UserDetailsImpl userDetails){
         var account = authenticationService.me(userDetails.getId());
         var response = AuthMapper.toAuthResponse(account);

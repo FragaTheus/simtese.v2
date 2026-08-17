@@ -6,6 +6,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.http.HttpMethod;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.config.Customizer;
 import org.springframework.security.config.annotation.authentication.configuration.AuthenticationConfiguration;
@@ -51,13 +52,10 @@ public class SecurityConfig {
                 .exceptionHandling(ex -> ex.authenticationEntryPoint(authenticationEntryPoint))
                 .authorizeHttpRequests(
                         auth ->
-                                auth.requestMatchers(
-                                        "/h2-console/**",
-                                                apiPrefix+"/auth/**",
-                                                apiPrefix+"/accounts/**",
-                                        apiPrefix+"/exams/**"
-                                        ) //Somente em dev para h2
-                                        .permitAll()
+                                auth
+                                        .requestMatchers("/h2-console/**").permitAll() //Somente em dev
+                                        .requestMatchers(HttpMethod.POST, apiPrefix+"/auth/**").permitAll()
+                                        .requestMatchers(HttpMethod.GET, apiPrefix+"/exams/**").permitAll()
                                         .anyRequest().authenticated())
                 .addFilterBefore(jwtFilter, UsernamePasswordAuthenticationFilter.class)
                 .build();
