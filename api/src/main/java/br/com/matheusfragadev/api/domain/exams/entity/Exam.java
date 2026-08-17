@@ -7,8 +7,6 @@ import jakarta.persistence.Entity;
 import lombok.AccessLevel;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
-import lombok.Setter;
-
 import java.util.regex.Pattern;
 
 @Getter
@@ -24,7 +22,7 @@ public class Exam extends Auditory {
     private static final Pattern NAME_PATTERN = Pattern.compile(NAME_REGEX);
 
     //Atributos da classe
-    @Column(nullable = false, length = NAME_MAX_LENGTH)
+    @Column(nullable = false, length = NAME_MAX_LENGTH, unique = true)
     private String name;
 
     @Column(nullable = false)
@@ -73,4 +71,5 @@ public class Exam extends Auditory {
 
         return name;
     }
+
 }

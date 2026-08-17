@@ -51,6 +51,7 @@ public class Account extends Auditory {
     //Metodos setters
     public void changeName(String name){
         verifyIfInputNameIsValid(name);
+        if (name.equals(this.name)) return;
         this.name = name;
     }
 

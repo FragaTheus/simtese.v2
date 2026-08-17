@@ -8,7 +8,7 @@ import org.springframework.data.jpa.domain.Specification;
 @NoArgsConstructor(access = AccessLevel.PRIVATE)
 public class ExamSpec {
 
-    public Specification<Exam> examFilter(String search, Boolean active){
+    public static Specification<Exam> examFilter(String search, Boolean active){
         return Specification.where(search(search)).and(isActive(active));
     }
 
