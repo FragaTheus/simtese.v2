@@ -1,5 +1,6 @@
 package br.com.matheusfragadev.api.application.exams;
 
+import br.com.matheusfragadev.api.application.exams.aggregate.ExamFilterCommand;
 import br.com.matheusfragadev.api.domain.exams.entity.Exam;
 import br.com.matheusfragadev.api.domain.exams.exception.ExamException;
 import br.com.matheusfragadev.api.domain.exams.repository.ExamRepository;
@@ -22,8 +23,8 @@ public class ExamService {
         return repository.findById(id).orElseThrow(() -> new ExamException("Exame não encontrado"));
     }
 
-    public Page<Exam> findAllExams(String search, Boolean active, Pageable pageable){
-        return repository.findAll(ExamSpec.examFilter(search, active), pageable);
+    public Page<Exam> findAllExams(ExamFilterCommand command){
+        return repository.findAll(ExamSpec.examFilter(command.search(), command.active()), command.pageable());
     }
 
     //Metodos da classe
@@ -43,6 +44,18 @@ public class ExamService {
         verifyIfExamIsActive(exam);
         exam.changeName(newName);
         return repository.save(exam);
+    }
+
+    public void deactivate(UUID targetId){
+        Exam exam = findExamById(targetId);
+        exam.deactivate();
+        repository.save(exam);
+    }
+
+    public void activate(UUID targetId){
+        Exam exam = findExamById(targetId);
+        exam.activate();
+        repository.save(exam);
     }
 
     public void deleteExam(UUID targetId){

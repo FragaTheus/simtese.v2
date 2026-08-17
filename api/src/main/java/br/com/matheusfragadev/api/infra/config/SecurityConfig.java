@@ -51,7 +51,12 @@ public class SecurityConfig {
                 .exceptionHandling(ex -> ex.authenticationEntryPoint(authenticationEntryPoint))
                 .authorizeHttpRequests(
                         auth ->
-                                auth.requestMatchers("/h2-console/**", apiPrefix+"/auth**", apiPrefix+"/accounts**") //Somente em dev para h2
+                                auth.requestMatchers(
+                                        "/h2-console/**",
+                                                apiPrefix+"/auth/**",
+                                                apiPrefix+"/accounts/**",
+                                        apiPrefix+"/exams/**"
+                                        ) //Somente em dev para h2
                                         .permitAll()
                                         .anyRequest().authenticated())
                 .addFilterBefore(jwtFilter, UsernamePasswordAuthenticationFilter.class)

@@ -1,5 +1,7 @@
 package br.com.matheusfragadev.api.infra.controller.handler;
 
+import br.com.matheusfragadev.api.domain.exams.entity.Exam;
+import br.com.matheusfragadev.api.domain.exams.exception.ExamException;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -32,6 +34,15 @@ public class GlobalExceptionHandler {
                 .orElse("Dados inválidos");
         var status = HttpStatus.BAD_REQUEST;
         log.warn("Formato invalido na api: {}", message);
+        var response = new ApiErrorResponse(status, message);
+        return ResponseEntity.status(status).body(response);
+    }
+
+    @ExceptionHandler(ExamException.class)
+    public ResponseEntity<ApiErrorResponse> handlerExam(ExamException ex){
+        var message = ex.getMessage();
+        var status = HttpStatus.CONFLICT;
+        log.warn("Erro de RN em: {}", ex.getMessage());
         var response = new ApiErrorResponse(status, message);
         return ResponseEntity.status(status).body(response);
     }
