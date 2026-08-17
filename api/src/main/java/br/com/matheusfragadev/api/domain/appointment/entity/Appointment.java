@@ -22,6 +22,7 @@ import java.util.regex.Pattern;
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 public class Appointment extends Auditory {
 
+    //Constantes de RN
     private static final int OBS_MAX_LENGTH = 500;
 
     @Embedded
@@ -93,5 +94,20 @@ public class Appointment extends Auditory {
         this.examStatus = ExamStatus.SCHEDULED;
         this.exams = exams;
         this.observation = observation;
+    }
+
+    //Metodos da classe
+    public void attend(){
+        if (this.getExamStatus().equals(ExamStatus.ATTENDED)){
+            throw new AppointmentException("Agendamento já foi atendido");
+        }
+        this.examStatus = ExamStatus.ATTENDED;
+    }
+
+    public void release(){
+        if (this.getExamStatus().equals(ExamStatus.RELEASED)){
+            throw new AppointmentException("Agendamento já foi liberado");
+        }
+        this.examStatus = ExamStatus.RELEASED;
     }
 }

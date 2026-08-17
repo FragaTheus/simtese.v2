@@ -43,10 +43,20 @@ public class EnterpriseService {
         repository.delete(enterprise);
     }
 
+    public boolean existsByCnpj(String rawCnpj){
+        CNPJ cnpj = CNPJ.of(rawCnpj);
+        return repository.existsByCnpj(cnpj);
+    }
+
+    public Enterprise findByCnpj(String cnpj){
+        CNPJ cnpjObj = CNPJ.of(cnpj);
+        return repository.findByCnpj(cnpjObj).orElseThrow(() -> new EnterpriseException("Empresa não encontrada"));
+    }
+
     //Metodos da classe
     public Enterprise create(String name, String rawCnpj){
         CNPJ cnpj = CNPJ.of(rawCnpj);
-        if (repository.existsByCnpj(cnpj)) throw new EnterpriseException("CNPJ já cadastrado");
+        if (existsByCnpj(rawCnpj)) throw new EnterpriseException("CNPJ já cadastrado");
         Enterprise enterprise = new Enterprise(name, cnpj);
         return repository.save(enterprise);
     }

@@ -3,7 +3,7 @@ package br.com.matheusfragadev.api.shared.infra.repository.appointment;
 import br.com.matheusfragadev.api.domain.appointment.aggregate.ExamStatus;
 import br.com.matheusfragadev.api.domain.appointment.aggregate.Shift;
 import br.com.matheusfragadev.api.domain.appointment.entity.Appointment;
-import br.com.matheusfragadev.api.shared.infra.repository.appointment.aggregate.EnterpriseSpecCommand;
+import br.com.matheusfragadev.api.shared.infra.repository.appointment.aggregate.AppointmentSpecCommand;
 import lombok.AccessLevel;
 import lombok.NoArgsConstructor;
 import org.springframework.data.jpa.domain.Specification;
@@ -11,7 +11,7 @@ import org.springframework.data.jpa.domain.Specification;
 @NoArgsConstructor(access = AccessLevel.PRIVATE)
 public class AppointmentSpec {
 
-    public static Specification<Appointment> enterpriseFilter(EnterpriseSpecCommand command) {
+    public static Specification<Appointment> appointmentFilter(AppointmentSpecCommand command) {
         return search(command.search())
                 .and(status(command.examStatus()))
                 .and(shift(command.shift()));
