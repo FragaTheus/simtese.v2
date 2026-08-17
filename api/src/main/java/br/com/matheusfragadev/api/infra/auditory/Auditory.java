@@ -32,7 +32,7 @@ public abstract class Auditory {
     private Instant updatedAt;
 
     @CreatedBy
-    @Column(name = "created_by", nullable = false, updatable = false)
+    @Column(name = "created_by", updatable = false)
     private UUID createdBy;
 
     @LastModifiedBy
@@ -42,13 +42,10 @@ public abstract class Auditory {
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
-
         if (o == null || getClass() != o.getClass()) {
             return false;
         }
-
         Auditory other = (Auditory) o;
-
         return id != null && id.equals(other.id);
     }
 

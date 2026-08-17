@@ -56,12 +56,23 @@ public class AccountServiceImpl implements AccountService {
     }
 
     //Metodos da classe
-    public Account createAccount(CreateAccountCommand command){
-        if (repository.existsByEmail(command.email())) throw new AccountException("Email já cadastrado no sistema.");
-        Password password = Password.of(command.password(), passwordEncoder::encode);
-        if (!password.getValue().equals(command.confirmPassword())) throw new AccountException("As senhas não conferem.");
+    public Account createAccount(CreateAccountCommand command) {
+        if (repository.existsByEmail(command.email())) {
+            throw new AccountException("Email já cadastrado no sistema.");
+        }
+        if (!command.password().equals(command.confirmPassword())) {
+            throw new AccountException("As senhas não conferem.");
+        }
+        Password password = Password.of(
+                command.password(),
+                passwordEncoder::encode
+        );
         AccountFactory factory = ACCOUNTS_FACTORY.get(command.role());
-        Account account = factory.create(command.name(), command.email(), password);
+        Account account = factory.create(
+                command.name(),
+                command.email(),
+                password
+        );
         return save(account);
     }
 
