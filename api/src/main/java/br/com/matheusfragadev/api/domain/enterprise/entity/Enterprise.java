@@ -66,14 +66,14 @@ public class Enterprise extends Auditory {
         this.name = validName;
     }
 
-    public void deactivateCnpj(){
+    public void deactivate(){
         if (!this.active) {
             return;
         }
         this.active = false;
     }
 
-    public void activateCnpj(){
+    public void activate(){
         if (this.active) {
             return;
         }

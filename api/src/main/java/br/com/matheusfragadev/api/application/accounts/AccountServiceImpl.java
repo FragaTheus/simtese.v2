@@ -20,6 +20,7 @@ import java.util.UUID;
 @RequiredArgsConstructor
 public class AccountServiceImpl implements AccountService {
 
+    //Constante Auxiliar
     private static final Map<Role, AccountFactory> ACCOUNTS_FACTORY =
             Map.of(
                     Role.ADMIN, Account::ofAdmin,
@@ -28,9 +29,11 @@ public class AccountServiceImpl implements AccountService {
                     Role.RECEPTIONIST, Account::ofReceptionist
             );
 
+    //Atirbutos da classe
     private final AccountRepository repository;
     private final PasswordEncoder passwordEncoder;
 
+    //Metodos CRUD
     @Override
     public Account findById(UUID id) {
         return repository.findById(id).orElseThrow(() -> new AccountException("Conta não encontrada"));
@@ -46,6 +49,13 @@ public class AccountServiceImpl implements AccountService {
                 (command.search(), command.role(), command.active()), command.pageable());
     }
 
+    public void delete(UUID targetId){
+        Account account = findById(targetId);
+        if (account.isActive()) throw new AccountException("Conta ativa não pode ser deletada.");
+        repository.delete(account);
+    }
+
+    //Metodos da classe
     public Account createAccount(CreateAccountCommand command){
         if (repository.existsByEmail(command.email())) throw new AccountException("Email já cadastrado no sistema.");
         Password password = Password.of(command.password(), passwordEncoder::encode);
@@ -79,12 +89,6 @@ public class AccountServiceImpl implements AccountService {
         Account account = findById(targetId);
         account.activate();
         return save(account);
-    }
-
-    public void delete(UUID targetId){
-        Account account = findById(targetId);
-        if (account.isActive()) throw new AccountException("Conta ativa não pode ser deletada.");
-        repository.delete(account);
     }
 
 }
