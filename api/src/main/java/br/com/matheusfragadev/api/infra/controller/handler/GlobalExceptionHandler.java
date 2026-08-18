@@ -1,5 +1,8 @@
 package br.com.matheusfragadev.api.infra.controller.handler;
 
+import br.com.matheusfragadev.api.domain.accounts.exception.AccountException;
+import br.com.matheusfragadev.api.domain.accounts.exception.PasswordException;
+import br.com.matheusfragadev.api.domain.enterprise.exception.EnterpriseException;
 import br.com.matheusfragadev.api.domain.exams.entity.Exam;
 import br.com.matheusfragadev.api.domain.exams.exception.ExamException;
 import lombok.extern.slf4j.Slf4j;
@@ -40,6 +43,33 @@ public class GlobalExceptionHandler {
 
     @ExceptionHandler(ExamException.class)
     public ResponseEntity<ApiErrorResponse> handlerExam(ExamException ex){
+        var message = ex.getMessage();
+        var status = HttpStatus.CONFLICT;
+        log.warn("Erro de RN em: {}", ex.getMessage());
+        var response = new ApiErrorResponse(status, message);
+        return ResponseEntity.status(status).body(response);
+    }
+
+    @ExceptionHandler(AccountException.class)
+    public ResponseEntity<ApiErrorResponse> handlerAccount(AccountException ex){
+        var message = ex.getMessage();
+        var status = HttpStatus.CONFLICT;
+        log.warn("Erro de RN em: {}", ex.getMessage());
+        var response = new ApiErrorResponse(status, message);
+        return ResponseEntity.status(status).body(response);
+    }
+
+    @ExceptionHandler(PasswordException.class)
+    public ResponseEntity<ApiErrorResponse> handlerPassword(PasswordException ex){
+        var message = ex.getMessage();
+        var status = HttpStatus.CONFLICT;
+        log.warn("Erro de RN em: {}", ex.getMessage());
+        var response = new ApiErrorResponse(status, message);
+        return ResponseEntity.status(status).body(response);
+    }
+
+    @ExceptionHandler(EnterpriseException.class)
+    public ResponseEntity<ApiErrorResponse> handlerEnterprise(EnterpriseException ex){
         var message = ex.getMessage();
         var status = HttpStatus.CONFLICT;
         log.warn("Erro de RN em: {}", ex.getMessage());

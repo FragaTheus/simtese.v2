@@ -1,6 +1,7 @@
 package br.com.matheusfragadev.api.application.accounts;
 
 import br.com.matheusfragadev.api.application.accounts.aggregates.AccountFIlterCommand;
+import br.com.matheusfragadev.api.application.accounts.aggregates.ChangePasswordCommand;
 import br.com.matheusfragadev.api.application.accounts.aggregates.CreateAccountCommand;
 import br.com.matheusfragadev.api.domain.accounts.aggregate.Password;
 import br.com.matheusfragadev.api.domain.accounts.aggregate.Role;
@@ -83,10 +84,10 @@ public class AccountServiceImpl implements AccountService {
         return save(account);
     }
 
-    public Account updatePassword(UUID targetId, String newPassword, String confirmNewPassword){
-        Account account = findById(targetId);
+    public Account updatePassword(ChangePasswordCommand command){
+        Account account = findById(command.targetId());
         if (!account.isActive()) throw new AccountException("Conta inativa não pode alterar a senha.");
-        account.changePassword(newPassword, confirmNewPassword, passwordEncoder::encode);
+        account.changePassword(command.password(), command.confirmPassword(), passwordEncoder::encode);
         return save(account);
     }
 

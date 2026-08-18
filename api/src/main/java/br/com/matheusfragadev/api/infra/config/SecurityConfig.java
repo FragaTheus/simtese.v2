@@ -56,6 +56,11 @@ public class SecurityConfig {
                                         .requestMatchers("/h2-console/**").permitAll() //Somente em dev
                                         .requestMatchers(HttpMethod.POST, apiPrefix+"/auth/**").permitAll()
                                         .requestMatchers(HttpMethod.GET, apiPrefix+"/exams/**").permitAll()
+                                        .requestMatchers(HttpMethod.PATCH, apiPrefix+"/enterprises/**").hasAuthority("ADMIN")
+                                        .requestMatchers(HttpMethod.POST, apiPrefix+"/enterprises/**").hasAuthority("ADMIN")
+                                        .requestMatchers(HttpMethod.DELETE, apiPrefix+"/enterprises/**").hasAuthority("ADMIN")
+                                        .requestMatchers(HttpMethod.GET, apiPrefix+"/enterprises/**").authenticated()
+                                        .requestMatchers(apiPrefix+"/accounts/**").hasAuthority("ADMIN")
                                         .anyRequest().authenticated())
                 .addFilterBefore(jwtFilter, UsernamePasswordAuthenticationFilter.class)
                 .build();
