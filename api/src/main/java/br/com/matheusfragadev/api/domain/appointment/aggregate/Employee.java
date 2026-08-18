@@ -30,11 +30,21 @@ public class Employee {
     private static final Pattern CPF_PATTERN = Pattern.compile(CPF_REGEX);
 
     //Atributos da classe
-    @Column(name = "employee_name", nullable = false, updatable = false)
+    @Column(
+            name = "employee_name",
+            nullable = false,
+            updatable = false,
+            length = NAME_MAX_LENGTH
+    )
     private String employeeName;
 
-    @Column(name = "employee_cpf", nullable = false, updatable = false)
-    private String  employeeCpf;
+    @Column(
+            name = "employee_cpf",
+            nullable = false,
+            updatable = false,
+            length = CPF_BASE_LENGTH
+    )
+    private String employeeCpf;
 
     //Factory da classe
     public static Employee of(String employeeName, String employeeCpf){

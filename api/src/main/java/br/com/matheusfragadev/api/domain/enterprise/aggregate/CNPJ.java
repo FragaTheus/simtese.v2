@@ -22,7 +22,13 @@ public class CNPJ {
     private static final Pattern PATTERN = Pattern.compile(REGEX);
 
 
-    @Column(name = "cnpj", updatable = false, unique = true, length = MIN_LENGTH)
+    @Column(
+            name = "cnpj",
+            nullable = false,
+            updatable = false,
+            unique = true,
+            length = MIN_LENGTH
+    )
     private String value;
 
     public static CNPJ of(String value) {

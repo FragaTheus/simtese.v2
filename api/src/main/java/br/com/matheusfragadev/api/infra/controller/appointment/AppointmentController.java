@@ -55,7 +55,7 @@ public class AppointmentController {
         return ResponseEntity.ok(summaries);
     }
 
-    @PostMapping
+    @PostMapping("/schedule")
     public ResponseEntity<UUID> create(@Valid @RequestBody CreateAppointmentRequest request){
         var command = AppointmentMapper.toAppointmentCommand(request);
         var appointmentId = appointmentService.create(command).getId();

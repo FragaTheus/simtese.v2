@@ -44,6 +44,7 @@ public class Appointment extends Auditory {
 
     @ManyToMany(fetch = FetchType.LAZY)
     @JoinTable(
+            name = "appointment_exams",
             joinColumns = @JoinColumn(name = "appointment_id"),
             inverseJoinColumns = @JoinColumn(name = "exam_id")
     )

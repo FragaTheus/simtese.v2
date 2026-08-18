@@ -24,7 +24,6 @@ import java.io.IOException;
 public class JwtFilter extends OncePerRequestFilter {
 
     private static final String PREFIX = "Bearer ";
-    private static final String PUBLIC_ROUTES = "/public/";
 
     private final JwtService jwtService;
     private final UserDetailsServiceImpl userDetailsService;
@@ -75,6 +74,6 @@ public class JwtFilter extends OncePerRequestFilter {
 
     @Override
     protected boolean shouldNotFilter(@NonNull HttpServletRequest request) throws ServletException {
-        return PUBLIC_ROUTES.contains(request.getServletPath());
+        return request.getServletPath().equals("/api/v1/appointments/schedule");
     }
 }
