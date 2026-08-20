@@ -26,7 +26,7 @@ public class AuthenticationService {
         return accountService.findById(accountId);
     }
 
-    public LoginResult login(String email, String password){
+    public String login(String email, String password){
 
         Authentication authentication = authenticationManager.authenticate(
                 new UsernamePasswordAuthenticationToken(
@@ -37,13 +37,8 @@ public class AuthenticationService {
 
         UUID accountId = ((UserDetailsImpl)
                 Objects.requireNonNull(authentication.getPrincipal())).getId();
-        Account account = accountService.findById(accountId);
-        String token = jwtService.generateToken(accountId);
 
-        return LoginResult.builder()
-                .token(token)
-                .account(account)
-                .build();
+        return jwtService.generateToken(accountId);
     }
 
 }

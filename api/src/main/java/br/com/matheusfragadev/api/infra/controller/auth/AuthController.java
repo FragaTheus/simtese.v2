@@ -28,12 +28,11 @@ public class AuthController {
     }
 
     @PostMapping
-    public ResponseEntity<AuthResponse> login(@Valid @RequestBody LoginRequest loginRequest){
-        var result = authenticationService.login(loginRequest.email(), loginRequest.password());
-        var response = AuthMapper.toAuthResponse(result.account());
+    public ResponseEntity<Void> login(@Valid @RequestBody LoginRequest loginRequest){
+        var token = authenticationService.login(loginRequest.email(), loginRequest.password());
         return ResponseEntity.ok().header
-                        (HttpHeaders.AUTHORIZATION, "Bearer " + result.token())
-                .body(response);
+                        (HttpHeaders.AUTHORIZATION, "Bearer " + token)
+                .build();
     }
 
 }
