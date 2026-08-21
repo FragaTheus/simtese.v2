@@ -1,0 +1,14 @@
+<div class="flex items-center justify-center h-svh w-full">
+  <p-card styleClass="border border-red-500 !text-red-500 !max-w-xs">
+    <ng-template #title> Oops! Algo deu errado. </ng-template>
+    <ng-template #subtitle>
+      Estamos trabalhando para resolver o problema. Por favor, tente novamente mais tarde.
+    </ng-template>
+    <ng-template #footer>
+      <div class="flex items-center justify-around w-full mt-4">
+        <p-button label="Voltar" (onClick)="back()" variant="text"></p-button>
+        <p-button label="Tentar novamente" (onClick)="reload()"></p-button>
+      </div>
+    </ng-template>
+  </p-card>
+</div>

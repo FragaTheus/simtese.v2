@@ -1,0 +1,9 @@
+@if (loading()) {
+  <app-loading-layout />
+} @else if (error()) {
+  <app-error-layout />
+} @else if (exam(); as exam) {
+  <app-info-page-layout [title]="exam.name" [fields]="fields()" [audit]="audit()">
+    <app-change-exam-name-component (changed)="loadExam()" />
+  </app-info-page-layout>
+}

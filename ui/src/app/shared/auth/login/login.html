@@ -1,0 +1,66 @@
+<div class="w-full h-svh p-4 flex items-center justify-center">
+  @if (checkingSession()) {
+    <div class="flex flex-col items-center gap-3">
+      <i class="pi pi-spin pi-spinner text-4xl text-primary"></i>
+      <span class="font-semibold">Aguarde...</span>
+    </div>
+  } @else {
+    <p-card class="w-full max-w-xs">
+      <ng-template #header>
+        <img alt="Logo Simtese" src="/logo.webp" class="w-full p-4" />
+      </ng-template>
+
+      <ng-template #title> Bem vindo! </ng-template>
+
+      <ng-template #subtitle>
+        Entre com seus dados para acessar o painel administrativo.
+      </ng-template>
+
+      <form class="w-full my-8 flex flex-col gap-6" [formGroup]="form" (ngSubmit)="login()">
+        <p-floatlabel variant="on">
+          <input id="email" type="email" pInputText class="w-full" formControlName="email" />
+
+          <label for="email"> Email </label>
+        </p-floatlabel>
+
+        <p-floatlabel variant="on">
+          <input
+            id="password"
+            type="password"
+            pInputText
+            class="w-full"
+            formControlName="password"
+          />
+
+          <label for="password"> Senha </label>
+        </p-floatlabel>
+
+        @if (hasError()) {
+          <div
+            class="bg-red-100 text-red-500 p-2 w-full flex items-center text-center justify-center"
+          >
+            <small>
+              {{ errorMessage() }}
+            </small>
+          </div>
+        }
+
+        <p-button
+          label="Entrar"
+          severity="success"
+          size="large"
+          type="submit"
+          [loading]="loading()"
+          [disabled]="form.invalid || loading()"
+          styleClass="self-center w-full"
+        />
+      </form>
+
+      <ng-template #footer>
+        <div class="flex items-center justify-around flex-col gap-4">
+          <p-button link label="Voltar" routerLink="/" size="small" />
+        </div>
+      </ng-template>
+    </p-card>
+  }
+</div>

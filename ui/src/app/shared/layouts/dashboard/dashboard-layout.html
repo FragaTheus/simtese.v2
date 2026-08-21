@@ -1,0 +1,48 @@
+<div class="w-full h-svh flex">
+  <p-drawer
+    [(visible)]="drawerVisible"
+    position="left"
+    [modal]="isMobile()"
+    [dismissible]="isMobile()"
+    [closable]="isMobile()"
+    styleClass="md:!max-w-80 md:!relative md:!shadow-none md:!border-none"
+  >
+    <ng-template #header>
+      <img src="/logo.webp" class="xs:max-w-3xs" />
+    </ng-template>
+
+    <div class="h-full">
+      <label for="navlist" class="font-semibold text-xs uppercase text-muted-color"
+        >Navegação</label
+      >
+      <div id="navlist" class="p-2 flex flex-col gap-2">
+        <a
+          routerLink="/exames/novo"
+          pButton
+          severity="secondary"
+          class="w-full justify-start!"
+          title="Cadastrar novo exame"
+        >
+          <i class="pi pi-plus text-xl" pButtonIcon></i>
+          <span pButtonLabel>Exame</span>
+        </a>
+
+        <a
+          routerLink="/exames"
+          pButton
+          severity="secondary"
+          class="w-full justify-start!"
+          title="Listar exames"
+        >
+          <i class="pi pi-file text-xl" pButtonIcon></i>
+          <span pButtonLabel>Exames</span>
+        </a>
+      </div>
+    </div>
+
+    <ng-template #footer>Footer</ng-template>
+  </p-drawer>
+  <div class="flex-1 overflow-auto">
+    <ng-content></ng-content>
+  </div>
+</div>

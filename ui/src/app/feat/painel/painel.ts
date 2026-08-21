@@ -1,9 +1,9 @@
 import { Component } from '@angular/core';
+import { DashboardLayout } from '../../shared/layouts/dashboard/dashboard-layout';
 
 @Component({
   selector: 'app-painel',
-  imports: [],
+  imports: [DashboardLayout],
   templateUrl: './painel.html',
-  styleUrl: './painel.css',
 })
 export class Painel {}

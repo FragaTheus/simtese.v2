@@ -1,6 +1,5 @@
 package br.com.matheusfragadev.api.infra.controller.exams;
 
-import br.com.matheusfragadev.api.application.accounts.AccountServiceImpl;
 import br.com.matheusfragadev.api.application.exams.ExamService;
 import br.com.matheusfragadev.api.application.exams.aggregate.ExamFilterCommand;
 import br.com.matheusfragadev.api.domain.exams.entity.Exam;
@@ -70,14 +69,14 @@ public class ExamsController {
         return ResponseEntity.noContent().build();
     }
 
-    @PatchMapping("/{targetId}/deactivate")
+    @PutMapping("/{targetId}/deactivate")
     @PreAuthorize("hasAuthority('ADMIN')")
     public ResponseEntity<Void> deactivate(@PathVariable("targetId") UUID targetId){
         examService.deactivate(targetId);
         return ResponseEntity.noContent().build();
     }
 
-    @PatchMapping("/{targetId}/activate")
+    @PutMapping("/{targetId}/activate")
     @PreAuthorize("hasAuthority('ADMIN')")
     public ResponseEntity<Void> activate(@PathVariable("targetId") UUID targetId){
         examService.activate(targetId);
