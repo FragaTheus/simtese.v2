@@ -9,6 +9,15 @@
     (pageChange)="onPageChange($event)"
     (searchChange)="onSearchChange($event)"
   >
-    <app-create-exam-component (created)="onExamCreated($event)" />
+    <div class="flex items-center gap-2 flex-wrap">
+      <p-selectbutton
+        [options]="statusOptions"
+        [ngModel]="statusFilter()"
+        (ngModelChange)="onStatusChange($event)"
+        optionLabel="label"
+        optionValue="value"
+      />
+      <app-create-exam-component (created)="onExamCreated($event)" />
+    </div>
   </app-list-page-layout>
 }

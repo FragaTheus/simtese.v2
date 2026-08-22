@@ -1,4 +1,4 @@
-<app-dialog-component>
+<app-dialog-component [title]="'Alterar nome'" [icon]="'pi pi-pencil'">
   <form
     [formGroup]="form"
     (ngSubmit)="changeName(form.getRawValue())"
