@@ -1,0 +1,21 @@
+<p-toast [key]="key()" position="top-right">
+  <ng-template let-message #message>
+    <div class="flex flex-col gap-3 w-full">
+      <div>
+        <span>
+          {{ message.summary }}
+        </span>
+
+        <div class="text-xs">
+          {{ message.detail }}
+        </div>
+      </div>
+
+      @if (message.data?.href) {
+        <a pButton size="small" severity="success" [routerLink]="message.data.href">
+          {{ actionLabel() }}
+        </a>
+      }
+    </div>
+  </ng-template>
+</p-toast>

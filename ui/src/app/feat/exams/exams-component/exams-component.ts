@@ -14,10 +14,18 @@ import { ExamService } from '../exam-service';
 import { Page } from '../../../core/type/page.type';
 import { ErrorLayout } from '../../../shared/layouts/error-layout/error-layout';
 import { CreateExamComponent } from '../create-exam-component/create-exam-component';
+import { ToastComponent } from '../../../shared/components/ui/toast-component/toast-component';
 
 @Component({
   selector: 'app-exams-component',
-  imports: [ListPageLayout, ErrorLayout, CreateExamComponent, ToastModule, ButtonModule],
+  imports: [
+    ListPageLayout,
+    ErrorLayout,
+    CreateExamComponent,
+    ToastModule,
+    ButtonModule,
+    ToastComponent,
+  ],
   templateUrl: './exams-component.html',
 })
 export class ExamsComponent {
@@ -91,7 +99,7 @@ export class ExamsComponent {
       detail: 'Exame cadastrado com sucesso!',
       life: 5000,
       data: {
-        id,
+        href: `/exames/${id}`,
       },
     });
 

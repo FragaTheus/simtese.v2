@@ -1,24 +1,4 @@
-<p-toast key="exam-created" position="top-right">
-  <ng-template let-message #message>
-    <div>
-      <div class="font-semibold">
-        {{ message.summary }}
-      </div>
-
-      <div class="text-sm">
-        {{ message.detail }}
-      </div>
-    </div>
-
-    <p-button
-      label="Ver exame"
-      size="small"
-      severity="success"
-      (onClick)="goToExam(message.data.id)"
-      class="self-end"
-    />
-  </ng-template>
-</p-toast>
+<app-toast-component key="exam-created" actionLabel="Ver exame" />
 
 @if (error()) {
   <app-error-layout />

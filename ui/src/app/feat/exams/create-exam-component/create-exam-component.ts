@@ -53,11 +53,19 @@ export class CreateExamComponent {
   }
 
   closeDialog() {
-    this.visible.set(false);
     this.hasError.set(false);
     this.isLoading.set(false);
     this.errorMessage.set('');
     this.hasSuccess.set(false);
+    this.form.reset(
+      {
+        name: '',
+      },
+      {
+        emitEvent: false,
+      },
+    );
+    this.visible.set(false);
   }
 
   create(request: ExamRequest) {
@@ -66,19 +74,7 @@ export class CreateExamComponent {
 
     this.examService.create(request).subscribe({
       next: (id) => {
-        this.isLoading.set(false);
-        this.errorMessage.set('');
-        this.hasSuccess.set(true);
-        this.examId.set(id);
-        this.form.reset(
-          {
-            name: '',
-          },
-          {
-            emitEvent: false,
-          },
-        );
-
+        this.closeDialog();
         this.created.emit(id);
       },
       error: (error: HttpErrorResponse) => {
