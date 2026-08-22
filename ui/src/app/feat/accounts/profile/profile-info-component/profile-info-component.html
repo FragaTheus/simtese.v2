@@ -1,0 +1,32 @@
+@if (loading()) {
+  <app-loading-layout />
+} @else if (error()) {
+  <app-error-layout />
+} @else if (account(); as account) {
+  <app-info-page-layout [title]="account.name" [fields]="fields()" [audit]="audit()">
+    <div class="flex flex-wrap gap-2">
+      <p-button
+        (click)="confirmLogout($event)"
+        severity="danger"
+        variant="text"
+        label="Sair"
+        icon="pi pi-sign-out"
+      />
+      <app-change-name-component />
+    </div>
+  </app-info-page-layout>
+}
+
+<p-confirmpopup styleClass="max-w-sm">
+  <ng-template #content let-message>
+    <div class="flex flex-col items-center gap-3 p-4 text-center">
+      <div class="flex size-12 items-center justify-center rounded-full bg-orange-50">
+        <i [class]="message.icon" class="text-2xl text-orange-500"></i>
+      </div>
+
+      <p class="text-sm text-surface-700">
+        {{ message.message }}
+      </p>
+    </div>
+  </ng-template>
+</p-confirmpopup>

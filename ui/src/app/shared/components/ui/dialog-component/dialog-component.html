@@ -1,0 +1,4 @@
+<p-button (click)="visible.set(true)" [label]="title()" [severity]="severity()" [icon]="icon()" />
+<p-dialog [modal]="true" [(visible)]="visible" styleClass="w-full max-w-xs" [header]="title()">
+  <ng-content />
+</p-dialog>

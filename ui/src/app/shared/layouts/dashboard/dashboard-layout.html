@@ -31,7 +31,16 @@
       </div>
     </div>
 
-    <ng-template #footer>Footer</ng-template>
+    <ng-template #footer>
+      <a
+        pButton
+        routerLink="/painel/me"
+        severity="secondary"
+        label="Perfil"
+        icon="pi pi-user"
+        class="w-full justify-start!"
+      ></a>
+    </ng-template>
   </p-drawer>
   <div class="flex-1 overflow-auto">
     <ng-content></ng-content>

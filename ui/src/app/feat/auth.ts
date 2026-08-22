@@ -37,4 +37,8 @@ export class Auth {
   me() {
     return this.http.get<AuthResponse>(`${this.authUrl}`);
   }
+
+  logout() {
+    localStorage.removeItem('accessToken');
+  }
 }

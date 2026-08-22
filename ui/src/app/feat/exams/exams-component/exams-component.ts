@@ -68,7 +68,7 @@ export class ExamsComponent {
             ...response,
             content: response.content.map((exam) => ({
               values: [exam.name, exam.active ? 'Ativo' : 'Inativo'],
-              href: `/exames/${exam.id}`,
+              href: `/painel/exames/${exam.id}`,
             })),
           });
 
@@ -99,7 +99,7 @@ export class ExamsComponent {
       detail: 'Exame cadastrado com sucesso!',
       life: 5000,
       data: {
-        href: `/exames/${id}`,
+        href: `/painel/exames/${id}`,
       },
     });
 
@@ -107,6 +107,6 @@ export class ExamsComponent {
   }
 
   protected goToExam(id: string) {
-    this.router.navigate(['/exames', id]);
+    this.router.navigate(['/painel/exames', id]);
   }
 }

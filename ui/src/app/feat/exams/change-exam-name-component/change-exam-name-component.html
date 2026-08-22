@@ -1,15 +1,4 @@
-<p-button (click)="setVisible()" styleClass="h-full" title="Alterar nome">
-  <i class="pi pi-pencil"></i>
-  <span class="hidden md:flex">Alterar nome</span>
-</p-button>
-
-<p-dialog
-  header="Alterar nome"
-  [modal]="true"
-  [visible]="visible()"
-  (visibleChange)="visible.set($event)"
-  styleClass="w-full max-w-xs"
->
+<app-dialog-component [title]="'Editar nome'" [severity]="'info'">
   <form
     [formGroup]="form"
     (ngSubmit)="changeName(form.getRawValue())"
@@ -56,4 +45,4 @@
       />
     </div>
   </form>
-</p-dialog>
+</app-dialog-component>

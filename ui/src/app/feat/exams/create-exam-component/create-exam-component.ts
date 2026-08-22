@@ -1,5 +1,4 @@
 import { Component, inject, input, output, signal } from '@angular/core';
-import { DialogModule } from 'primeng/dialog';
 import { ButtonModule } from 'primeng/button';
 import { FormControl, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
 import { InputTextModule } from 'primeng/inputtext';
@@ -9,22 +8,22 @@ import { HttpErrorResponse } from '@angular/common/http';
 import { ApiErrorResponse } from '../../../core/config/api.error.type';
 import { RouterLink } from '@angular/router';
 import { ToastModule } from 'primeng/toast';
+import { DialogComponent } from '../../../shared/components/ui/dialog-component/dialog-component';
 
 @Component({
   selector: 'app-create-exam-component',
   imports: [
-    DialogModule,
     ButtonModule,
     ReactiveFormsModule,
     FloatLabelModule,
     InputTextModule,
     RouterLink,
     ToastModule,
+    DialogComponent,
   ],
   templateUrl: './create-exam-component.html',
 })
 export class CreateExamComponent {
-  visible = signal(false);
   private readonly examService = inject(ExamService);
   hasError = signal(false);
   isLoading = signal(false);
@@ -32,6 +31,7 @@ export class CreateExamComponent {
   hasSuccess = signal(false);
   examId = signal<string | null>(null);
   created = output<string>();
+  dialogVisible = signal(false);
 
   constructor() {
     this.form.controls.name.valueChanges.subscribe(() => {
@@ -49,7 +49,7 @@ export class CreateExamComponent {
   });
 
   showDialog() {
-    this.visible.set(!this.visible());
+    this.dialogVisible.set(!this.dialogVisible());
   }
 
   closeDialog() {
@@ -65,7 +65,7 @@ export class CreateExamComponent {
         emitEvent: false,
       },
     );
-    this.visible.set(false);
+    this.dialogVisible.set(false);
   }
 
   create(request: ExamRequest) {
@@ -74,7 +74,7 @@ export class CreateExamComponent {
 
     this.examService.create(request).subscribe({
       next: (id) => {
-        this.closeDialog();
+        this.dialogVisible.set(false);
         this.created.emit(id);
       },
       error: (error: HttpErrorResponse) => {

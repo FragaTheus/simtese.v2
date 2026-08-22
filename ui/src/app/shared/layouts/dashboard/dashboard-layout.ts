@@ -38,7 +38,7 @@ export class DashboardLayout {
       icon: 'pi pi-home text-xl',
     },
     {
-      href: '/exames',
+      href: '/painel/exames',
       label: 'Exames',
       icon: 'pi pi-clipboard text-xl',
     },

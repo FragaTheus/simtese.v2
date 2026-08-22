@@ -4,16 +4,16 @@ import { FormControl, FormGroup, ReactiveFormsModule, Validators } from '@angula
 import { HttpErrorResponse } from '@angular/common/http';
 
 import { ButtonModule } from 'primeng/button';
-import { DialogModule } from 'primeng/dialog';
 import { InputTextModule } from 'primeng/inputtext';
 import { FloatLabelModule } from 'primeng/floatlabel';
 
 import { ExamRequest, ExamService } from '../exam-service';
 import { ApiErrorResponse } from '../../../core/config/api.error.type';
+import { DialogComponent } from '../../../shared/components/ui/dialog-component/dialog-component';
 
 @Component({
   selector: 'app-change-exam-name-component',
-  imports: [ButtonModule, DialogModule, InputTextModule, ReactiveFormsModule, FloatLabelModule],
+  imports: [ButtonModule, DialogComponent, InputTextModule, ReactiveFormsModule, FloatLabelModule],
   templateUrl: './change-exam-name-component.html',
 })
 export class ChangeExamNameComponent {

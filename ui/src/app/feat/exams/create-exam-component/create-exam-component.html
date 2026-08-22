@@ -1,12 +1,4 @@
-<p-button (onClick)="showDialog()" label="Novo" icon="pi pi-plus" />
-
-<p-dialog
-  header="Cadastrar exame"
-  [modal]="true"
-  [visible]="visible()"
-  (visibleChange)="visible.set($event)"
-  styleClass="w-full max-w-xs"
->
+<app-dialog-component [title]="'Novo'" [icon]="'pi pi-plus'" [(visible)]="dialogVisible">
   <form
     [formGroup]="form"
     (ngSubmit)="create(form.getRawValue())"
@@ -33,24 +25,14 @@
       </div>
     }
 
-    <div class="flex items-center justify-end gap-2 w-full">
-      <p-button
-        type="button"
-        label="Cancelar"
-        icon="pi pi-times"
-        variant="text"
-        severity="danger"
-        [disabled]="isLoading()"
-        (onClick)="closeDialog()"
-      />
-      <p-button
-        type="submit"
-        label="Cadastrar"
-        icon="pi pi-check"
-        severity="success"
-        [disabled]="form.invalid || isLoading()"
-        [loading]="isLoading()"
-      />
-    </div>
+    <p-button
+      type="submit"
+      label="Cadastrar"
+      icon="pi pi-check"
+      severity="success"
+      [disabled]="form.invalid || isLoading()"
+      [loading]="isLoading()"
+      class="self-end"
+    />
   </form>
-</p-dialog>
+</app-dialog-component>

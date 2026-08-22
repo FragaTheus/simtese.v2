@@ -1,0 +1,19 @@
+<app-dialog-component>
+  <form
+    [formGroup]="form"
+    (ngSubmit)="changeName(form.getRawValue())"
+    class="flex flex-col gap-6 py-4"
+  >
+    <p-floatlabel variant="on">
+      <input id="name" type="text" pInputText formControlName="name" class="w-full" />
+      <label for="name"> Novo nome </label>
+    </p-floatlabel>
+    <p-button
+      type="submit"
+      label="Alterar"
+      severity="success"
+      [disabled]="loading() || form.invalid"
+      class="self-end"
+    />
+  </form>
+</app-dialog-component>
