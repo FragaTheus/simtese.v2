@@ -5,13 +5,14 @@ import { provideHttpClient, withInterceptors } from '@angular/common/http';
 import { routes } from './app.routes';
 import AppPreset from '../theme/app.preset';
 import { authInterceptor } from './core/interceptor/auth.interceptor';
-import { MessageService } from 'primeng/api';
+import { ConfirmationService, MessageService } from 'primeng/api';
 
 export const appConfig: ApplicationConfig = {
   providers: [
     provideBrowserGlobalErrorListeners(),
 
     MessageService,
+    ConfirmationService,
 
     provideRouter(routes),
 

@@ -9,6 +9,7 @@ export interface DashCardItem {
   href: string;
   title: string;
   description: string;
+  imgUrl: string;
 }
 
 @Component({
@@ -22,6 +23,7 @@ export class Painel {
       title: 'Exames',
       description: 'Acompanhe seus exames e resultados.',
       href: '/exames',
+      imgUrl: '/dash-exam.png',
     },
   ];
 }

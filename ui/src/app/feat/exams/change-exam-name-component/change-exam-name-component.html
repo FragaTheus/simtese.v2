@@ -1,4 +1,7 @@
-<p-button label="Alterar nome" icon="pi pi-pencil" (click)="setVisible()" />
+<p-button (click)="setVisible()" styleClass="h-full" title="Alterar nome">
+  <i class="pi pi-pencil"></i>
+  <span class="hidden md:flex">Alterar nome</span>
+</p-button>
 
 <p-dialog
   header="Alterar nome"

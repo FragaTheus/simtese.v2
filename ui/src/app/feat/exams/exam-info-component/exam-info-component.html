@@ -4,6 +4,16 @@
   <app-error-layout />
 } @else if (exam(); as exam) {
   <app-info-page-layout [title]="exam.name" [fields]="fields()" [audit]="audit()">
-    <app-change-exam-name-component (changed)="loadExam()" />
+    <div class="flex flex-wrap gap-2">
+      @if (exam.active) {
+        <app-change-exam-name-component (changed)="loadExam()" />
+      }
+      <app-toggle-status-component
+        [status]="exam.active"
+        [deactivate]="deactivateExam"
+        [activate]="activateExam"
+        [remove]="removeExam"
+      />
+    </div>
   </app-info-page-layout>
 }
