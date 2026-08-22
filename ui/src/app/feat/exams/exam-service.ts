@@ -25,6 +25,7 @@ export interface ExamInfo {
 export interface ExamListParams {
   search?: string;
   active?: boolean;
+  page?: number;
 }
 
 @Injectable({
@@ -41,6 +42,7 @@ export class ExamService {
   list(params: ExamListParams = {}) {
     return this.http.get<Page<ExamSummary>>(this.examUrl, {
       params: {
+        ...(params.page !== undefined ? { page: params.page } : {}),
         ...(params.search ? { search: params.search } : {}),
         ...(params.active !== undefined ? { active: params.active } : {}),
       },

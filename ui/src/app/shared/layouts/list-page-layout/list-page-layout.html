@@ -1,0 +1,48 @@
+<app-dashboard-layout>
+  <app-page-layout>
+    <p-toolbar>
+      <ng-template #start>
+        <ng-content />
+      </ng-template>
+      <ng-template #center>
+        <p-iconField iconPosition="left">
+          <p-inputIcon styleClass="pi pi-search" [formControl]="search" />
+          <input type="text" pInputText placeholder="Buscar..." [formControl]="search" />
+        </p-iconField>
+      </ng-template>
+    </p-toolbar>
+
+    <p-data-view
+      [paginator]="true"
+      [lazy]="true"
+      [loading]="loading()"
+      [value]="page().content"
+      [rows]="page().size"
+      [totalRecords]="page().totalElements"
+      [first]="page().number * page().size"
+      (onPage)="onPage($event)"
+      class="mt-8"
+      emptyMessage="Nenhum item encontrado."
+    >
+      <ng-template #list let-items>
+        @for (item of items; track item.href) {
+          <div class="flex items-center justify-between py-4 border-b border-surface-300">
+            <div class="flex flex-col gap-1">
+              @for (value of item.values; track $index) {
+                <span class="text-sm text-surface-700">{{ value }}</span>
+              }
+            </div>
+
+            <a
+              pButton
+              severity="secondary"
+              [routerLink]="item.href"
+              icon="pi pi-plus"
+              title="Ver mais"
+            ></a>
+          </div>
+        }
+      </ng-template>
+    </p-data-view>
+  </app-page-layout>
+</app-dashboard-layout>

@@ -1,7 +1,7 @@
-<p-button (onClick)="showDialog()" label="Cadastrar" icon="pi pi-plus" />
+<p-button (onClick)="showDialog()" label="Novo" icon="pi pi-plus" />
 
 <p-dialog
-  header="Cadastro de exame"
+  header="Cadastrar exame"
   [modal]="true"
   [visible]="visible()"
   (visibleChange)="visible.set($event)"
@@ -32,41 +32,25 @@
         </small>
       </div>
     }
-    @if (hasSuccess()) {
-      <div class="bg-green-50 text-green-500 p-2 rounded flex items-center justify-between">
-        <small>Exame cadastrado com sucesso!</small>
-      </div>
-    }
 
     <div class="flex items-center justify-end gap-2 w-full">
-      @if (hasSuccess()) {
-        <p-button
-          type="button"
-          label="Sair"
-          (onClick)="closeDialog()"
-          severity="danger"
-          variant="text"
-        />
-        <a [routerLink]="['/exames', examId()]" pButton severity="info"> Ver exame </a>
-      } @else {
-        <p-button
-          type="button"
-          label="Cancelar"
-          icon="pi pi-times"
-          variant="text"
-          severity="danger"
-          [disabled]="isLoading()"
-          (onClick)="closeDialog()"
-        />
-        <p-button
-          type="submit"
-          label="Cadastrar"
-          icon="pi pi-check"
-          severity="success"
-          [disabled]="form.invalid || isLoading()"
-          [loading]="isLoading()"
-        />
-      }
+      <p-button
+        type="button"
+        label="Cancelar"
+        icon="pi pi-times"
+        variant="text"
+        severity="danger"
+        [disabled]="isLoading()"
+        (onClick)="closeDialog()"
+      />
+      <p-button
+        type="submit"
+        label="Cadastrar"
+        icon="pi pi-check"
+        severity="success"
+        [disabled]="form.invalid || isLoading()"
+        [loading]="isLoading()"
+      />
     </div>
   </form>
 </p-dialog>

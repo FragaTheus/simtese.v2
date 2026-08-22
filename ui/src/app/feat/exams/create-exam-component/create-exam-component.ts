@@ -1,4 +1,4 @@
-import { Component, inject, input, signal } from '@angular/core';
+import { Component, inject, input, output, signal } from '@angular/core';
 import { DialogModule } from 'primeng/dialog';
 import { ButtonModule } from 'primeng/button';
 import { FormControl, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
@@ -8,6 +8,7 @@ import { ExamRequest, ExamService } from '../exam-service';
 import { HttpErrorResponse } from '@angular/common/http';
 import { ApiErrorResponse } from '../../../core/config/api.error.type';
 import { RouterLink } from '@angular/router';
+import { ToastModule } from 'primeng/toast';
 
 @Component({
   selector: 'app-create-exam-component',
@@ -18,6 +19,7 @@ import { RouterLink } from '@angular/router';
     FloatLabelModule,
     InputTextModule,
     RouterLink,
+    ToastModule,
   ],
   templateUrl: './create-exam-component.html',
 })
@@ -29,6 +31,7 @@ export class CreateExamComponent {
   errorMessage = signal('');
   hasSuccess = signal(false);
   examId = signal<string | null>(null);
+  created = output<string>();
 
   constructor() {
     this.form.controls.name.valueChanges.subscribe(() => {
@@ -75,6 +78,8 @@ export class CreateExamComponent {
             emitEvent: false,
           },
         );
+
+        this.created.emit(id);
       },
       error: (error: HttpErrorResponse) => {
         this.isLoading.set(false);

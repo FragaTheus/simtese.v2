@@ -1,1 +1,34 @@
-<app-create-exam-component></app-create-exam-component>
+<p-toast key="exam-created" position="top-right">
+  <ng-template let-message #message>
+    <div>
+      <div class="font-semibold">
+        {{ message.summary }}
+      </div>
+
+      <div class="text-sm">
+        {{ message.detail }}
+      </div>
+    </div>
+
+    <p-button
+      label="Ver exame"
+      size="small"
+      severity="success"
+      (onClick)="goToExam(message.data.id)"
+      class="self-end"
+    />
+  </ng-template>
+</p-toast>
+
+@if (error()) {
+  <app-error-layout />
+} @else {
+  <app-list-page-layout
+    [page]="page()"
+    [loading]="loading()"
+    (pageChange)="onPageChange($event)"
+    (searchChange)="onSearchChange($event)"
+  >
+    <app-create-exam-component (created)="onExamCreated($event)" />
+  </app-list-page-layout>
+}

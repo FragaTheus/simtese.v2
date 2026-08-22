@@ -1,1 +1,17 @@
-<app-dashboard-layout></app-dashboard-layout>
+<app-dashboard-layout>
+  <app-page-layout>
+    <div class="grid grid-cols-1 md:grid-cols-3">
+      @for (card of cards; track card.href) {
+        <p-card>
+          <ng-template #title>{{ card.title }}</ng-template>
+          <ng-template #subtitle>{{ card.description }}</ng-template>
+          <ng-template #footer>
+            <a [routerLink]="card.href" pButton>
+              <span class="p-button-label">Acessar</span>
+            </a>
+          </ng-template>
+        </p-card>
+      }
+    </div>
+  </app-page-layout>
+</app-dashboard-layout>
