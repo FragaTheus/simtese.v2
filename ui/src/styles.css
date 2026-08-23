@@ -1,3 +1,18 @@
 @import 'tailwindcss';
 @import 'tailwindcss-primeui';
 @import 'primeicons/primeicons.css';
+
+body {
+  font-family: 'Inter', sans-serif;
+  background: #f8fafb;
+  color: #1a1f2b;
+}
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+  font-family: 'Manrope', sans-serif;
+}
