@@ -1,0 +1,14 @@
+<header
+  class="w-full h-full max-h-14 fixed top-0 z-50 transition-colors duration-300"
+  [class.bg-transparent]="!scrolled()"
+  [class.bg-surface-0]="scrolled()"
+>
+  <div class="w-full max-w-6xl py-4 px-6 grid grid-cols-6 m-auto">
+    <img src="icon-logo.png" class="max-w-30 h-auto relative top-1/2 -translate-y-1/2 col-span-1" />
+    <div class="col-span-3"></div>
+    <div class="flex items-center gap-2 col-span-2 justify-self-end">
+      <p-button icon="pi pi-whatsapp" severity="success" size="small"></p-button>
+      <p-button icon="pi pi-bars" severity="secondary" size="small" class="justify-self-end" />
+    </div>
+  </div>
+</header>
