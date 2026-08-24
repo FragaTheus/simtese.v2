@@ -15,24 +15,24 @@ interface Bullet {
 export class BulletsComponent {
   bullets: Bullet[] = [
     {
-      icon: 'pi pi-calendar',
-      title: 'Desde 2016',
-      description: 'Experiência e confiança.',
+      icon: 'pi pi-sitemap',
+      title: 'Atendimento integrado',
+      description: 'Mais soluções reunidas em um só lugar.',
     },
     {
-      icon: 'pi pi-users',
-      title: 'Equipe especializada',
-      description: 'Cuidado próximo e humano.',
+      icon: 'pi pi-check-circle',
+      title: 'Processos próprios',
+      description: 'Conferência e triagem em cada etapa.',
     },
     {
-      icon: 'pi pi-bolt',
-      title: 'Agilidade',
-      description: 'Processos rápidos e eficientes.',
+      icon: 'pi pi-chart-line',
+      title: 'Evolução constante',
+      description: 'Novos serviços, tecnologia e estrutura.',
     },
     {
-      icon: 'pi pi-building',
-      title: 'Estrutura completa',
-      description: 'Tecnologia e laboratório próprio.',
+      icon: 'pi pi-heart',
+      title: 'Relações de confiança',
+      description: 'Proximidade que acompanha cada atendimento.',
     },
   ];
 }

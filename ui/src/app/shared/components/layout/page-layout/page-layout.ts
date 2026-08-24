@@ -10,6 +10,6 @@ export class PageLayout {
   className = input<string>('');
 
   protected readonly classes = computed(() =>
-    twMerge(`w-full max-w-6xl p-6 m-auto`, this.className()),
+    twMerge(`w-full max-w-6xl px-6 m-auto py-8`, this.className()),
   );
 }

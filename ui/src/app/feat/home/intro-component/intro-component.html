@@ -1,0 +1,51 @@
+<section>
+  <app-page-layout>
+    <div class="grid grid-cols-1 gap-4 lg:grid-cols-2">
+      <div class="max-w-lg">
+        <label class="text-xs uppercase font-semibold text-clinical-teal"> Nossa história </label>
+
+        <h1 class="mt-2 text-xl font-semibold tracking-tighter lg:text-3xl">
+          Uma história construída para fazer diferente
+        </h1>
+
+        <div class="mt-4 flex flex-col gap-4 text-sm font-light leading-6 text-surface-700">
+          <p>
+            A SIMTESE nasceu em 2016 com a vontade de oferecer uma Medicina do Trabalho diferente:
+            mais integrada, organizada e próxima de quem precisa dela. Foi dessa ideia que surgiu o
+            Serviço Integrado em Medicina do Trabalho & Segurança, um nome que representa a forma
+            como escolhemos trabalhar desde o início.
+          </p>
+
+          <p>
+            Com o passar dos anos, crescemos junto com as necessidades de nossos clientes. Ampliamos
+            espaços, incorporamos novos serviços, investimos em equipamentos e tecnologia e
+            desenvolvemos uma maneira própria de organizar cada atendimento, sempre buscando mais
+            segurança, agilidade e qualidade.
+          </p>
+        </div>
+
+        <p-button styleClass="mt-5" label="Conheça nossa estrutura" variant="outlined" />
+      </div>
+      <div class="flex flex-col gap-4">
+        @for (bullet of bullets; track bullet.bullet) {
+          <p-card>
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+              <img
+                src="{{ bullet.image }}"
+                alt="{{ bullet.bullet }}"
+                class="min-w-34 w-full h-34 rounded-sm object-cover"
+              />
+              <div class="flex flex-col gap-2 justify-around flex-wrap md:col-span-2">
+                <div>
+                  <span class="{{ bullet.icon }} text-xl text-clinical-teal"></span>
+                  <h2 class="font-semibold text-surface-900 mt-2">{{ bullet.title }}</h2>
+                </div>
+                <p class="text-sm font-light text-surface-700">{{ bullet.bullet }}</p>
+              </div>
+            </div>
+          </p-card>
+        }
+      </div>
+    </div>
+  </app-page-layout>
+</section>
