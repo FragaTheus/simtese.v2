@@ -2,6 +2,7 @@ import { Component } from '@angular/core';
 import { PageLayout } from '../../../shared/components/layout/page-layout/page-layout';
 import { ButtonModule } from 'primeng/button';
 import { CardModule } from 'primeng/card';
+import { COMERCIAL } from '../links';
 
 interface Docs {
   title: string;
@@ -32,4 +33,8 @@ export class DocsComponent {
       description: 'Normas Regulamentadoras',
     },
   ];
+
+  cta() {
+    window.open(COMERCIAL, '_blank');
+  }
 }

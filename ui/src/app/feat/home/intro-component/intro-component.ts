@@ -2,6 +2,7 @@ import { Component } from '@angular/core';
 import { PageLayout } from '../../../shared/components/layout/page-layout/page-layout';
 import { CardModule } from 'primeng/card';
 import { ButtonModule } from 'primeng/button';
+import { COMERCIAL } from '../links';
 
 interface ICardBulletItem {
   icon: string;
@@ -39,4 +40,8 @@ export class IntroComponent {
       image: '/intro-img.webp',
     },
   ];
+
+  cta() {
+    window.open(COMERCIAL, '_blank');
+  }
 }

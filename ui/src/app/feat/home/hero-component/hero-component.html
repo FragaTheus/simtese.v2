@@ -1,4 +1,5 @@
 <section
+  id="hero"
   class="relative overflow-hidden bg-radial-[at_65%_25%] from-background from-20% via-[#eaf1f4] via-55% to-[#dcebe3] to-100%"
 >
   <app-page-layout
@@ -22,8 +23,13 @@
       </p>
 
       <div class="flex flex-wrap gap-4">
-        <p-button label="Fale conosco" severity="success" icon="pi pi-whatsapp" />
-        <p-button label="Agendar" severity="secondary" icon="pi pi-calendar-clock" />
+        <p-button label="Fale conosco" severity="success" icon="pi pi-whatsapp" (click)="cta()" />
+        <p-button
+          label="Agendar"
+          severity="secondary"
+          icon="pi pi-calendar-clock"
+          routerLink="/agendar"
+        />
       </div>
     </div>
   </app-page-layout>

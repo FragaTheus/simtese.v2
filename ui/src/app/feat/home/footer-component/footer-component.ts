@@ -2,6 +2,20 @@ import { Component } from '@angular/core';
 
 import { PageLayout } from '../../../shared/components/layout/page-layout/page-layout';
 import { ButtonModule } from 'primeng/button';
+import {
+  COMERCIAL,
+  ENFERMAGEM_CREDENCIADAS,
+  ENFERMAGEM_EMPRESAS,
+  ENFERMAGEM_IN_COMPANY,
+  FACEBOOK,
+  FATURAMENTO_E_ESOCIAL,
+  FIXO,
+  GOOGLE_MAPS,
+  INSTAGRAM,
+  LINKEDIN,
+  RECEPCAO_E_AGENDAMENTOS,
+  SEGURANCA_DO_TRABALHO,
+} from '../links';
 
 interface Social {
   icon: string;
@@ -72,25 +86,25 @@ export class FooterComponent {
         icon: 'pi pi-phone',
         label: '(11) 4797-6140',
         description: 'Telefone fixo',
-        link: 'tel:+551147976140',
+        link: FIXO,
       },
       {
         icon: 'pi pi-whatsapp',
         label: '(11) 91966-6340',
         description: 'Comercial',
-        link: 'https://wa.me/5511919666340',
+        link: COMERCIAL,
       },
       {
         icon: 'pi pi-whatsapp',
         label: '(11) 92601-7154',
         description: 'Recepção e Agendamentos',
-        link: 'https://wa.me/5511926017154',
+        link: RECEPCAO_E_AGENDAMENTOS,
       },
       {
         icon: 'pi pi-whatsapp',
         label: '(11) 92601-7052',
         description: 'Faturamento e eSocial',
-        link: 'https://wa.me/5511926017052',
+        link: FATURAMENTO_E_ESOCIAL,
       },
     ],
   };
@@ -102,25 +116,25 @@ export class FooterComponent {
         icon: 'pi pi-whatsapp',
         label: '(11) 92601-6690',
         description: 'Enfermagem — Empresas',
-        link: 'https://wa.me/5511926016690',
+        link: ENFERMAGEM_EMPRESAS,
       },
       {
         icon: 'pi pi-whatsapp',
         label: '(11) 92601-6837',
         description: 'Enfermagem — Credenciadas',
-        link: 'https://wa.me/5511926016837',
+        link: ENFERMAGEM_CREDENCIADAS,
       },
       {
         icon: 'pi pi-whatsapp',
         label: '(11) 92601-7092',
         description: 'Enfermagem — In Company',
-        link: 'https://wa.me/5511926017092',
+        link: ENFERMAGEM_IN_COMPANY,
       },
       {
         icon: 'pi pi-whatsapp',
         label: '(11) 92601-6845',
         description: 'Segurança do Trabalho',
-        link: 'https://wa.me/5511926016845',
+        link: SEGURANCA_DO_TRABALHO,
       },
     ],
   };
@@ -146,19 +160,19 @@ export class FooterComponent {
   socials: Social[] = [
     {
       icon: 'pi pi-map-marker',
-      link: 'https://www.google.com/maps/search/?api=1&query=SIMTESE+Medicina+do+Trabalho+Rua+Doutor+Ricardo+Vilela+681+Mogi+das+Cruzes+SP',
+      link: GOOGLE_MAPS,
     },
     {
       icon: 'pi pi-facebook',
-      link: 'https://www.facebook.com/simtese/',
+      link: FACEBOOK,
     },
     {
       icon: 'pi pi-instagram',
-      link: 'https://www.instagram.com/simtesemedicina/',
+      link: INSTAGRAM,
     },
     {
       icon: 'pi pi-linkedin',
-      link: 'https://br.linkedin.com/company/simtese-medicina-e-seguran%C3%A7a-do-trabalho',
+      link: LINKEDIN,
     },
   ];
 

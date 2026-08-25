@@ -1,4 +1,5 @@
 <header
+  id="header"
   class="w-full fixed top-0 z-50 transition-all duration-300"
   [class.bg-transparent]="!scrolled()"
   [class.bg-surface-0]="scrolled()"
@@ -11,7 +12,7 @@
     />
     <div class="col-span-3"></div>
     <div class="flex items-center gap-2 col-span-2 justify-self-end">
-      <p-button icon="pi pi-whatsapp" severity="success" size="small"></p-button>
+      <p-button icon="pi pi-whatsapp" severity="success" size="small" (click)="cta()" />
       <p-button
         icon="pi pi-bars"
         severity="secondary"

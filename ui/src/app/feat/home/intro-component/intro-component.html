@@ -1,4 +1,4 @@
-<section>
+<section id="intro">
   <app-page-layout>
     <div class="grid grid-cols-1 gap-4 lg:grid-cols-2">
       <div class="max-w-lg">
@@ -24,7 +24,7 @@
           </p>
         </div>
 
-        <p-button styleClass="mt-5" label="Conheça nossa estrutura" />
+        <p-button styleClass="mt-5" label="Conheça nossa estrutura" (click)="cta()" />
       </div>
       <div class="flex flex-col gap-4">
         @for (bullet of bullets; track bullet.bullet) {

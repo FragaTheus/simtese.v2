@@ -4,9 +4,11 @@
       @for (mvv of mvvList; track mvv.title) {
         <div class="flex flex-col max-w-xs">
           <span
-            class="max-w-min {{ mvv.icon }} text-primary-500 text-xl bg-primary-50 p-2 rounded-sm"
+            class="max-w-min {{
+              mvv.icon
+            }} text-clinical-teal text-xl bg-clinical-teal/10 p-2 rounded-sm"
           ></span>
-          <h3 class="mt-2 text-xl text-primary-500 uppercase font-semibold">
+          <h3 class="mt-2 text-xl text-clinical-teal uppercase font-semibold">
             {{ mvv.title }}
           </h3>
           <p class="mt-2">{{ mvv.description }}</p>
