@@ -1,0 +1,24 @@
+<section id="solution">
+  <app-page-layout>
+    <div class="flex flex-col items-center text-center gap-2">
+      <label class="text-xs uppercase font-semibold text-clinical-teal">Nossos Serviços</label>
+      <h2 class="text-2xl md:text-3xl font-semibold tracking-tighter">
+        Medicina ocupacional completa para sua empresa
+      </h2>
+    </div>
+    <div class="mt-4 grid grid-cols-1 md:grid-cols-3 gap-4">
+      @for (solution of solutions; track solution.title) {
+        <p-card styleClass="{{ solution.styleClass }}">
+          <div class="flex flex-col gap-4 max-w-md">
+            <span class="{{ solution.icon }} text-clinical-teal text-xl"> </span>
+            <h3 class="text-xl font-semibold tracking-tighter">{{ solution.title }}</h3>
+            <p class="text-sm font-light text-surface-700">{{ solution.description }}</p>
+            @if (solution.href) {
+              <p-button label="Agendar" severity="secondary" />
+            }
+          </div>
+        </p-card>
+      }
+    </div>
+  </app-page-layout>
+</section>

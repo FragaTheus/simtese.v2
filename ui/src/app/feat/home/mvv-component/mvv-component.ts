@@ -6,6 +6,7 @@ interface Mvv {
   icon: string;
   title: string;
   description: string;
+  styleClass?: string;
 }
 
 @Component({
@@ -20,6 +21,7 @@ export class MvvComponent {
       title: 'Missão',
       description:
         'Fazer um trabalho que resguarde a integridade do funcionário protegendo a empresa.',
+      styleClass: 'bg-clinical-teal text-white!',
     },
     {
       icon: 'pi pi-eye',

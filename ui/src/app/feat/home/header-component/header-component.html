@@ -12,7 +12,15 @@
     <div class="col-span-3"></div>
     <div class="flex items-center gap-2 col-span-2 justify-self-end">
       <p-button icon="pi pi-whatsapp" severity="success" size="small"></p-button>
-      <p-button icon="pi pi-bars" severity="secondary" size="small" class="justify-self-end" />
+      <p-button
+        icon="pi pi-bars"
+        severity="secondary"
+        size="small"
+        class="justify-self-end"
+        (click)="menu.toggle($event)"
+      ></p-button>
     </div>
   </div>
 </header>
+
+<p-menu #menu [model]="items" [popup]="true" />

@@ -1,0 +1,25 @@
+<section id="docs" class="bg-linear-160 from-primary to-primary/80">
+  <app-page-layout>
+    <div class="grid grid-cols-1 md:grid-cols-3 text-white gap-6">
+      <div class="max-w-xs">
+        <h2 class="text-2xl md:text-3xl font-bold tracking-tighter">Documentações de Segurança</h2>
+        <p class="font-light mt-2 text-sm text-white/80">
+          Elaboramos e gerenciamos toda a documentação legal exigida para garantir a segurança da
+          sua empresa.
+        </p>
+        <p-button
+          label="Solicitar Orçamento"
+          styleClass="bg-white! text-primary border-none mt-6"
+        />
+      </div>
+      <div class="grid grid-cols-2 gap-2 md:col-span-2">
+        @for (doc of docs; track doc.title) {
+          <p-card styleClass="border border-clinical-teal/60 bg-primary/90">
+            <h3 class="text-white font-semibold text-xl">{{ doc.title }}</h3>
+            <p class="text-white/80 text-sm font-light mt-2">{{ doc.description }}</p>
+          </p-card>
+        }
+      </div>
+    </div>
+  </app-page-layout>
+</section>
