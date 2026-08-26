@@ -1,0 +1,27 @@
+<section id="cta" class="bg-primary text-white">
+  <app-page-layout>
+    <div class="flex flex-col items-center text-center justify-center gap-6">
+      <h2 class="text-3xl md:text-4xl font-bold tracking-tighter">
+        Cuide da saúde da sua equipe com quem entende de medicina ocupacional
+      </h2>
+      <p class="font-light text-white/80 text-sm">
+        Agende exames ocupacionais ou fale com nossa equipe para encontrar a melhor solução para sua
+        empresa.
+      </p>
+      <div class="flex flex-wrap items-center gap-4">
+        <p-button
+          label="Entre em contato"
+          icon="pi pi-whatsapp"
+          severity="success"
+          (click)="cta()"
+        />
+        <p-button
+          label="Agendar um exame"
+          icon="pi pi-calendar-clock"
+          severity="secondary"
+          routerLink="/agendar"
+        />
+      </div>
+    </div>
+  </app-page-layout>
+</section>

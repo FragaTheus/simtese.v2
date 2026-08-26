@@ -1,0 +1,23 @@
+<section id="structure">
+  <app-page-layout>
+    <label class="text-xs uppercase text-clinical-teal font-semibold">Nossa estrutura</label>
+    <h1 class="text-2xl md:text-3xl font-semibold tracking-tighter mt-2">
+      Conheça nossa estrutura
+    </h1>
+    <div class="grid grid-cols-1 md:grid-cols-4 mt-4 gap-6">
+      @for (str of structures; track str.title) {
+        <p-card>
+          <ng-template #header>
+            <img class="w-full max-h-50 object-cover rounded-t-md" src="{{ str.imgSrc }}" />
+          </ng-template>
+          <div>
+            <h3 class="text-xl font-semibold">{{ str.title }}</h3>
+            <p class="mt-6 font-light text-surface-700">
+              {{ str.description }}
+            </p>
+          </div>
+        </p-card>
+      }
+    </div>
+  </app-page-layout>
+</section>

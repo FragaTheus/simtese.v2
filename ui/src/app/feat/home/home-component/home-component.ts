@@ -7,6 +7,8 @@ import { MvvComponent } from '../mvv-component/mvv-component';
 import { SolutionsComponent } from '../solutions-component/solutions-component';
 import { DocsComponent } from '../docs-component/docs-component';
 import { FooterComponent } from '../footer-component/footer-component';
+import { StructureComponent } from '../structure-component/structure-component';
+import { CtaComponent } from '../cta-component/cta-component';
 
 @Component({
   selector: 'app-home-component',
@@ -19,6 +21,8 @@ import { FooterComponent } from '../footer-component/footer-component';
     SolutionsComponent,
     DocsComponent,
     FooterComponent,
+    StructureComponent,
+    CtaComponent,
   ],
   templateUrl: './home-component.html',
 })
