@@ -10,7 +10,7 @@ import { ConfirmationService, MessageService } from 'primeng/api';
 import AppPreset from '../theme/app.preset';
 
 import { routes } from './app.routes';
-import { authInterceptor } from './shared/core/interceptors/auth.interceptor';
+import { authInterceptor } from './shared/api/interceptor/auth.interceptor';
 
 export const appConfig: ApplicationConfig = {
   providers: [

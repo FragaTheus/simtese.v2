@@ -1,8 +1,10 @@
 import { Routes } from '@angular/router';
-import { CreateAppointmentComponent } from './feat/appointments/create-appointment-component/create-appointment-component';
 import { HomeComponent } from './feat/home/home-component/home-component';
+import { LoginComponent } from './feat/auth/login/login-component/login-component';
+import { DashComponent } from './feat/dash/dash-component/dash-component';
 
 export const routes: Routes = [
   { path: '', component: HomeComponent },
-  { path: 'agendar', component: CreateAppointmentComponent },
+  { path: 'entrar', component: LoginComponent },
+  { path: 'painel', component: DashComponent },
 ];

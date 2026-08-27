@@ -1,0 +1,43 @@
+<div class="flex items-center justify-center gap-6 w-full h-svh relative">
+  <img src="/icon-logo.png" class="absolute top-6 max-w-3xs" />
+  <p-card class="w-full max-w-min">
+    <div>
+      <span class="pi pi-sign-in text-xl text-clinical-teal"></span>
+
+      <h3 class="text-xl font-semibold mt-4 tracking-tighter">Entrar</h3>
+      <p class="text-sm text-surface-700 font-light mt-2">
+        Entre com seus dados para acessar mais recursos.
+      </p>
+    </div>
+    <form [formGroup]="form" (ngSubmit)="login()">
+      <div class="flex flex-col gap-6 mt-6">
+        <p-floatlabel variant="on">
+          <input pInputText type="email" id="email" class="w-full" formControlName="email" />
+          <label for="email">Email</label>
+        </p-floatlabel>
+        <p-floatlabel variant="on">
+          <p-password
+            [feedback]="false"
+            type="password"
+            [toggleMask]="true"
+            formControlName="password"
+          />
+          <label for="password">Senha</label>
+        </p-floatlabel>
+        @if (hasError()) {
+          <span class="bg-red-50 text-red-500 text-sm p-4 rounded-md w-full text-center">
+            {{ errorMessage() }}
+          </span>
+        }
+        <p-button
+          label="Entrar"
+          severity="success"
+          styleClass="w-full"
+          [disabled]="form.invalid || loading()"
+          [loading]="loading()"
+          type="submit"
+        />
+      </div>
+    </form>
+  </p-card>
+</div>
