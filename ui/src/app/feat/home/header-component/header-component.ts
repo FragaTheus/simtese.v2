@@ -27,7 +27,7 @@ export class HeaderComponent {
           {
             label: 'Portal SIMTESE',
             icon: 'pi pi-desktop',
-            routerLink: '/login',
+            routerLink: '/entrar',
           },
           {
             label: 'Portal Woty',

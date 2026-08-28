@@ -4,6 +4,5 @@ import { Component } from '@angular/core';
   selector: 'app-dash-component',
   imports: [],
   templateUrl: './dash-component.html',
-  styleUrl: './dash-component.css',
 })
 export class DashComponent {}
