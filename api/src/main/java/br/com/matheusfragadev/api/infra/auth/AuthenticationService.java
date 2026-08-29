@@ -2,7 +2,6 @@ package br.com.matheusfragadev.api.infra.auth;
 
 import br.com.matheusfragadev.api.application.accounts.AccountServiceImpl;
 import br.com.matheusfragadev.api.domain.accounts.entity.Account;
-import br.com.matheusfragadev.api.infra.auth.aggregates.LoginResult;
 import br.com.matheusfragadev.api.infra.security.details.UserDetailsImpl;
 import br.com.matheusfragadev.api.infra.security.jwt.JwtService;
 import lombok.RequiredArgsConstructor;

@@ -9,10 +9,13 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.authentication.BadCredentialsException;
+import org.springframework.security.authorization.AuthorizationDeniedException;
 import org.springframework.validation.FieldError;
 import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
+
+import javax.naming.AuthenticationException;
 
 @Slf4j
 @ControllerAdvice
@@ -73,6 +76,15 @@ public class GlobalExceptionHandler {
         var message = ex.getMessage();
         var status = HttpStatus.CONFLICT;
         log.warn("Erro de RN em: {}", ex.getMessage());
+        var response = new ApiErrorResponse(status, message);
+        return ResponseEntity.status(status).body(response);
+    }
+
+    @ExceptionHandler(AuthorizationDeniedException.class)
+    public ResponseEntity<ApiErrorResponse> handlerAuthException(AuthorizationDeniedException ex){
+        var message = "Não autorizado a acessar este recurso";
+        var status = HttpStatus.UNAUTHORIZED;
+        log.warn("Erro de autenticação: {}", ex.getMessage());
         var response = new ApiErrorResponse(status, message);
         return ResponseEntity.status(status).body(response);
     }

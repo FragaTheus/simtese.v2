@@ -1,4 +1,4 @@
-package br.com.matheusfragadev.api.infra.auth.aggregates;
+package br.com.matheusfragadev.api.infra.controller.auth.aggregate;
 
 import lombok.Builder;
 

@@ -1,0 +1,33 @@
+<div class="w-full h-full flex items-center justify-center">
+  <p-card class="max-w-xs">
+    <ng-template #title>Cadastrar novo exame</ng-template>
+    <ng-template #subtitle>Crie um novo exame para exibir no agendamento</ng-template>
+    <form [formGroup]="form" (ngSubmit)="create()">
+      <div class="flex flex-col gap-6 mt-8">
+        <p-floatlabel>
+          <input pInputText id="name" formControlName="name" class="w-full" />
+          <label for="name">Nome do exame</label>
+        </p-floatlabel>
+        @if (error()) {
+          <span class="w-full p-2 text-center bg-red-50 text-red-500 text-sm">
+            {{ error() }}
+          </span>
+        }
+        @if (success() && responseId()) {
+          <div class="w-full p-2 text-center bg-green-50">
+            <span class="text-green-500 text-sm"> Exame cadastrado com sucesso! </span>
+            <p-button link label="Ver exame" severity="info" size="small" (click)="seeMore()" />
+          </div>
+        }
+        <p-button
+          type="submit"
+          severity="success"
+          label="Cadastrar"
+          styleClass="w-full"
+          [disabled]="form.invalid || loading()"
+          [loading]="loading()"
+        />
+      </div>
+    </form>
+  </p-card>
+</div>

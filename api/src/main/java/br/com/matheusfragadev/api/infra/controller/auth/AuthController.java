@@ -1,15 +1,13 @@
 package br.com.matheusfragadev.api.infra.controller.auth;
 
 import br.com.matheusfragadev.api.infra.auth.AuthenticationService;
-import br.com.matheusfragadev.api.infra.auth.aggregates.AuthResponse;
+import br.com.matheusfragadev.api.infra.controller.auth.aggregate.AuthResponse;
 import br.com.matheusfragadev.api.infra.auth.aggregates.LoginRequest;
-import br.com.matheusfragadev.api.infra.controller.auth.aggregate.AuthMapper;
 import br.com.matheusfragadev.api.infra.security.details.UserDetailsImpl;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.ResponseEntity;
-import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.web.bind.annotation.*;
 
@@ -23,7 +21,7 @@ public class AuthController {
     @GetMapping
     public ResponseEntity<AuthResponse> me(@AuthenticationPrincipal UserDetailsImpl userDetails){
         var account = authenticationService.me(userDetails.getId());
-        var response = AuthMapper.toAuthResponse(account);
+        var response = new AuthResponse(account.getName());
         return ResponseEntity.ok(response);
     }
 
