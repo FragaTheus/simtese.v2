@@ -1,0 +1,29 @@
+<p-drawer
+  [(visible)]="visible"
+  [modal]="!isMd"
+  [dismissible]="closeable()"
+  [closable]="closeable()"
+  [closeOnEscape]="closeable()"
+  [showCloseIcon]="false"
+  styleClass="bg-surface-0 md:shadow-none md:border-none md:max-w-80"
+>
+  <ng-template #header>
+    <img src="/icon-logo.png" class="max-w-2xs mx-auto" />
+  </ng-template>
+  <div class="h-full w-full">
+    <label class="text-xs uppercase font-semibold">Acesso Rápido</label>
+    <div class="p-2 mt-2 gap-2 flex flex-col">
+      @for (nb of navButtons; track nb.title) {
+        <p-button
+          [label]="nb.label"
+          [icon]="nb.icon"
+          [routerLink]="nb.route"
+          [title]="nb.title"
+          severity="secondary"
+          styleClass="w-full justify-start"
+        />
+      }
+    </div>
+  </div>
+  <ng-template #footer>Footer</ng-template>
+</p-drawer>

@@ -9,10 +9,7 @@ export interface LoginRequest {
 }
 
 export interface AuthResponse {
-  meId: string;
-  meName: string;
-  meEmail: string;
-  meRole: string;
+  name: string;
 }
 
 @Injectable({
