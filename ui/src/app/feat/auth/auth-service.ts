@@ -33,4 +33,8 @@ export class AuthService {
   me(): Observable<HttpResponse<AuthResponse>> {
     return this.http.get<AuthResponse>(`${API_V1_URL}/auth`, { observe: 'response' });
   }
+
+  logout(): void {
+    localStorage.removeItem('accessToken');
+  }
 }

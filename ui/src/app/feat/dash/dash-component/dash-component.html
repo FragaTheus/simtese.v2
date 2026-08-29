@@ -1,3 +1,41 @@
-<app-dash-layout>
-  <router-outlet />
-</app-dash-layout>
+<app-error-component [error]="error()" (retry)="retry()" (cancel)="cancel()" />
+
+<div class="w-full h-full">
+  <div>
+    @if (loading()) {
+      <p-skeleton styleClass="w-full max-w-3xs h-10!" />
+      <p-skeleton styleClass="w-full max-w-2xs mt-2" />
+    } @else {
+      <h1 class="font-semibold tracking-tighter text-3xl max-w-3xs">Painel Simtese</h1>
+      <p class="font-light text-sm text-surface-700 mt-2 max-w-sm">
+        Que bom ter voce de volta, {{ nickname() }}!
+      </p>
+    }
+  </div>
+
+  <div class="grid grid-cols-1 md:grid-cols-4 gap-6 mt-8">
+    @if (loading()) {
+      <p-skeleton styleClass="w-full h-80!" />
+      <p-skeleton styleClass="w-full h-80!" />
+      <p-skeleton styleClass="w-full h-80!" />
+      <p-skeleton styleClass="w-full h-80!" />
+    } @else {
+      @for (c of cards; track c.title) {
+        <p-card>
+          <ng-template #header>
+            <img src="{{ c.imgSrc }}" alt="{{ c.title }}" class="w-full h-32 object-cover" />
+          </ng-template>
+          <ng-template #title>
+            {{ c.title }}
+          </ng-template>
+          <ng-template #subtitle>
+            {{ c.subtitle }}
+          </ng-template>
+          <ng-template #footer>
+            <p-button label="Ver mais" routerLink="c.routerLink" severity="secondary" />
+          </ng-template>
+        </p-card>
+      }
+    }
+  </div>
+</div>
