@@ -1,0 +1,19 @@
+<p-dialog
+  [header]="header()"
+  [(visible)]="visible"
+  [modal]="true"
+  styleClass="max-w-xs"
+  [closable]="false"
+>
+  <div>
+    @if (message()) {
+      <div class="p-2 border-yellow-500 rounded-sm border flex flex-col gap-2">
+        <span class="pi pi-info-circle text-yellow-500"></span>
+        <span class="font-light text-sm">{{ message() }}</span>
+      </div>
+    }
+    <div class="mt-6">
+      <ng-content />
+    </div>
+  </div>
+</p-dialog>

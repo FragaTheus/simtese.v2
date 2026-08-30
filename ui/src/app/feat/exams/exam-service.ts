@@ -7,6 +7,15 @@ export interface CreateExamRequest {
   name: string;
 }
 
+export interface ExamInfo {
+  name: string;
+  active: boolean;
+  createdAt: string;
+  updatedAt: string;
+  createdBy: string;
+  updatedBy: string;
+}
+
 @Injectable({
   providedIn: 'root',
 })
@@ -16,5 +25,9 @@ export class ExamService {
 
   create(request: CreateExamRequest): Observable<string> {
     return this.http.post<string>(this.apiUrl, request);
+  }
+
+  info(targetId: string): Observable<ExamInfo> {
+    return this.http.get<ExamInfo>(`${this.apiUrl}/${targetId}`);
   }
 }

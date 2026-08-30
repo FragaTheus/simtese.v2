@@ -1,15 +1,14 @@
-<div class="w-full h-full">
-  <div class="w-full p-4">
-    <h1 class="text-3xl font-semibold tracking-tighter">Exame</h1>
-  </div>
-  <p-card>
-    <div class="grid grid-cols-1 md:grid-cols-3 gap-6 mt-8">
-      <p-fieldset legend="Informações do Exame" class="col-span-2">
-        <!-- Conteúdo do fieldset aqui -->
-      </p-fieldset>
-      <p-fieldset legend="Histórico do exame">
-        <!-- Conteúdo do fieldset aqui -->
-      </p-fieldset>
+@if (loading()) {
+  <app-loading-component />
+} @else {
+  <app-error-component [error]="error()" (retry)="retry.emit()" (cancel)="cancel.emit()" />
+
+  <div class="w-full h-full">
+    <div class="w-full py-6">
+      <ng-content select="[header]" />
     </div>
-  </p-card>
-</div>
+    <div class="w-full mt-8">
+      <ng-content select="[body]" />
+    </div>
+  </div>
+}

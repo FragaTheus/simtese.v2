@@ -9,6 +9,7 @@ import { InputTextModule } from 'primeng/inputtext';
 import { HttpErrorResponse } from '@angular/common/http';
 import { ApiErrorResponse } from '../../../shared/api/type/api.type';
 import { DialogModule } from 'primeng/dialog';
+import { InputDialogComponent } from '../../../shared/components/ui/input-dialog-component/input-dialog-component';
 
 @Component({
   selector: 'app-create-exam-component',
@@ -19,6 +20,7 @@ import { DialogModule } from 'primeng/dialog';
     FloatLabel,
     InputTextModule,
     DialogModule,
+    InputDialogComponent,
   ],
   templateUrl: './create-exam-component.html',
 })
