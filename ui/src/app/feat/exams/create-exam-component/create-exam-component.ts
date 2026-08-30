@@ -1,4 +1,4 @@
-import { Component, inject, signal } from '@angular/core';
+import { Component, inject, model, signal } from '@angular/core';
 import { FormBuilder, ReactiveFormsModule, Validators } from '@angular/forms';
 import { ButtonModule } from 'primeng/button';
 import { CardModule } from 'primeng/card';
@@ -8,14 +8,23 @@ import { Router } from '@angular/router';
 import { InputTextModule } from 'primeng/inputtext';
 import { HttpErrorResponse } from '@angular/common/http';
 import { ApiErrorResponse } from '../../../shared/api/type/api.type';
+import { DialogModule } from 'primeng/dialog';
 
 @Component({
   selector: 'app-create-exam-component',
-  imports: [CardModule, ReactiveFormsModule, ButtonModule, FloatLabel, InputTextModule],
+  imports: [
+    CardModule,
+    ReactiveFormsModule,
+    ButtonModule,
+    FloatLabel,
+    InputTextModule,
+    DialogModule,
+  ],
   templateUrl: './create-exam-component.html',
 })
 export class CreateExamComponent {
   private examService = inject(ExamService);
+  visible = model<boolean>(false);
   private fb = inject(FormBuilder);
   private router = inject(Router);
   loading = signal<boolean>(false);
@@ -29,6 +38,7 @@ export class CreateExamComponent {
 
   create() {
     this.loading.set(true);
+    this.success.set(false);
     this.error.set(null);
 
     this.examService.create(this.form.getRawValue()).subscribe({
@@ -47,10 +57,20 @@ export class CreateExamComponent {
     });
   }
 
+  closeDialog() {
+    this.loading.set(false);
+    this.error.set(null);
+    this.success.set(false);
+    this.responseId.set(null);
+    this.visible.set(false);
+    this.form.reset();
+  }
+
   seeMore() {
     const id = this.responseId();
     if (id) {
-      this.router.navigate(['/exams', id]);
+      this.router.navigate([`painel/exames/${id}`]);
     }
+    this.closeDialog();
   }
 }

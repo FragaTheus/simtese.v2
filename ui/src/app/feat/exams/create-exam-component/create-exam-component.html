@@ -1,33 +1,50 @@
-<div class="w-full h-full flex items-center justify-center">
-  <p-card class="max-w-xs">
-    <ng-template #title>Cadastrar novo exame</ng-template>
-    <ng-template #subtitle>Crie um novo exame para exibir no agendamento</ng-template>
-    <form [formGroup]="form" (ngSubmit)="create()">
-      <div class="flex flex-col gap-6 mt-8">
-        <p-floatlabel>
-          <input pInputText id="name" formControlName="name" class="w-full" />
-          <label for="name">Nome do exame</label>
-        </p-floatlabel>
-        @if (error()) {
-          <span class="w-full p-2 text-center bg-red-50 text-red-500 text-sm">
-            {{ error() }}
-          </span>
-        }
-        @if (success() && responseId()) {
-          <div class="w-full p-2 text-center bg-green-50">
-            <span class="text-green-500 text-sm"> Exame cadastrado com sucesso! </span>
-            <p-button link label="Ver exame" severity="info" size="small" (click)="seeMore()" />
-          </div>
-        }
+<p-dialog
+  [(visible)]="visible"
+  header="Cadastrar novo exame"
+  [modal]="true"
+  styleClass="max-w-xs"
+  [closable]="false"
+>
+  <div class="p-2 border-yellow-500 rounded-sm border flex flex-col gap-2">
+    <span class="pi pi-info-circle text-yellow-500"></span>
+    <span class="font-light text-sm"> Nome do exame deve conter entre 3 e 100 caracteres. </span>
+  </div>
+  <form [formGroup]="form" (ngSubmit)="create()" class="mt-6">
+    <div class="flex flex-col gap-6">
+      <p-floatlabel variant="on">
+        <input pInputText id="name" type="text" formControlName="name" class="w-full" />
+        <label for="name">Nome do exame</label>
+      </p-floatlabel>
+      @if (error()) {
+        <span class="w-full p-2 bg-red-50 text-red-500 text-center rounded-sm text-xs">{{
+          error()
+        }}</span>
+      }
+      @if (success()) {
+        <p-button
+          title="Ver mais"
+          title="Exame criado com sucesso!"
+          styleClass="w-full"
+          variant="outlined"
+          label="Exame criado com sucesso!"
+          (click)="seeMore()"
+          size="small"
+        />
+      }
+      <div class="flex gap-2 justify-end">
+        <p-button
+          [label]="success() ? 'Sair' : 'Cancelar'"
+          severity="danger"
+          (click)="closeDialog()"
+        />
         <p-button
           type="submit"
-          severity="success"
           label="Cadastrar"
-          styleClass="w-full"
-          [disabled]="form.invalid || loading()"
           [loading]="loading()"
+          [disabled]="loading() || form.invalid"
+          severity="success"
         />
       </div>
-    </form>
-  </p-card>
-</div>
+    </div>
+  </form>
+</p-dialog>

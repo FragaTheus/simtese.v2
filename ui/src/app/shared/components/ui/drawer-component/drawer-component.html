@@ -14,16 +14,31 @@
     <label class="text-xs uppercase font-semibold">Acesso Rápido</label>
     <div class="p-2 mt-2 gap-2 flex flex-col">
       @for (nb of navButtons; track nb.title) {
-        <p-button
-          [label]="nb.label"
-          [icon]="nb.icon"
-          [routerLink]="nb.route"
-          [title]="nb.title"
-          severity="secondary"
-          styleClass="w-full justify-start"
-        />
+        <div class="w-full relative group">
+          <p-button
+            [label]="nb.label"
+            [icon]="nb.icon"
+            [routerLink]="nb.route"
+            [title]="nb.title"
+            severity="secondary"
+            styleClass="w-full justify-start"
+          />
+          @if (nb.navAction) {
+            <p-button
+              [icon]="nb.navAction.icon"
+              title="{{ nb.navAction.title }}"
+              (click)="nb.navAction.action()"
+              variant="text"
+              severity="secondary"
+              size="small"
+              styleClass="absolute right-2 top-1/2 -translate-y-1/2 group-hover:bg-surface-400 group-hover:text-surface-800"
+            />
+          }
+        </div>
       }
     </div>
   </div>
   <ng-template #footer>Footer</ng-template>
 </p-drawer>
+
+<app-create-exam-component [(visible)]="createExamVisible" />
