@@ -11,6 +11,7 @@ public class ExamMapper {
 
     public static ExamInfo toExamInfo(Exam exam, AuditInfo auditInfo){
         return ExamInfo.builder()
+                .id(exam.getId())
                 .name(exam.getName())
                 .active(exam.isActive())
                 .createdAt(exam.getCreatedAt())
