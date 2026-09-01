@@ -5,3 +5,10 @@ export interface ApiErrorResponse {
   status: HttpStatus;
   message: string;
 }
+
+export interface PageableResponse<T> {
+  content: T[];
+  totalElements: number;
+  totalPages: number;
+  currentPage: number;
+}

@@ -10,7 +10,7 @@ const EXAM_ROUTE = `${DASH_ROUTE}/exames`;
 
 @Component({
   selector: 'app-drawer-component',
-  imports: [DrawerModule, RouterLink, ButtonModule, PanelMenuModule],
+  imports: [DrawerModule, ButtonModule, PanelMenuModule],
   templateUrl: './drawer-component.html',
 })
 export class DrawerComponent {
@@ -18,6 +18,11 @@ export class DrawerComponent {
   closeable = signal(true);
   isMd = window.matchMedia('(min-width: 768px)').matches;
   items: MenuItem[] = [
+    {
+      label: 'Painel',
+      icon: 'pi pi-home',
+      routerLink: `${DASH_ROUTE}`,
+    },
     {
       label: 'Exames',
       icon: 'pi pi-clipboard',

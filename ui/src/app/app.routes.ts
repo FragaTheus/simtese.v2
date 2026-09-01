@@ -4,6 +4,7 @@ import { LoginComponent } from './feat/auth/login/login-component/login-componen
 import { DashRouter } from './shared/dash/dash-router/dash-router';
 import { DashComponent } from './feat/dash/dash-component/dash-component';
 import { CreateExamComponent } from './feat/exams/create-exam-component/create-exam-component';
+import { ExamListComponent } from './feat/exams/exam-list-component/exam-list-component';
 
 export const routes: Routes = [
   { path: '', component: HomeComponent },
@@ -14,6 +15,7 @@ export const routes: Routes = [
     children: [
       { path: '', component: DashComponent },
       { path: 'exames/cadastrar', component: CreateExamComponent },
+      { path: 'exames', component: ExamListComponent },
     ],
   },
 ];
