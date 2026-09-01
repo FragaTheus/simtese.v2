@@ -1,46 +1,47 @@
-<app-input-dialog-component
-  [header]="'Cadastrar novo exame'"
-  [(visible)]="visible"
-  [message]="'Nome do exame deve conter entre 3 e 100 caracteres.'"
->
-  <form [formGroup]="form" (ngSubmit)="create()">
-    <div class="flex flex-col gap-6">
-      <p-floatlabel variant="on">
-        <input pInputText id="name" type="text" formControlName="name" class="w-full" />
-        <label for="name">Nome do exame</label>
-      </p-floatlabel>
-
-      @if (error()) {
-        <span class="w-full p-2 bg-red-50 text-red-500 text-center rounded-sm text-xs">
-          {{ error() }}
-        </span>
-      }
-
-      @if (success()) {
-        <p-button
-          title="Exame criado com sucesso!"
-          styleClass="w-full"
-          variant="outlined"
-          label="Exame criado com sucesso!"
-          (click)="seeMore()"
-          size="small"
-        />
-      }
-
-      <div class="flex gap-2 justify-end">
-        <p-button
-          [label]="success() ? 'Sair' : 'Cancelar'"
-          severity="danger"
-          (click)="closeDialog()"
-        />
-        <p-button
-          type="submit"
-          label="Cadastrar"
-          [loading]="loading()"
-          [disabled]="loading() || form.invalid"
-          severity="success"
-        />
-      </div>
+<div class="w-full h-full max-w-6xl flex items-center justify-center m-auto">
+  <p-card class="max-w-xs w-full">
+    <div>
+      <span class="pi pi-clipboard text-clinical-teal text-xl"></span>
+      <h1 class="font-semibold tracking-tighter text-xl mt-4">Cadastrar novo exame</h1>
+      <p class="font-light text-surface-700 text-sm mt-2">
+        Os exames cadastrados serão exibidos no agendamento.
+      </p>
     </div>
-  </form>
-</app-input-dialog-component>
+
+    <div class="mt-8">
+      <form [formGroup]="form" (ngSubmit)="create()">
+        <div class="flex flex-col gap-6">
+          <div class="border-yellow-300 p-2 text-xs border rounded-sm flex flex-col gap-2">
+            <span class="pi pi-info-circle text-yellow-500"></span>
+            <span>Nome do exame deve conter entre 2 e 100 caracteres.</span>
+          </div>
+          <p-floatlabel variant="on">
+            <input pInputText id="examName" type="text" class="w-full" formControlName="name" />
+            <label for="examName">Nome do exame</label>
+          </p-floatlabel>
+          @if (success()) {
+            <a
+              routerLink="/exames/{{ id() }}"
+              class="w-full p-2 bg-green-50 text-green-600 text-xs text-center rounded-sm block cursor-pointer hover:bg-green-100 transition"
+            >
+              Exame cadastrado com sucesso!
+            </a>
+          }
+          @if (error() !== null) {
+            <span class="w-full p-2 bg-red-50 text-red-600 text-xs text-center rounded-sm">
+              {{ error()!.message || 'Ocorreu um erro ao cadastrar o exame.' }}
+            </span>
+          }
+          <p-button
+            severity="success"
+            label="Cadastrar"
+            [disabled]="form.invalid || loading()"
+            [loading]="loading()"
+            type="submit"
+            styleClass="w-full"
+          />
+        </div>
+      </form>
+    </div>
+  </p-card>
+</div>

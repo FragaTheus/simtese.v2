@@ -1,39 +1,35 @@
-import { Component, inject, model, signal } from '@angular/core';
+import { Component, inject, signal } from '@angular/core';
 import { FormBuilder, ReactiveFormsModule, Validators } from '@angular/forms';
-import { ButtonModule } from 'primeng/button';
-import { CardModule } from 'primeng/card';
-import { FloatLabel } from 'primeng/floatlabel';
 import { ExamService } from '../exam-service';
-import { Router } from '@angular/router';
-import { InputTextModule } from 'primeng/inputtext';
-import { HttpErrorResponse } from '@angular/common/http';
 import { ApiErrorResponse } from '../../../shared/api/type/api.type';
-import { DialogModule } from 'primeng/dialog';
-import { InputDialogComponent } from '../../../shared/components/ui/input-dialog-component/input-dialog-component';
+import { CardModule } from 'primeng/card';
+import { FloatLabelModule } from 'primeng/floatlabel';
+import { InputTextModule } from 'primeng/inputtext';
+import { ButtonModule } from 'primeng/button';
+import { HttpErrorResponse } from '@angular/common/http';
+import { RouterBackComponent } from '../../../shared/components/ui/router-back-component/router-back-component';
+import { RouterLink } from '@angular/router';
 
 @Component({
   selector: 'app-create-exam-component',
   imports: [
     CardModule,
-    ReactiveFormsModule,
-    ButtonModule,
-    FloatLabel,
+    FloatLabelModule,
     InputTextModule,
-    DialogModule,
-    InputDialogComponent,
+    ButtonModule,
+    ReactiveFormsModule,
+    RouterBackComponent,
+    RouterLink,
   ],
   templateUrl: './create-exam-component.html',
 })
 export class CreateExamComponent {
   private examService = inject(ExamService);
-  visible = model<boolean>(false);
   private fb = inject(FormBuilder);
-  private router = inject(Router);
   loading = signal<boolean>(false);
-  error = signal<string | null>(null);
   success = signal<boolean>(false);
-  responseId = signal<string | null>(null);
-
+  error = signal<ApiErrorResponse | null>(null);
+  id = signal<string>('');
   form = this.fb.nonNullable.group({
     name: ['', Validators.required],
   });
@@ -44,35 +40,15 @@ export class CreateExamComponent {
     this.error.set(null);
 
     this.examService.create(this.form.getRawValue()).subscribe({
-      next: (responseId: string) => {
-        this.loading.set(false);
+      next: (id) => {
         this.success.set(true);
-        this.responseId.set(responseId);
-        this.form.reset();
+        this.loading.set(false);
+        this.id.set(id);
       },
       error: (err: HttpErrorResponse) => {
-        const errorMessage = err.error as ApiErrorResponse;
-        this.error.set(errorMessage.message);
+        this.error.set(err.error);
         this.loading.set(false);
-        this.form.reset();
       },
     });
-  }
-
-  closeDialog() {
-    this.loading.set(false);
-    this.error.set(null);
-    this.success.set(false);
-    this.responseId.set(null);
-    this.visible.set(false);
-    this.form.reset();
-  }
-
-  seeMore() {
-    const id = this.responseId();
-    if (id) {
-      this.router.navigate([`painel/exames/${id}`]);
-    }
-    this.closeDialog();
   }
 }

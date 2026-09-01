@@ -6,7 +6,6 @@ import { Router } from '@angular/router';
 import { SkeletonModule } from 'primeng/skeleton';
 import { CardModule } from 'primeng/card';
 import { ButtonModule } from 'primeng/button';
-import { ErrorComponent } from '../../../shared/components/ui/error-component/error-component';
 import { LoadingComponent } from '../../../shared/components/ui/loading-component/loading-component';
 
 interface Card {
@@ -18,7 +17,7 @@ interface Card {
 
 @Component({
   selector: 'app-dash-component',
-  imports: [SkeletonModule, CardModule, ButtonModule, ErrorComponent, LoadingComponent],
+  imports: [SkeletonModule, CardModule, ButtonModule, LoadingComponent],
   templateUrl: './dash-component.html',
 })
 export class DashComponent {

@@ -2,47 +2,37 @@ import { Component, model, signal } from '@angular/core';
 import { RouterLink } from '@angular/router';
 import { ButtonModule } from 'primeng/button';
 import { DrawerModule } from 'primeng/drawer';
-import { DASH_ROUTE, EXAM_ROUTE } from '../../../routes/routes';
-import { CreateExamComponent } from '../../../../feat/exams/create-exam-component/create-exam-component';
+import { PanelMenuModule } from 'primeng/panelmenu';
+import { MenuItem } from 'primeng/api';
+import { DASH_ROUTE } from '../../../routes/routes';
 
-interface NavAction {
-  title: string;
-  icon: string;
-  action: () => void;
-}
-
-interface NavButton {
-  title: string;
-  icon: string;
-  label: string;
-  route: string;
-  navAction?: NavAction;
-}
+const EXAM_ROUTE = `${DASH_ROUTE}/exames`;
 
 @Component({
   selector: 'app-drawer-component',
-  imports: [DrawerModule, RouterLink, ButtonModule, CreateExamComponent],
+  imports: [DrawerModule, RouterLink, ButtonModule, PanelMenuModule],
   templateUrl: './drawer-component.html',
 })
 export class DrawerComponent {
   visible = model<boolean>(true);
-  createExamVisible = model<boolean>(false);
   closeable = signal(true);
   isMd = window.matchMedia('(min-width: 768px)').matches;
-  navButtons: NavButton[] = [
-    { title: 'Painel', icon: 'pi pi-home', label: 'Home', route: DASH_ROUTE },
+  items: MenuItem[] = [
     {
-      title: 'Ver todos os exames',
-      icon: 'pi pi-clipboard',
       label: 'Exames',
-      route: EXAM_ROUTE,
-      navAction: {
-        title: 'Cadastrar novo exame',
-        icon: 'pi pi-plus',
-        action: () => {
-          this.createExamVisible.set(true);
+      icon: 'pi pi-clipboard',
+      items: [
+        {
+          label: 'Cadastrar',
+          icon: 'pi pi-plus',
+          routerLink: `${EXAM_ROUTE}/cadastrar`,
         },
-      },
+        {
+          label: 'Ver todos',
+          icon: 'pi pi-search',
+          routerLink: `${EXAM_ROUTE}`,
+        },
+      ],
     },
   ];
 

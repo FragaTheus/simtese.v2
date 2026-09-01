@@ -1,10 +1,6 @@
-<app-error-component [error]="error()" (retry)="retry()" (cancel)="cancel()" />
-
 @if (loading()) {
   <app-loading-component />
 } @else {
-  <app-error-component [error]="error()" (retry)="retry()" (cancel)="cancel()" />
-
   <div class="w-full h-full">
     <div>
       <h1 class="font-semibold tracking-tighter text-3xl max-w-3xs">Painel Simtese</h1>
