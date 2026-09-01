@@ -1,0 +1,7 @@
+@if (loading()) {
+  <app-loading-component />
+} @else if (error(); as error) {
+  <app-error-component [error]="error" [route]="route()" (retry)="retry.emit()" />
+} @else {
+  <ng-content />
+}

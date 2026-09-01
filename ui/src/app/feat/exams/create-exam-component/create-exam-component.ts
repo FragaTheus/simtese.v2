@@ -1,26 +1,15 @@
-import { Component, inject, signal } from '@angular/core';
+import { Component, inject, signal, computed } from '@angular/core';
 import { FormBuilder, ReactiveFormsModule, Validators } from '@angular/forms';
 import { ExamService } from '../exam-service';
 import { ApiErrorResponse } from '../../../shared/api/type/api.type';
-import { CardModule } from 'primeng/card';
 import { FloatLabelModule } from 'primeng/floatlabel';
 import { InputTextModule } from 'primeng/inputtext';
-import { ButtonModule } from 'primeng/button';
 import { HttpErrorResponse } from '@angular/common/http';
-import { RouterBackComponent } from '../../../shared/components/ui/router-back-component/router-back-component';
-import { RouterLink } from '@angular/router';
+import { InputPageLayout } from '../../../shared/components/layout/input-page-layout/input-page-layout';
 
 @Component({
   selector: 'app-create-exam-component',
-  imports: [
-    CardModule,
-    FloatLabelModule,
-    InputTextModule,
-    ButtonModule,
-    ReactiveFormsModule,
-    RouterBackComponent,
-    RouterLink,
-  ],
+  imports: [FloatLabelModule, InputTextModule, ReactiveFormsModule, InputPageLayout],
   templateUrl: './create-exam-component.html',
 })
 export class CreateExamComponent {
@@ -33,6 +22,11 @@ export class CreateExamComponent {
   form = this.fb.nonNullable.group({
     name: ['', Validators.required],
   });
+
+  successRoute = computed(() => `/exames/${this.id()}`);
+  errorMessage = computed(() =>
+    this.error() ? this.error()!.message || 'Ocorreu um erro ao cadastrar o exame.' : null,
+  );
 
   create() {
     this.loading.set(true);

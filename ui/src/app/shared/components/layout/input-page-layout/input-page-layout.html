@@ -1,0 +1,47 @@
+<div class="w-full h-full flex items-center justify-center">
+  <p-card class="max-w-xs w-full">
+    <div>
+      <span class="pi {{ icon() }} text-clinical-teal text-xl"></span>
+      <h1 class="font-semibold tracking-tighter text-xl mt-4">{{ header() }}</h1>
+      <p class="font-light text-surface-700 text-sm mt-2">
+        {{ description() }}
+      </p>
+    </div>
+
+    <div class="mt-8">
+      <form [formGroup]="formGroup()" (ngSubmit)="submit.emit()">
+        <div class="flex flex-col gap-6">
+          <div class="border-yellow-300 p-2 text-xs border rounded-sm flex flex-col gap-2">
+            <span class="pi pi-info-circle text-yellow-500"></span>
+            <span>{{ info() }}</span>
+          </div>
+
+          <ng-content />
+
+          @if (success()) {
+            <a
+              [routerLink]="successRoute()"
+              class="w-full p-2 bg-green-50 text-green-600 text-xs text-center rounded-sm block cursor-pointer hover:bg-green-100 transition"
+            >
+              {{ successMessage() }}
+            </a>
+          }
+          @if (error() !== null) {
+            <span class="w-full p-2 bg-red-50 text-red-600 text-xs text-center rounded-sm">
+              {{ error() }}
+            </span>
+          }
+
+          <p-button
+            severity="success"
+            [label]="submitLabel()"
+            [disabled]="formGroup().invalid || loading()"
+            [loading]="loading()"
+            type="submit"
+            styleClass="w-full"
+          />
+        </div>
+      </form>
+    </div>
+  </p-card>
+</div>

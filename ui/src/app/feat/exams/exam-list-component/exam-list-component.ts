@@ -1,34 +1,22 @@
-import { Component, signal, inject, effect } from '@angular/core';
+import { Component, signal, inject, effect, computed } from '@angular/core';
 import { ExamService } from '../exam-service';
-import { ButtonModule } from 'primeng/button';
-import { DataViewModule } from 'primeng/dataview';
-import { ToolbarModule } from 'primeng/toolbar';
-import { LoadingComponent } from '../../../shared/components/ui/loading-component/loading-component';
 import { ApiErrorResponse } from '../../../shared/api/type/api.type';
-import { ActivatedRoute, Router, RouterLink } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { InputTextModule } from 'primeng/inputtext';
 import { SelectModule } from 'primeng/select';
 import { RouterBackComponent } from '../../../shared/components/ui/router-back-component/router-back-component';
-import { CardModule } from 'primeng/card';
 import { ExamSummary } from '../exam-service';
 import { HttpErrorResponse } from '@angular/common/http';
 import { FormsModule } from '@angular/forms';
 import { debounceTime, Subject } from 'rxjs';
+import {
+  ListPageItem,
+  ListPageLayout,
+} from '../../../shared/components/layout/list-page-layout/list-page-layout';
 
 @Component({
   selector: 'app-exam-list-component',
-  imports: [
-    DataViewModule,
-    ButtonModule,
-    ToolbarModule,
-    LoadingComponent,
-    RouterLink,
-    InputTextModule,
-    SelectModule,
-    RouterBackComponent,
-    CardModule,
-    FormsModule,
-  ],
+  imports: [InputTextModule, SelectModule, RouterBackComponent, FormsModule, ListPageLayout],
   templateUrl: './exam-list-component.html',
 })
 export class ExamListComponent {
@@ -46,6 +34,12 @@ export class ExamListComponent {
   search = signal<string | undefined>(undefined);
   active = signal<boolean | undefined>(undefined);
   exams = signal<ExamSummary[]>([]);
+  items = computed<ListPageItem[]>(() =>
+    this.exams().map((e) => ({
+      values: [e.name, e.active ? 'Ativo' : 'Inativo'],
+      route: `/painel/exames/${e.id}`,
+    })),
+  );
 
   constructor() {
     this.searchSub.pipe(debounceTime(300)).subscribe((value) => {

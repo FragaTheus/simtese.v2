@@ -1,75 +1,30 @@
-@if (loading() && error() === null) {
-  <app-loading-component />
-} @else if (error() !== null) {
-  <div class="w-full h-full flex items-center justify-center">
-    <div class="w-full max-w-xs border border-red-500 p-4 rounded-sm">
-      <span class="pi pi-exclamation-triangle text-xl text-red-500"></span>
-      <p class="font-bold mt-4">{{ error()?.status }}</p>
-      <p class="mt-2">{{ error()?.message }}</p>
-      <div class="flex items-center gap-2 w-full mt-6 justify-end">
-        <p-button routerLink="/painel" label="Voltar" variant="outlined" severity="danger" />
-        <p-button label="Tentar novamente" severity="success" (click)="retry()" />
-      </div>
-    </div>
+<app-list-page-layout
+  [loading]="loading()"
+  [error]="error()"
+  route="/painel"
+  (retry)="retry()"
+  [items]="items()"
+  createRoute="/painel/exames/cadastrar"
+  createLabel="Cadastrar"
+>
+  <div class="flex flex-wrap gap-2 items-center">
+    <app-router-back-component [route]="'/painel'" />
+    <input
+      pInputText
+      class="p-inputtext-sm"
+      type="text"
+      placeholder="Buscar por exames..."
+      [ngModel]="search()"
+      (ngModelChange)="onSearch($event)"
+    />
+    <p-select
+      [options]="statusOptions"
+      optionLabel="label"
+      optionValue="value"
+      placeholder="Status"
+      size="small"
+      [ngModel]="active()"
+      (ngModelChange)="active.set($event)"
+    />
   </div>
-} @else {
-  <div class="w-full h-full max-w-6xl m-auto">
-    <p-toolbar>
-      <ng-template #start>
-        <div class="flex flex-wrap gap-2 items-center">
-          <app-router-back-component [route]="'/painel'" />
-          <input
-            pInputText
-            class="p-inputtext-sm"
-            type="text"
-            placeholder="Buscar por exames..."
-            [ngModel]="search()"
-            (ngModelChange)="onSearch($event)"
-          />
-          <p-select
-            [options]="statusOptions"
-            optionLabel="label"
-            optionValue="value"
-            placeholder="Status"
-            size="small"
-            [ngModel]="active()"
-            (ngModelChange)="active.set($event)"
-          />
-        </div>
-      </ng-template>
-      <ng-template #end>
-        <p-button
-          icon="pi pi-plus"
-          label="Cadastrar"
-          severity="success"
-          size="small"
-          routerLink="/painel/exames/cadastrar"
-        />
-      </ng-template>
-    </p-toolbar>
-
-    <p-card class="mt-8 w-full">
-      <p-dataview [value]="exams()">
-        <ng-template #list let-exams>
-          @for (e of exams; track e.name) {
-            <div class="border-b border-surface-300 py-4 flex items-center justify-between">
-              <div class="flex flex-wrap items-center gap-2">
-                <span
-                  class="{{ e?.active ? 'bg-green-500' : 'bg-red-500' }} size-2 rounded-full"
-                ></span>
-                <span class="font-bold">{{ e?.name }}</span>
-              </div>
-
-              <p-button
-                icon="pi pi-ellipsis-v"
-                severity="secondary"
-                routerLink="/painel/exames/${e?.id}"
-                size="small"
-              />
-            </div>
-          }
-        </ng-template>
-      </p-dataview>
-    </p-card>
-  </div>
-}
+</app-list-page-layout>
