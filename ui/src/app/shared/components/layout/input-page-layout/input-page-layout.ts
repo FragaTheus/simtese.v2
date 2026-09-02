@@ -14,15 +14,4 @@ export class InputPageLayout {
   header = input.required<string>();
   description = input.required<string>();
   info = input.required<string>();
-
-  formGroup = input.required<FormGroup>();
-  submitLabel = input.required<string>();
-
-  loading = input.required<boolean>();
-  success = input.required<boolean>();
-  successMessage = input.required<string>();
-  successRoute = input.required<string>();
-  error = input.required<string | null>();
-
-  submit = output<void>();
 }

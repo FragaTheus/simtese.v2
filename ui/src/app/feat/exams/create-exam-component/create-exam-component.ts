@@ -6,10 +6,21 @@ import { FloatLabelModule } from 'primeng/floatlabel';
 import { InputTextModule } from 'primeng/inputtext';
 import { HttpErrorResponse } from '@angular/common/http';
 import { InputPageLayout } from '../../../shared/components/layout/input-page-layout/input-page-layout';
+import { ButtonModule } from 'primeng/button';
+import { InputPageSuccessMessageComponent } from '../../../shared/components/layout/input-page-layout/input-page-success-message-component/input-page-success-message-component';
+import { InputPageErrorMessageComponent } from '../../../shared/components/layout/input-page-layout/input-page-error-message-component/input-page-error-message-component';
 
 @Component({
   selector: 'app-create-exam-component',
-  imports: [FloatLabelModule, InputTextModule, ReactiveFormsModule, InputPageLayout],
+  imports: [
+    FloatLabelModule,
+    InputTextModule,
+    ReactiveFormsModule,
+    InputPageLayout,
+    ButtonModule,
+    InputPageSuccessMessageComponent,
+    InputPageErrorMessageComponent,
+  ],
   templateUrl: './create-exam-component.html',
 })
 export class CreateExamComponent {
@@ -28,7 +39,9 @@ export class CreateExamComponent {
     this.error() ? this.error()!.message || 'Ocorreu um erro ao cadastrar o exame.' : null,
   );
 
-  create() {
+  create = () => {
+    console.log('Stack trace:', new Error().stack);
+
     this.loading.set(true);
     this.success.set(false);
     this.error.set(null);
@@ -44,5 +57,12 @@ export class CreateExamComponent {
         this.loading.set(false);
       },
     });
+  };
+
+  onFormSubmit(event: Event) {
+    console.log('Event:', event);
+    console.log('Atual target:', event.currentTarget);
+    console.log('Target:', event.target);
+    return false;
   }
 }

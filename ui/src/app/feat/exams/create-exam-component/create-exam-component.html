@@ -3,17 +3,31 @@
   header="Cadastrar novo exame"
   description="Os exames cadastrados serão exibidos no agendamento."
   info="Nome do exame deve conter entre 2 e 100 caracteres."
-  [formGroup]="form"
-  submitLabel="Cadastrar"
-  [loading]="loading()"
-  [success]="success()"
-  successMessage="Exame cadastrado com sucesso!"
-  [successRoute]="successRoute()"
-  [error]="errorMessage()"
-  (submit)="create()"
 >
   <p-floatlabel variant="on">
-    <input pInputText id="examName" type="text" class="w-full" formControlName="name" />
-    <label for="examName">Nome do exame</label>
+    <form [formGroup]="form" (ngSubmit)="create()">
+      <div class="flex flex-col gap-6 w-full">
+        <p-floatlabel>
+          <input pInputText id="examName" type="text" class="w-full" formControlName="name" />
+          <label for="examName">Nome do exame</label>
+        </p-floatlabel>
+        @if (success()) {
+          <app-input-page-success-message-component
+            [route]="successRoute()"
+            successMessage="Exame cadastrado com sucesso!"
+          />
+        }
+        @if (error() !== null) {
+          <app-input-page-error-message-component [error]="errorMessage()!" />
+        }
+        <p-button
+          styleClass="w-full"
+          severity="success"
+          label="Cadastrar"
+          [loading]="loading()"
+          [disabled]="loading() || form.invalid"
+        />
+      </div>
+    </form>
   </p-floatlabel>
 </app-input-page-layout>
