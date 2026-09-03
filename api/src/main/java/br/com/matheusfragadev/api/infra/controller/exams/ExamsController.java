@@ -48,7 +48,7 @@ public class ExamsController {
                     sort = "name",
                     direction = Sort.Direction.ASC
             ) Pageable pageable
-            ){
+    ){
         Page<Exam> exams = examService.findAllExams(new ExamFilterCommand(search, active, pageable));
         Page<ExamSummary> response = exams.map(ExamMapper::toExamSummary);
         return ResponseEntity.ok(response);

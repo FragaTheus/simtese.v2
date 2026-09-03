@@ -1,0 +1,15 @@
+<div class="w-full h-full flex items-center justify-center">
+  <p-card styleClass="shadow-none border border-red-500 w-full max-w-xs">
+    <span
+      class="pi pi-exclamation-triangle text-2xl text-red-500 bg-surface-300 p-2 rounded-md"
+    ></span>
+    <h2 class="text-xl font-semibold mt-4">Oops, algo deu errado!</h2>
+    <p class="mt-2 uppercase">{{ error()?.status ?? 'Erro sem status' }}</p>
+    <p class="font-light text-surface-700 mt-2">
+      {{ error()?.message ?? 'Ocorreu um erro inesperado' }}
+    </p>
+    <div class="flex items-center gap-2 flex-wrap justify-end mt-6">
+      <ng-content />
+    </div>
+  </p-card>
+</div>

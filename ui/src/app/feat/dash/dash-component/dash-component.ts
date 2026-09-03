@@ -1,4 +1,4 @@
-import { Component, inject, signal } from '@angular/core';
+import { Component, computed, inject, signal } from '@angular/core';
 import { AuthService } from '../../auth/auth-service';
 import { HttpErrorResponse } from '@angular/common/http';
 import { ApiErrorResponse } from '../../../shared/api/type/api.type';
@@ -6,6 +6,9 @@ import { Router, RouterLink } from '@angular/router';
 import { SkeletonModule } from 'primeng/skeleton';
 import { CardModule } from 'primeng/card';
 import { ButtonModule } from 'primeng/button';
+import { DashPageHeaderLayout } from '../../../shared/components/layout/dash/dash-page-header-layout/dash-page-header-layout';
+import { ErrorComponent } from '../../../shared/components/ui/error-component/error-component';
+import { DashPageLayout } from '../../../shared/components/layout/dash/dash-page-layout/dash-page-layout';
 
 interface Card {
   icon: string;
@@ -16,14 +19,24 @@ interface Card {
 
 @Component({
   selector: 'app-dash-component',
-  imports: [SkeletonModule, CardModule, ButtonModule, SkeletonModule, RouterLink],
+  imports: [
+    SkeletonModule,
+    CardModule,
+    ButtonModule,
+    SkeletonModule,
+    RouterLink,
+    DashPageHeaderLayout,
+    ErrorComponent,
+    DashPageLayout,
+  ],
   templateUrl: './dash-component.html',
 })
 export class DashComponent {
-  loading = signal<boolean>(false);
-  error = signal<ApiErrorResponse | null>(null);
   private router = inject(Router);
   private authService = inject(AuthService);
+  loading = signal<boolean>(false);
+  error = signal<ApiErrorResponse | null>(null);
+
   cards: Card[] = [
     {
       icon: 'pi pi-clipboard',
@@ -97,7 +110,7 @@ export class DashComponent {
     });
   }
 
-  retry() {
+  protected retry() {
     this.authenticate();
   }
 }

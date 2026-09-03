@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { PageLayout } from '../../../shared/components/layout/page-layout/page-layout';
+import { HomePageLayout } from '../../../shared/components/layout/home/home-page-layout/home-page-layout';
 import { CardModule } from 'primeng/card';
 import { ButtonModule } from 'primeng/button';
 
@@ -13,7 +13,7 @@ interface Solution {
 
 @Component({
   selector: 'app-solutions-component',
-  imports: [PageLayout, CardModule, ButtonModule],
+  imports: [HomePageLayout, CardModule, ButtonModule],
   templateUrl: './solutions-component.html',
 })
 export class SolutionsComponent {

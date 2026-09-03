@@ -2,11 +2,11 @@ import { Component, computed, input } from '@angular/core';
 import { twMerge } from 'tailwind-merge';
 
 @Component({
-  selector: 'app-page-layout',
+  selector: 'app-home-page-layout',
   imports: [],
-  templateUrl: './page-layout.html',
+  templateUrl: './home-page-layout.html',
 })
-export class PageLayout {
+export class HomePageLayout {
   className = input<string>('');
 
   protected readonly classes = computed(() =>

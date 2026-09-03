@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
 
-import { PageLayout } from '../../../shared/components/layout/page-layout/page-layout';
+import { HomePageLayout } from '../../../shared/components/layout/home/home-page-layout/home-page-layout';
 import { ButtonModule } from 'primeng/button';
 import {
   COMERCIAL,
@@ -49,7 +49,7 @@ interface ServiceInfo {
 
 @Component({
   selector: 'app-footer-component',
-  imports: [PageLayout, ButtonModule],
+  imports: [HomePageLayout, ButtonModule],
   templateUrl: './footer-component.html',
 })
 export class FooterComponent {

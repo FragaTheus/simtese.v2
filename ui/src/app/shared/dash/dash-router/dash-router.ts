@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
 import { RouterOutlet } from '@angular/router';
-import { DashLayout } from '../../components/layout/dash-layout/dash-layout';
+import { DashLayout } from '../../components/layout/dash/dash-layout/dash-layout';
 
 @Component({
   selector: 'app-dash-router',

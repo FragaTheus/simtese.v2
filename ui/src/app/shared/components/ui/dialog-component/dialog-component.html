@@ -1,0 +1,11 @@
+<p-dialog [(visible)]="visible" [modal]="true" [closable]="false" styleClass="w-full max-w-xs">
+  <ng-template #header>
+    <div class="flex items-center justify-between w-full">
+      <h2 class="font-semibold text-lg">{{ title() }}</h2>
+      <span class="{{ icon() }} text-2xl text-clinical-teal"></span>
+    </div>
+  </ng-template>
+  <div class="mt-6 w-full">
+    <ng-content />
+  </div>
+</p-dialog>

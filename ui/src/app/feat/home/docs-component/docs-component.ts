@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { PageLayout } from '../../../shared/components/layout/page-layout/page-layout';
+import { HomePageLayout } from '../../../shared/components/layout/home/home-page-layout/home-page-layout';
 import { ButtonModule } from 'primeng/button';
 import { CardModule } from 'primeng/card';
 import { COMERCIAL } from '../links';
@@ -11,7 +11,7 @@ interface Docs {
 
 @Component({
   selector: 'app-docs-component',
-  imports: [PageLayout, ButtonModule, CardModule],
+  imports: [HomePageLayout, ButtonModule, CardModule],
   templateUrl: './docs-component.html',
 })
 export class DocsComponent {

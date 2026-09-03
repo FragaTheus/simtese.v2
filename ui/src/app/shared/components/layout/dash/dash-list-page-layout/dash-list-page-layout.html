@@ -1,0 +1,26 @@
+<p-toolbar class="mt-8">
+  <div class="w-full flex items-center justify-between flex-wrap gap-2">
+    @if (loading()) {
+      <div class="flex items-center gap-2 w-full max-w-md">
+        <p-skeleton class="max-w-3xs p-5" />
+        <p-skeleton class="max-w-24 p-5" />
+      </div>
+      <p-skeleton class="max-w-3xs p-5" />
+    } @else {
+      <ng-content select="[toolbar]"></ng-content>
+    }
+  </div>
+</p-toolbar>
+
+<p-card styleClass="mt-8">
+  @if (loading()) {
+    @for (s of skeletons; track s) {
+      <div class="w-full flex items-center py-4 border-b border-surface-300 justify-between">
+        <p-skeleton class="max-w-3xs p-5" />
+        <p-skeleton class="max-w-8 p-5" />
+      </div>
+    }
+  } @else {
+    <ng-content select="[dataview]" />
+  }
+</p-card>

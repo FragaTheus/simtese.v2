@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { PageLayout } from '../../../shared/components/layout/page-layout/page-layout';
+import { HomePageLayout } from '../../../shared/components/layout/home/home-page-layout/home-page-layout';
 
 interface Bullet {
   icon: string;
@@ -9,7 +9,7 @@ interface Bullet {
 
 @Component({
   selector: 'app-bullets-component',
-  imports: [PageLayout],
+  imports: [HomePageLayout],
   templateUrl: './bullets-component.html',
 })
 export class BulletsComponent {

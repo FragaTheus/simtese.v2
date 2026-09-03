@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { PageLayout } from '../../../shared/components/layout/page-layout/page-layout';
+import { HomePageLayout } from '../../../shared/components/layout/home/home-page-layout/home-page-layout';
 import { CardModule } from 'primeng/card';
 
 interface Structure {
@@ -10,7 +10,7 @@ interface Structure {
 
 @Component({
   selector: 'app-structure-component',
-  imports: [PageLayout, CardModule],
+  imports: [HomePageLayout, CardModule],
   templateUrl: './structure-component.html',
 })
 export class StructureComponent {

@@ -1,0 +1,37 @@
+<p-button label="Novo Exame" icon="pi pi-plus-circle" (click)="visible.set(true)" />
+
+<app-dialog-component
+  [(visible)]="visible"
+  [icon]="'pi pi-clipboard'"
+  [title]="'Cadastrar novo exame'"
+>
+  <form [formGroup]="form" (ngSubmit)="createExam()">
+    <div class="flex flex-col gap-6 w-full">
+      <p-floatlabel variant="on">
+        <input pInputText id="name" formControlName="name" class="w-full" />
+        <label for="name">Nome do exame</label>
+      </p-floatlabel>
+
+      @if (error() !== null) {
+        <div class="w-full p-2 rounded-md text-center text-sm text-red-500 bg-red-50">
+          {{ error() }}
+        </div>
+      }
+
+      @if (success() && id() !== null) {
+        <a
+          title="Clique para ver mais"
+          [routerLink]="'/exams/' + id()"
+          class="w-full p-2 rounded-md text-center text-sm text-green-500 bg-green-50"
+        >
+          Exame cadastrado com sucesso!
+        </a>
+      }
+
+      <div class="flex items-center gap-2 w-full justify-end">
+        <p-button label="Cancelar" (click)="closeDialog()" severity="danger" />
+        <p-button label="Cadastrar" type="submit" severity="success" />
+      </div>
+    </div>
+  </form>
+</app-dialog-component>

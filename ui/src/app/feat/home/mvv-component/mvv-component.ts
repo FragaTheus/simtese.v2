@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
 import { CardModule } from 'primeng/card';
-import { PageLayout } from '../../../shared/components/layout/page-layout/page-layout';
+import { HomePageLayout } from '../../../shared/components/layout/home/home-page-layout/home-page-layout';
 
 interface Mvv {
   icon: string;
@@ -11,7 +11,7 @@ interface Mvv {
 
 @Component({
   selector: 'app-mvv-component',
-  imports: [CardModule, PageLayout],
+  imports: [CardModule, HomePageLayout],
   templateUrl: './mvv-component.html',
 })
 export class MvvComponent {

@@ -1,1 +1,53 @@
-<p>exams-list-component works!</p>
+@if (error() !== null) {
+  <app-error-component [error]="error()">
+    <p-button label="Cancelar" severity="danger" [routerLink]="'/painel'" />
+    <p-button label="Tentar novamente" severity="success" (click)="loadExams()" />
+  </app-error-component>
+}
+
+<app-dash-page-layout>
+  <app-dash-page-header-layout
+    [loading]="loading()"
+    [label]="' Catálogo Ativo'"
+    [title]="'Lista de Exames'"
+    [description]="'Gerencie os exames que estarão disponíveis no agendamento.'"
+  >
+    <app-create-exam-component (refresh)="refresh()" />
+  </app-dash-page-header-layout>
+
+  <app-dash-list-page-layout [loading]="loading()">
+    <div toolbar></div>
+
+    <div dataview>
+      <p-dataView
+        [value]="pageableResponse()!.content"
+        [paginator]="true"
+        [rows]="10"
+        [totalRecords]="pageableResponse()?.totalElements"
+      >
+        <ng-template #list let-items>
+          @for (i of items; track i.id) {
+            <div class="w-full flex items-center justify-between py-4 border-b border-surface-200">
+              <div class="flex items-center gap-4 max-w-3xs">
+                @if (i.active) {
+                  <div class="bg-green-50 flex items-center gap-1 text-green-500 p-1 rounded-full">
+                    <div class="size-2 rounded-full hidden md:inline bg-green-500"></div>
+                    <span class="text-xs uppercase">Ativo</span>
+                  </div>
+                } @else {
+                  <div class="bg-red-50 flex items-center gap-1 text-red-500 p-1 rounded-full">
+                    <div class="size-2 rounded-full hidden md:inline bg-red-500"></div>
+                    <span class="text-xs uppercase">Inativo</span>
+                  </div>
+                }
+
+                <span class="font-semibold truncate max-w-sm">{{ i.name }}</span>
+              </div>
+              <p-button severity="secondary" icon="pi pi-ellipsis-v" size="small" />
+            </div>
+          }
+        </ng-template>
+      </p-dataView>
+    </div>
+  </app-dash-list-page-layout>
+</app-dash-page-layout>
