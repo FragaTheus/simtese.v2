@@ -2,49 +2,78 @@ import { Component, inject, signal } from '@angular/core';
 import { AuthService } from '../../auth/auth-service';
 import { HttpErrorResponse } from '@angular/common/http';
 import { ApiErrorResponse } from '../../../shared/api/type/api.type';
-import { Router } from '@angular/router';
+import { Router, RouterLink } from '@angular/router';
 import { SkeletonModule } from 'primeng/skeleton';
 import { CardModule } from 'primeng/card';
 import { ButtonModule } from 'primeng/button';
-import { LoadingComponent } from '../../../shared/components/ui/loading-component/loading-component';
 
 interface Card {
-  imgSrc: string;
+  icon: string;
   title: string;
-  subtitle: string;
-  routerLink: string;
+  description: string;
+  href: string;
 }
 
 @Component({
   selector: 'app-dash-component',
-  imports: [SkeletonModule, CardModule, ButtonModule, LoadingComponent],
+  imports: [SkeletonModule, CardModule, ButtonModule, SkeletonModule, RouterLink],
   templateUrl: './dash-component.html',
 })
 export class DashComponent {
-  nickname = signal<string | undefined>(undefined);
   loading = signal<boolean>(false);
   error = signal<ApiErrorResponse | null>(null);
   private router = inject(Router);
   private authService = inject(AuthService);
   cards: Card[] = [
     {
-      imgSrc: '/',
+      icon: 'pi pi-clipboard',
       title: 'Exames',
-      subtitle: 'Gerencie os exames que irão aparecer no agendamento',
-      routerLink: '/exames',
+      description: 'Gerencie o catálogo de exames que estarão disponíveis no agendamento.',
+      href: '/painel/exames',
+    },
+    {
+      icon: 'pi pi-clipboard',
+      title: 'Exames',
+      description: 'Gerencie o catálogo de exames que estarão disponíveis no agendamento.',
+      href: '/painel/exames',
+    },
+    {
+      icon: 'pi pi-clipboard',
+      title: 'Exames',
+      description: 'Gerencie o catálogo de exames que estarão disponíveis no agendamento.',
+      href: '/painel/exames',
+    },
+    {
+      icon: 'pi pi-clipboard',
+      title: 'Exames',
+      description: 'Gerencie o catálogo de exames que estarão disponíveis no agendamento.',
+      href: '/painel/exames',
+    },
+    {
+      icon: 'pi pi-clipboard',
+      title: 'Exames',
+      description: 'Gerencie o catálogo de exames que estarão disponíveis no agendamento.',
+      href: '/painel/exames',
+    },
+    {
+      icon: 'pi pi-clipboard',
+      title: 'Exames',
+      description: 'Gerencie o catálogo de exames que estarão disponíveis no agendamento.',
+      href: '/painel/exames',
     },
   ];
 
-  ngOnInit() {
-    this.authenticate();
-  }
+  fastAccess: Card[] = [
+    {
+      icon: 'pi pi-clipboard',
+      title: 'Novo',
+      description: 'Cadastrar novo exame',
+      href: '/acesso-rapido',
+    },
+  ];
 
-  retry() {
+  constructor() {
     this.authenticate();
-  }
-
-  cancel() {
-    this.router.navigate(['/']);
   }
 
   authenticate() {
@@ -52,8 +81,7 @@ export class DashComponent {
     this.error.set(null);
 
     this.authService.me().subscribe({
-      next: (user) => {
-        this.nickname.set(user.body?.name);
+      next: () => {
         this.loading.set(false);
       },
       error: (err: HttpErrorResponse) => {
@@ -67,5 +95,9 @@ export class DashComponent {
         this.error.set(apiError);
       },
     });
+  }
+
+  retry() {
+    this.authenticate();
   }
 }

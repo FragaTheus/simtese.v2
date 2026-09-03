@@ -1,12 +1,9 @@
 import { Component, model, signal } from '@angular/core';
-import { RouterLink } from '@angular/router';
 import { ButtonModule } from 'primeng/button';
 import { DrawerModule } from 'primeng/drawer';
 import { PanelMenuModule } from 'primeng/panelmenu';
 import { MenuItem } from 'primeng/api';
 import { DASH_ROUTE } from '../../../routes/routes';
-
-const EXAM_ROUTE = `${DASH_ROUTE}/exames`;
 
 @Component({
   selector: 'app-drawer-component',
@@ -26,18 +23,7 @@ export class DrawerComponent {
     {
       label: 'Exames',
       icon: 'pi pi-clipboard',
-      items: [
-        {
-          label: 'Cadastrar',
-          icon: 'pi pi-plus',
-          routerLink: `${EXAM_ROUTE}/cadastrar`,
-        },
-        {
-          label: 'Ver todos',
-          icon: 'pi pi-search',
-          routerLink: `${EXAM_ROUTE}`,
-        },
-      ],
+      routerLink: `${DASH_ROUTE}/exames`,
     },
   ];
 

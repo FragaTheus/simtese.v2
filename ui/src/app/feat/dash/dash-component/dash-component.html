@@ -1,31 +1,105 @@
-@if (loading()) {
-  <app-loading-component />
-} @else {
-  <div class="w-full h-full">
-    <div>
-      <h1 class="font-semibold tracking-tighter text-3xl max-w-3xs">Painel Simtese</h1>
-      <p class="font-light text-sm text-surface-700 mt-2 max-w-sm">
-        Que bom ter voce de volta, {{ nickname() }}!
+@if (error() !== null) {
+  <div class="w-full h-full flex items-center justify-center">
+    <p-card styleClass="shadow-none border border-red-500 w-full max-w-xs">
+      <span
+        class="pi pi-exclamation-triangle text-2xl text-red-500 bg-surface-300 p-2 rounded-md"
+      ></span>
+      <h2 class="text-xl font-semibold mt-4">Ocorreu um erro</h2>
+      <p class="mt-2 uppercase">{{ error()?.status ?? 'Erro sem status' }}</p>
+      <p class="font-light text-surface-700 mt-2">
+        {{ error()?.message ?? 'Ocorreu um erro inesperado' }}
       </p>
-    </div>
+      <div class="flex items-center gap-2 flex-wrap justify-end mt-6">
+        <p-button label="Voltar" severity="danger" [routerLink]="'/entrar'" />
+        <p-button label="Tentar novamente" severity="success" (click)="retry()" />
+      </div>
+    </p-card>
+  </div>
+}
 
-    <div class="grid grid-cols-1 md:grid-cols-4 gap-6 mt-8">
-      @for (c of cards; track c.title) {
-        <p-card>
-          <ng-template #header>
-            <img src="{{ c.imgSrc }}" alt="{{ c.title }}" class="w-full h-32 object-cover" />
-          </ng-template>
-          <ng-template #title>
-            {{ c.title }}
-          </ng-template>
-          <ng-template #subtitle>
-            {{ c.subtitle }}
-          </ng-template>
-          <ng-template #footer>
-            <p-button label="Ver mais" routerLink="c.routerLink" severity="secondary" />
-          </ng-template>
+<div class="w-full h-full max-w-6xl m-auto">
+  <div id="header" class="flex justify-between flex-wrap gap-2 items-center">
+    <div class="min-w-sm">
+      @if (loading()) {
+        <p-skeleton class="max-w-46 p-3" />
+        <p-skeleton class="mt-4 max-w-2xs p-4" />
+        <p-skeleton class="mt-2 max-w-xl" />
+      } @else {
+        <span class="bg-surface-300 p-1 rounded-full text-xs uppercase max-w-3xs text-center">
+          SIMTESE Saúde Ocupacional
+        </span>
+        <h1 class="mt-4 text-3xl font-semibold">Painel de Recursos</h1>
+        <p class="font-light text-surface-700 max-w-xl">
+          Acesse e gerencie rapidamente os principais módulos operacionais.
+        </p>
+      }
+    </div>
+    @if (loading()) {
+      <p-skeleton class="max-w-3xs p-6" />
+    } @else {
+      <p-button label="Novo agendamento" icon="pi pi-plus-circle" />
+    }
+  </div>
+
+  <div id="content" class="mt-8">
+    <div class="grid grid-cols-1 md:grid-cols-4 gap-6">
+      @if (loading()) {
+        <p-skeleton class="w-50 p-42" />
+        <p-skeleton class="w-50 p-42" />
+        <p-skeleton class="w-50 p-42" />
+        <p-skeleton class="w-50 p-42" />
+        <p-skeleton class="w-50 p-42 md:col-span-2" />
+        <p-skeleton class="w-50 p-42 md:col-span-2" />
+      } @else {
+        @for (c of cards; track c.title) {
+          <p-card
+            styleClass="shadow-none hover:shadow-md hover:scale-105 transition-all group max-w-3xs"
+          >
+            <div id="card-header">
+              <span
+                class="{{
+                  c.icon
+                }} text-2xl text-clinical-teal bg-surface-300 p-2 rounded-md group-hover:text-white group-hover:bg-clinical-teal transition-all"
+              ></span>
+            </div>
+
+            <div id="card-content" class="mt-4">
+              <h2 class="text-xl font-semibold">{{ c.title }}</h2>
+              <p class="font-light text-surface-700 mt-2">{{ c.description }}</p>
+
+              <p-button
+                variant="text"
+                size="small"
+                styleClass="text-clinical-teal mt-4"
+                [routerLink]="c.href"
+              >
+                <span>Ver mais</span>
+                <span class="pi pi-arrow-right"></span>
+              </p-button>
+            </div>
+          </p-card>
+        }
+        <p-card styleClass="shadow-none md:col-span-2">
+          <div>
+            <h2 class="text-xl font-semibold">Ações Rápidas</h2>
+            <p class="font-light text-surface-700 mt-2">
+              Acessos instantâneos para fluxos frequentes
+            </p>
+            <div class="grid grid-cols-2 md:grid-cols-4 gap-2">
+              @for (fa of fastAccess; track fa.title) {
+                <a
+                  class="bg-surface-50 p-4 rounded-md hover:shadow-md hover:scale-101 transition-all mt-4"
+                  [routerLink]="'fa.href'"
+                >
+                  <span class="{{ fa.icon }} text-clinical-teal text-xl"></span>
+                  <h2 class="font-semibold mt-2">{{ fa.title }}</h2>
+                  <p class="font-light text-sm mt-2">{{ fa.description }}</p>
+                </a>
+              }
+            </div>
+          </div>
         </p-card>
       }
     </div>
   </div>
-}
+</div>
