@@ -16,14 +16,35 @@
   </app-dash-page-header-layout>
 
   <app-dash-list-page-layout [loading]="loading()">
-    <div toolbar></div>
+    <div toolbar class="w-full flex items-center justify-between flex-wrap gap-2">
+      <form (ngSubmit)="onSearch()">
+        <div class="flex items-center gap-2">
+          <p-floatlabel variant="on">
+            <input pInputText id="search" name="search" type="text" [(ngModel)]="params().search" />
+
+            <label for="search">Pesquisar exames</label>
+          </p-floatlabel>
+
+          <p-button severity="secondary" icon="pi pi-search" type="submit" />
+        </div>
+      </form>
+      <p-select
+        [options]="activeOptions"
+        optionLabel="label"
+        optionValue="active"
+        [(ngModel)]="params().active"
+        placeholder="status"
+        (onChange)="onActive($event.value)"
+      />
+    </div>
 
     <div dataview>
       <p-dataView
         [value]="pageableResponse()!.content"
         [paginator]="true"
-        [rows]="10"
+        [rows]="pageableResponse()?.size"
         [totalRecords]="pageableResponse()?.totalElements"
+        (onPage)="changePage($event)"
       >
         <ng-template #list let-items>
           @for (i of items; track i.id) {
@@ -43,7 +64,12 @@
 
                 <span class="font-semibold truncate max-w-sm">{{ i.name }}</span>
               </div>
-              <p-button severity="secondary" icon="pi pi-ellipsis-v" size="small" />
+              <p-button
+                severity="secondary"
+                icon="pi pi-ellipsis-v"
+                size="small"
+                [routerLink]="'/painel/exames/' + i.id"
+              />
             </div>
           }
         </ng-template>

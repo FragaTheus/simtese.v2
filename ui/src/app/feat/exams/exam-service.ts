@@ -24,6 +24,12 @@ export interface ExamInfo {
   updatedBy: string;
 }
 
+export interface ExamsParams {
+  search?: string;
+  active?: boolean;
+  page?: number;
+}
+
 @Injectable({
   providedIn: 'root',
 })
@@ -34,21 +40,32 @@ export class ExamService {
     return this.http.post<string>(`${API_V1_URL}/exams`, request);
   }
 
-  all(search?: string, active?: boolean): Observable<PageableResponse<ExamSummary>> {
-    let params = new HttpParams().set('page', '0');
+  all(params: ExamsParams = {}): Observable<PageableResponse<ExamSummary>> {
+    let httpParams = new HttpParams();
 
-    if (search) params = params.set('search', search);
-    if (active !== undefined) params = params.set('active', active.toString());
+    if (params.page !== undefined) {
+      httpParams = httpParams.set('page', params.page.toString());
+    }
 
-    return this.http.get<PageableResponse<ExamSummary>>(`${API_V1_URL}/exams`, { params });
+    if (params?.active !== undefined) {
+      httpParams = httpParams.set('active', params.active.toString());
+    }
+
+    if (params.search) {
+      httpParams = httpParams.set('search', params.search);
+    }
+
+    return this.http.get<PageableResponse<ExamSummary>>(`${API_V1_URL}/exams`, {
+      params: httpParams,
+    });
   }
 
   info(targetId: string): Observable<ExamInfo> {
     return this.http.get<ExamInfo>(`${API_V1_URL}/exams/${targetId}`);
   }
 
-  change(targetId: string, name: string): Observable<void> {
-    return this.http.patch<void>(`${API_V1_URL}/exams/${targetId}/name`, { name });
+  change(targetId: string, request: CreateExamRequest): Observable<void> {
+    return this.http.patch<void>(`${API_V1_URL}/exams/${targetId}/name`, request);
   }
 
   activate(targetId: string): Observable<void> {

@@ -1,4 +1,5 @@
 import { Component, inject, output, signal } from '@angular/core';
+import { TooltipModule } from 'primeng/tooltip';
 import { DialogComponent } from '../../../shared/components/ui/dialog-component/dialog-component';
 import { ButtonModule } from 'primeng/button';
 import { ReactiveFormsModule, FormBuilder, Validators } from '@angular/forms';
@@ -17,6 +18,7 @@ import { RouterLink } from '@angular/router';
     ReactiveFormsModule,
     FloatLabelModule,
     InputTextModule,
+    TooltipModule,
     RouterLink,
   ],
   templateUrl: './create-exam-component.html',
