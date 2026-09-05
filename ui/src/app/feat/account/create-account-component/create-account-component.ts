@@ -3,15 +3,21 @@ import { TooltipModule } from 'primeng/tooltip';
 import { DialogComponent } from '../../../shared/components/ui/dialog-component/dialog-component';
 import { ButtonModule } from 'primeng/button';
 import { ReactiveFormsModule, FormBuilder, Validators } from '@angular/forms';
-import { ExamService } from '../exam-service';
+import { AccountService, Role } from '../account-service';
 import { HttpErrorResponse } from '@angular/common/http';
 import { FloatLabelModule } from 'primeng/floatlabel';
 import { InputTextModule } from 'primeng/inputtext';
 import { ApiErrorResponse } from '../../../shared/api/type/api.type';
 import { RouterLink } from '@angular/router';
+import { SelectModule } from 'primeng/select';
+
+interface RoleOption {
+  label: string;
+  value: Role;
+}
 
 @Component({
-  selector: 'app-create-exam-component',
+  selector: 'app-create-account-component',
   imports: [
     DialogComponent,
     ButtonModule,
@@ -20,10 +26,11 @@ import { RouterLink } from '@angular/router';
     InputTextModule,
     TooltipModule,
     RouterLink,
+    SelectModule,
   ],
-  templateUrl: './create-exam-component.html',
+  templateUrl: './create-account-component.html',
 })
-export class CreateExamComponent {
+export class CreateAccountComponent {
   showTrigger = input<boolean>(true);
   visible = signal<boolean>(false);
   loading = signal<boolean>(false);
@@ -31,18 +38,28 @@ export class CreateExamComponent {
   success = signal<boolean>(false);
   id = signal<string | null>(null);
   private fb = inject(FormBuilder);
-  private examService = inject(ExamService);
+  private accountService = inject(AccountService);
   refresh = output<void>();
+  roleOptions: RoleOption[] = [
+    { label: 'Administrador', value: 'ADMIN' },
+    { label: 'Enfermeiro(a)', value: 'NURSE' },
+    { label: 'Recepcionista', value: 'RECEPTIONIST' },
+    { label: 'Empresa', value: 'ENTERPRISE' },
+  ];
   form = this.fb.nonNullable.group({
     name: ['', Validators.required],
+    email: ['', [Validators.required, Validators.email]],
+    password: ['', Validators.required],
+    confirmPassword: ['', Validators.required],
+    role: undefined as Role | undefined,
   });
 
-  createExam() {
+  createAccount() {
     this.error.set(null);
     this.loading.set(true);
     this.success.set(false);
 
-    this.examService.create(this.form.getRawValue()).subscribe({
+    this.accountService.create(this.form.getRawValue()).subscribe({
       next: (id) => {
         this.id.set(id);
         this.loading.set(false);

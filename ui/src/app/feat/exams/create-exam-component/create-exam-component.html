@@ -1,4 +1,6 @@
-<p-button label="Novo Exame" icon="pi pi-plus-circle" (click)="visible.set(true)" />
+@if (showTrigger()) {
+  <p-button label="Novo Exame" icon="pi pi-plus-circle" (click)="visible.set(true)" />
+}
 
 <app-dialog-component
   [(visible)]="visible"
@@ -29,7 +31,7 @@
       @if (success() && id() !== null) {
         <a
           title="Clique para ver mais"
-          [routerLink]="'/exams/' + id()"
+          [routerLink]="'/painel/exames/' + id()"
           class="w-full p-2 rounded-md text-center text-sm text-green-500 bg-green-50"
         >
           Exame cadastrado com sucesso!

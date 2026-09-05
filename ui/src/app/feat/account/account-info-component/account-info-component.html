@@ -1,0 +1,17 @@
+<app-dash-page-layout>
+  <app-dash-page-header-layout
+    [loading]="loading()"
+    [label]="'Usuários'"
+    [title]="'Informações da Conta'"
+    [description]="' Visualização detalhada dos dados cadastrais e metadados de auditoria. '"
+  >
+    <p-button
+      severity="danger"
+      variant="text"
+      icon="pi pi-chevron-left"
+      label="Voltar"
+      routerLink="/painel/contas"
+    />
+  </app-dash-page-header-layout>
+  <app-account-info-layout></app-account-info-layout>
+</app-dash-page-layout>

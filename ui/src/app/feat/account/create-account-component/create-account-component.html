@@ -1,0 +1,105 @@
+@if (showTrigger()) {
+  <p-button label="Nova Conta" icon="pi pi-plus-circle" (click)="visible.set(true)" />
+}
+
+<app-dialog-component
+  [(visible)]="visible"
+  [icon]="'pi pi-user-plus'"
+  [title]="'Cadastrar nova conta'"
+>
+  <form [formGroup]="form" (ngSubmit)="createAccount()">
+    <div class="flex flex-col gap-6 w-full">
+      <p-floatlabel variant="on">
+        <input
+          pInputText
+          id="name"
+          formControlName="name"
+          class="w-full"
+          pTooltip="Nome deve conter entre 3 e 100 caracteres, com somente letras e espaços"
+          tooltipEvent="focus"
+          tooltipPosition="top"
+        />
+        <label for="name">Nome</label>
+      </p-floatlabel>
+
+      <p-floatlabel variant="on">
+        <input
+          pInputText
+          id="email"
+          type="email"
+          formControlName="email"
+          class="w-full"
+          pTooltip="Informe um email válido"
+          tooltipEvent="focus"
+          tooltipPosition="top"
+        />
+        <label for="email">Email</label>
+      </p-floatlabel>
+
+      <p-floatlabel variant="on">
+        <input
+          pInputText
+          id="password"
+          type="password"
+          formControlName="password"
+          class="w-full"
+          pTooltip="Senha deve conter entre 08 e 16 caracteres, com número, caractere especial, letra maiúscula e minúscula"
+          tooltipEvent="focus"
+          tooltipPosition="top"
+        />
+        <label for="password">Senha</label>
+      </p-floatlabel>
+
+      <p-floatlabel variant="on">
+        <input
+          pInputText
+          id="confirmPassword"
+          type="password"
+          formControlName="confirmPassword"
+          class="w-full"
+          pTooltip="Confirmação deve ser igual a senha informada"
+          tooltipEvent="focus"
+          tooltipPosition="top"
+        />
+        <label for="confirmPassword">Confirmar senha</label>
+      </p-floatlabel>
+
+      <p-select
+        [options]="roleOptions"
+        optionLabel="label"
+        optionValue="value"
+        formControlName="role"
+        placeholder="Perfil"
+        appendTo="body"
+        class="w-full"
+      />
+
+      @if (error() !== null) {
+        <div class="w-full p-2 rounded-md text-center text-sm text-red-500 bg-red-50">
+          {{ error() }}
+        </div>
+      }
+
+      @if (success() && id() !== null) {
+        <a
+          title="Clique para ver mais"
+          [routerLink]="'/painel/contas/' + id()"
+          class="w-full p-2 rounded-md text-center text-sm text-green-500 bg-green-50"
+        >
+          Conta cadastrada com sucesso!
+        </a>
+      }
+
+      <div class="flex items-center gap-2 w-full justify-end">
+        <p-button label="Cancelar" (click)="closeDialog()" severity="danger" />
+        <p-button
+          label="Cadastrar"
+          type="submit"
+          severity="success"
+          [loading]="loading()"
+          [disabled]="loading() || form.invalid"
+        />
+      </div>
+    </div>
+  </form>
+</app-dialog-component>

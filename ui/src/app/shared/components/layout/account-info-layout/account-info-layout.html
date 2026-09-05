@@ -1,0 +1,102 @@
+<div class="w-full h-full mt-8">
+  <p-card>
+    <div class="w-full flex items-center justify-between flex-wrap gap-4">
+      @if (loading) {
+        <div class="h-full items-center flex gap-4 flex-wrap">
+          <p-skeleton shape="circle" size="6rem"></p-skeleton>
+          <div>
+            <div class="flex items-center gap-2">
+              <p-skeleton width="18rem" height="2rem" />
+              <p-skeleton width="4rem" height="2rem" />
+            </div>
+            <p-skeleton width="22rem" height="1rem" styleClass="mt-2" />
+          </div>
+        </div>
+        <p-skeleton width="10rem" height="3rem" />
+      } @else {
+        <div class="h-full items-center flex gap-4 flex-wrap">
+          <p-avatar shape="circle" styleClass="size-20" />
+          <div>
+            <div class="flex items-center gap-2">
+              <h1 class="text-3xl font-semibold">Nome do Usuário</h1>
+              <span
+                class="bg-blue-50 text-blue-500 text-xs font-semibold uppercase py-1 px-2 rounded-full"
+                >Role</span
+              >
+            </div>
+            <h2 class="font-light text-surface-700 text-sm">email@email.com.br</h2>
+          </div>
+        </div>
+        <span class="bg-surface-100 p-2 rounded-md"> Status: Ativo </span>
+      }
+    </div>
+  </p-card>
+
+  <div class="flex items-center gap-2 mt-6">
+    <span class="pi pi-id-card text-clinical-teal text-2xl"></span>
+    <h3 class="text-xl font-semibold">Dados Principais da Conta</h3>
+  </div>
+
+  <div class="mt-6 grid grid-cols-1 md:grid-cols-2 gap-6">
+    <p-card>
+      <div class="w-full flex items-center gap-4">
+        <span class="bg-surface-100 text-clinical-teal text-xl p-2 rounded-md pi pi-key"></span>
+        <div>
+          <label class="text-xs uppercase font-semibold"> identificador da conta </label>
+          <p class="text-surface-700 font-light">acc_8f92e41c-3b21-4820-9f5a-c4e1289dfb31</p>
+        </div>
+      </div>
+    </p-card>
+
+    <p-card>
+      <div class="w-full flex items-center gap-4">
+        <span class="bg-surface-100 text-clinical-teal text-xl p-2 rounded-md pi pi-user"></span>
+        <div>
+          <label class="text-xs uppercase font-semibold"> Nome Completo </label>
+          <p class="text-surface-700 font-light">Nome do Usuário</p>
+          <small>Titular do registro profissional</small>
+        </div>
+      </div>
+    </p-card>
+
+    <p-card>
+      <div class="w-full flex items-center gap-4">
+        <span
+          class="bg-surface-100 text-clinical-teal text-xl p-2 rounded-md pi pi-envelope"
+        ></span>
+        <div>
+          <label class="text-xs uppercase font-semibold"> E-mail Corporativo </label>
+          <p class="text-surface-700 font-light">email@email.com.br</p>
+          <small>E-mail de autenticação e notificações</small>
+        </div>
+      </div>
+    </p-card>
+
+    <p-card>
+      <div class="w-full flex items-center gap-4">
+        <span class="bg-surface-100 text-clinical-teal text-xl p-2 rounded-md pi pi-shield"></span>
+        <div>
+          <label class="text-xs uppercase font-semibold"> Perfil de Acesso / Papel </label>
+          <p class="text-surface-700 font-light">Administrador</p>
+          <small>Função atribuída ao usuário dentro do sistema</small>
+        </div>
+      </div>
+    </p-card>
+
+    <p-card>
+      <div class="w-full flex items-center gap-4">
+        <span class="bg-green-50 text-green-500 text-xl p-2 rounded-md pi pi-check"></span>
+        <div>
+          <label class="text-xs uppercase font-semibold">Status da Conta </label>
+          <span
+            class="flex items-center gap-2 bg-green-50 rounded-full px-2 py-1 max-w-min border-green-500 border"
+          >
+            <div class="bg-green-500 rounded-full size-2 border border-green-500"></div>
+            <span class="text-green-500 uppercase font-semibold text-xs">Ativo</span>
+          </span>
+          <small>Conta apta para acesso e operações</small>
+        </div>
+      </div>
+    </p-card>
+  </div>
+</div>

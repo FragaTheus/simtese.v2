@@ -1,4 +1,4 @@
-import { Component, computed, inject, signal } from '@angular/core';
+import { Component, computed, inject, signal, viewChild } from '@angular/core';
 import { AuthService } from '../../auth/auth-service';
 import { HttpErrorResponse } from '@angular/common/http';
 import { ApiErrorResponse } from '../../../shared/api/type/api.type';
@@ -9,12 +9,21 @@ import { ButtonModule } from 'primeng/button';
 import { DashPageHeaderLayout } from '../../../shared/components/layout/dash/dash-page-header-layout/dash-page-header-layout';
 import { ErrorComponent } from '../../../shared/components/ui/error-component/error-component';
 import { DashPageLayout } from '../../../shared/components/layout/dash/dash-page-layout/dash-page-layout';
+import { CreateExamComponent } from '../../exams/create-exam-component/create-exam-component';
+import { CreateAccountComponent } from '../../account/create-account-component/create-account-component';
 
 interface Card {
   icon: string;
   title: string;
   description: string;
   href: string;
+}
+
+interface FastAccessCard {
+  icon: string;
+  title: string;
+  description: string;
+  action: () => void;
 }
 
 @Component({
@@ -28,6 +37,8 @@ interface Card {
     DashPageHeaderLayout,
     ErrorComponent,
     DashPageLayout,
+    CreateExamComponent,
+    CreateAccountComponent,
   ],
   templateUrl: './dash-component.html',
 })
@@ -36,6 +47,8 @@ export class DashComponent {
   private authService = inject(AuthService);
   loading = signal<boolean>(false);
   error = signal<ApiErrorResponse | null>(null);
+  examCreate = viewChild<CreateExamComponent>('examCreate');
+  accountCreate = viewChild<CreateAccountComponent>('accountCreate');
 
   cards: Card[] = [
     {
@@ -45,43 +58,26 @@ export class DashComponent {
       href: '/painel/exames',
     },
     {
-      icon: 'pi pi-clipboard',
-      title: 'Exames',
-      description: 'Gerencie o catálogo de exames que estarão disponíveis no agendamento.',
-      href: '/painel/exames',
-    },
-    {
-      icon: 'pi pi-clipboard',
-      title: 'Exames',
-      description: 'Gerencie o catálogo de exames que estarão disponíveis no agendamento.',
-      href: '/painel/exames',
-    },
-    {
-      icon: 'pi pi-clipboard',
-      title: 'Exames',
-      description: 'Gerencie o catálogo de exames que estarão disponíveis no agendamento.',
-      href: '/painel/exames',
-    },
-    {
-      icon: 'pi pi-clipboard',
-      title: 'Exames',
-      description: 'Gerencie o catálogo de exames que estarão disponíveis no agendamento.',
-      href: '/painel/exames',
-    },
-    {
-      icon: 'pi pi-clipboard',
-      title: 'Exames',
-      description: 'Gerencie o catálogo de exames que estarão disponíveis no agendamento.',
-      href: '/painel/exames',
+      icon: 'pi pi-users',
+      title: 'Contas',
+      description:
+        'As contas de usuarios serão acessadas pelos usuários do painel administrativo, seja interno ou externo.',
+      href: '/painel/contas',
     },
   ];
 
-  fastAccess: Card[] = [
+  fastAccess: FastAccessCard[] = [
     {
       icon: 'pi pi-clipboard',
-      title: 'Novo',
+      title: 'Novo Exame',
       description: 'Cadastrar novo exame',
-      href: '/acesso-rapido',
+      action: () => this.examCreate()?.visible.set(true),
+    },
+    {
+      icon: 'pi pi-user-plus',
+      title: 'Nova Conta',
+      description: 'Cadastrar nova conta',
+      action: () => this.accountCreate()?.visible.set(true),
     },
   ];
 

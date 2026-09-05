@@ -25,6 +25,11 @@ export class DrawerComponent {
       icon: 'pi pi-clipboard',
       routerLink: `${DASH_ROUTE}/exames`,
     },
+    {
+      label: 'Contas',
+      icon: 'pi pi-users',
+      routerLink: `${DASH_ROUTE}/contas`,
+    },
   ];
 
   ngOnInit() {
