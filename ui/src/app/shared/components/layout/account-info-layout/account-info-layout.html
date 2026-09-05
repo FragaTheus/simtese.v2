@@ -19,7 +19,9 @@
           />
           <div>
             <h1 class="text-3xl font-semibold">{{ account().name }}</h1>
-            <h2 class="font-light text-surface-700 text-sm">{{ account().email }}</h2>
+            <h2 class="font-light truncate max-w-60 md:max-w-full text-surface-700 text-sm">
+              {{ account().email }}
+            </h2>
           </div>
         </div>
         <span
@@ -51,7 +53,10 @@
           <span class="bg-surface-100 text-clinical-teal text-xl p-2 rounded-md pi pi-key"></span>
           <div>
             <label class="text-xs uppercase font-semibold"> identificador da conta </label>
-            <p class="text-surface-700 font-light">{{ account().id }}</p>
+            <p class="text-surface-700 font-light truncate max-w-60 md:max-w-full">
+              {{ account().id }}
+            </p>
+            <small>Identificador único e imutável da conta</small>
           </div>
         </div>
       </p-card>
@@ -61,7 +66,9 @@
           <span class="bg-surface-100 text-clinical-teal text-xl p-2 rounded-md pi pi-user"></span>
           <div>
             <label class="text-xs uppercase font-semibold"> Nome Completo </label>
-            <p class="text-surface-700 font-light">{{ account().name }}</p>
+            <p class="text-surface-700 font-light truncate max-w-60 md:max-w-full">
+              {{ account().name }}
+            </p>
             <small>Titular do registro profissional</small>
           </div>
         </div>
@@ -74,7 +81,9 @@
           ></span>
           <div>
             <label class="text-xs uppercase font-semibold"> E-mail Corporativo </label>
-            <p class="text-surface-700 font-light">{{ account().email }}</p>
+            <p class="text-surface-700 font-light truncate max-w-60 md:max-w-full">
+              {{ account().email }}
+            </p>
             <small>E-mail de autenticação e notificações</small>
           </div>
         </div>

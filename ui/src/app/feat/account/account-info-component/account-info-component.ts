@@ -9,6 +9,9 @@ import { ApiErrorResponse } from '../../../shared/api/type/api.type';
 import { HttpErrorResponse } from '@angular/common/http';
 import { ErrorComponent } from '../../../shared/components/ui/error-component/error-component';
 import { EditAccountComponent } from '../edit-account-component/edit-account-component';
+import { CardModule } from 'primeng/card';
+import { SkeletonModule } from 'primeng/skeleton';
+import { DatePipe } from '@angular/common';
 
 @Component({
   selector: 'app-account-info-component',
@@ -20,6 +23,9 @@ import { EditAccountComponent } from '../edit-account-component/edit-account-com
     RouterLink,
     ErrorComponent,
     EditAccountComponent,
+    CardModule,
+    SkeletonModule,
+    DatePipe,
   ],
   templateUrl: './account-info-component.html',
 })
