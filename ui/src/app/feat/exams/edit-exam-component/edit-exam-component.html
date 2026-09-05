@@ -23,9 +23,22 @@
         />
         <label for="name">Novo nome</label>
       </p-floatlabel>
+
+      @if (error() !== null) {
+        <div class="w-full p-2 rounded-md text-center text-sm text-red-500 bg-red-50">
+          {{ error()?.message }}
+        </div>
+      }
+
       <div class="flex items-center w-full justify-end gap-2">
         <p-button severity="danger" label="Cancelar" (click)="changeNameDialogVisible.set(false)" />
-        <p-button severity="success" label="Salvar" type="submit" />
+        <p-button
+          severity="success"
+          label="Salvar"
+          type="submit"
+          [loading]="loading()"
+          [disabled]="loading() || changeNameForm.invalid"
+        />
       </div>
     </div>
   </form>
