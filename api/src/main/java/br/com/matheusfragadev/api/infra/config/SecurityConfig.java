@@ -1,5 +1,6 @@
 package br.com.matheusfragadev.api.infra.config;
 
+import br.com.matheusfragadev.api.infra.security.accessdenied.AccessDeniedHandlerImpl;
 import br.com.matheusfragadev.api.infra.security.entrypoint.AuthenticationEntryPointImpl;
 import br.com.matheusfragadev.api.infra.security.jwt.JwtFilter;
 import lombok.RequiredArgsConstructor;
@@ -28,6 +29,7 @@ public class SecurityConfig {
 
     private final JwtFilter jwtFilter;
     private final AuthenticationEntryPointImpl authenticationEntryPoint;
+    private final AccessDeniedHandlerImpl accessDeniedHandler;
 
     @Bean
     public PasswordEncoder passwordEncoder() {
@@ -42,7 +44,6 @@ public class SecurityConfig {
     @Bean
     public SecurityFilterChain securityFilterChain
             (HttpSecurity http, @Value("${api.v1.prefix}") String apiPrefix) throws Exception {
-
         return http.
                 headers(h->
                         h.frameOptions(HeadersConfigurer.FrameOptionsConfig::sameOrigin)) //Somente em dev para H2
@@ -50,7 +51,9 @@ public class SecurityConfig {
                 .cors(Customizer.withDefaults())
                 .sessionManagement
                         (s -> s.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
-                .exceptionHandling(ex -> ex.authenticationEntryPoint(authenticationEntryPoint))
+                .exceptionHandling(ex -> ex
+                        .authenticationEntryPoint(authenticationEntryPoint)
+                        .accessDeniedHandler(accessDeniedHandler))
                 .authorizeHttpRequests(
                         auth ->
                                 auth

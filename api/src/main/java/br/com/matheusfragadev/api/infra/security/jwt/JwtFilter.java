@@ -12,6 +12,7 @@ import org.jspecify.annotations.NonNull;
 import org.springframework.http.HttpHeaders;
 import org.springframework.security.authentication.BadCredentialsException;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
+import org.springframework.security.core.AuthenticationException;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.web.AuthenticationEntryPoint;
 import org.springframework.stereotype.Component;
@@ -24,7 +25,6 @@ import java.io.IOException;
 public class JwtFilter extends OncePerRequestFilter {
 
     private static final String PREFIX = "Bearer ";
-
     private final JwtService jwtService;
     private final UserDetailsServiceImpl userDetailsService;
     private final AuthenticationEntryPoint authenticationEntryPoint;
@@ -35,41 +35,32 @@ public class JwtFilter extends OncePerRequestFilter {
             @NonNull HttpServletResponse response,
             @NonNull FilterChain filterChain
     ) throws ServletException, IOException {
-
         var authHeader = request.getHeader(HttpHeaders.AUTHORIZATION);
-
         if (authHeader == null || !authHeader.startsWith(PREFIX)){
             filterChain.doFilter(request, response);
             return;
         }
-
         try {
             UserDetailsImpl userDetails = userDetailsService.loadByUserId(
                     jwtService.getSubject(authHeader.substring(PREFIX.length()))
             );
-
             var auth =
                     UsernamePasswordAuthenticationToken.authenticated(
                             userDetails,
                             null,
                             userDetails.getAuthorities()
                     );
-
             SecurityContextHolder.getContext()
                     .setAuthentication(auth);
-
             filterChain.doFilter(request, response);
-        }catch (JwtException | IllegalArgumentException ex){
+        } catch (JwtException | AuthenticationException ex){
             SecurityContextHolder.clearContext();
             authenticationEntryPoint.commence(
                     request,
                     response,
-                    new BadCredentialsException(
-                            "Token invalido ou expirado"
-                    )
+                    new BadCredentialsException("Token invalido ou expirado", ex)
             );
         }
-
     }
 
     @Override

@@ -16,5 +16,18 @@
       <p-panelMenu [model]="items" />
     </div>
   </div>
-  <ng-template #footer>Footer</ng-template>
+  <ng-template #footer>
+    <p-button styleClass="w-full" severity="secondary" variant="text" (click)="menu.toggle($event)">
+      <div class="w-full flex items-center gap-2">
+        <p-avatar icon="pi pi-cog" />
+        <span class="text-surface-700">Configurações</span>
+      </div>
+    </p-button>
+    <p-menu #menu [popup]="true" [model]="profileItems" appendTo="body" />
+  </ng-template>
 </p-drawer>
+
+<app-profile-change-password-component
+  [(changePasswordDialogVisible)]="changePasswordDialogVisible"
+  [showTrigger]="false"
+/>

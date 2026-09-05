@@ -4,15 +4,26 @@ import { DrawerModule } from 'primeng/drawer';
 import { PanelMenuModule } from 'primeng/panelmenu';
 import { MenuItem } from 'primeng/api';
 import { DASH_ROUTE } from '../../../routes/routes';
+import { MenuModule } from 'primeng/menu';
+import { AvatarModule } from 'primeng/avatar';
+import { ProfileChangePasswordComponent } from '../../../../feat/account/profile/profile-change-password-component/profile-change-password-component';
 
 @Component({
   selector: 'app-drawer-component',
-  imports: [DrawerModule, ButtonModule, PanelMenuModule],
+  imports: [
+    DrawerModule,
+    ButtonModule,
+    PanelMenuModule,
+    MenuModule,
+    AvatarModule,
+    ProfileChangePasswordComponent,
+  ],
   templateUrl: './drawer-component.html',
 })
 export class DrawerComponent {
   visible = model<boolean>(true);
   closeable = signal(true);
+  changePasswordDialogVisible = signal(false);
   isMd = window.matchMedia('(min-width: 768px)').matches;
   items: MenuItem[] = [
     {
@@ -29,6 +40,33 @@ export class DrawerComponent {
       label: 'Contas',
       icon: 'pi pi-users',
       routerLink: `${DASH_ROUTE}/contas`,
+    },
+  ];
+
+  profileItems: MenuItem[] = [
+    {
+      label: 'Conta',
+      items: [
+        {
+          label: 'Ver perfil',
+          icon: 'pi pi-user',
+          routerLink: `${DASH_ROUTE}/perfil`,
+        },
+      ],
+    },
+    {
+      label: 'Segurança',
+      items: [
+        {
+          label: 'Alterar senha',
+          icon: 'pi pi-key',
+          command: () => this.changePasswordDialogVisible.set(true),
+        },
+        {
+          label: 'Sair',
+          icon: 'pi pi-sign-out',
+        },
+      ],
     },
   ];
 

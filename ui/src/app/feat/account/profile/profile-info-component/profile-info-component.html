@@ -1,0 +1,16 @@
+<app-dash-page-layout>
+  <app-dash-page-header-layout
+    [loading]="loading()"
+    label="Perfil"
+    title="Informacoes de perfil"
+    description="Essas sao as suas informacoes, elas sao acessiveis por todos no sistema"
+  >
+    <div class="flex items-center gap-2">
+      @if (profile()!.role === 'ADMIN') {
+        <app-profile-change-name-component />
+      }
+      <app-profile-change-password-component />
+    </div>
+  </app-dash-page-header-layout>
+  <app-account-info-layout [account]="profile()!" [loading]="loading()"></app-account-info-layout>
+</app-dash-page-layout>

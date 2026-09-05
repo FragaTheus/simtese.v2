@@ -7,6 +7,7 @@ import { ExamsListComponent } from './feat/exams/exams-list-component/exams-list
 import { ExamInfoComponent } from './feat/exams/exam-info-component/exam-info-component';
 import { AccountListComponent } from './feat/account/account-list-component/account-list-component';
 import { HomeComponent } from './feat/home/home-component/home-component';
+import { ProfileInfoComponent } from './feat/account/profile/profile-info-component/profile-info-component';
 
 export const routes: Routes = [
   { path: '', component: HomeComponent },
@@ -20,6 +21,7 @@ export const routes: Routes = [
       { path: 'exames/:id', component: ExamInfoComponent },
       { path: 'contas', component: AccountListComponent },
       { path: 'contas/:id', component: AccountInfoComponent },
+      { path: 'perfil', component: ProfileInfoComponent },
     ],
   },
 ];

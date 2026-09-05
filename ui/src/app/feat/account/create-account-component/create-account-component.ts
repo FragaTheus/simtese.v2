@@ -61,6 +61,8 @@ export class CreateAccountComponent {
     this.loading.set(true);
     this.success.set(false);
 
+    console.log(this.form.getRawValue());
+
     this.accountService.create(this.form.getRawValue()).subscribe({
       next: (id) => {
         this.id.set(id);

@@ -1,6 +1,7 @@
 package br.com.matheusfragadev.api.infra.security.jwt;
 
 import io.jsonwebtoken.Jwts;
+import io.jsonwebtoken.MalformedJwtException;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
@@ -19,7 +20,6 @@ public class JwtService {
 
     public String generateToken(UUID accountId){
         Instant now = Instant.now();
-
         return Jwts.builder()
                 .subject(accountId.toString())
                 .issuedAt(Date.from(now))
@@ -35,8 +35,10 @@ public class JwtService {
                 .parseSignedClaims(token)
                 .getPayload()
                 .getSubject();
-
-        return UUID.fromString(subject);
+        try {
+            return UUID.fromString(subject);
+        } catch (IllegalArgumentException e) {
+            throw new MalformedJwtException("Subject do token não é um UUID válido", e);
+        }
     }
-
 }

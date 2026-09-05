@@ -1,0 +1,33 @@
+<p-button
+  severity="secondary"
+  label="Alterar nome"
+  icon="pi pi-pencil"
+  (click)="changeNameDialogVisible.set(true)"
+/>
+
+<app-dialog-component
+  [title]="'Alterar nome'"
+  [icon]="'pi pi-user'"
+  [visible]="changeNameDialogVisible()"
+>
+  <form [formGroup]="changeNameForm" (ngSubmit)="changeName()">
+    <div class="flex flex-col gap-6">
+      <p-floatlabel>
+        <input
+          pInputText
+          formControlName="name"
+          id="name"
+          class="w-full"
+          pTooltip="Nome deve conter entre 3 e 100 caracteres, com somente letras e espaços"
+          tooltipEvent="focus"
+          tooltipPosition="top"
+        />
+        <label for="name">Novo nome</label>
+      </p-floatlabel>
+      <div class="flex items-center w-full justify-end gap-2">
+        <p-button severity="danger" label="Cancelar" (click)="changeNameDialogVisible.set(false)" />
+        <p-button severity="success" label="Salvar" type="submit" [loading]="loading()" />
+      </div>
+    </div>
+  </form>
+</app-dialog-component>
