@@ -1,0 +1,77 @@
+<p-button label="Editar" icon="pi pi-pencil" (click)="menu.toggle($event)" />
+
+<p-menu #menu [model]="items" [popup]="true" [appendTo]="'body'" />
+
+<p-confirmdialog [key]="'toggle-account-status'" styleClass="max-w-xs" [closable]="false" />
+
+<app-dialog-component
+  [title]="'Alterar nome da conta'"
+  [icon]="'pi pi-user'"
+  [visible]="changeNameDialogVisible()"
+>
+  <form [formGroup]="changeNameForm" (ngSubmit)="changeName()">
+    <div class="flex flex-col gap-6">
+      <p-floatlabel>
+        <input
+          pInputText
+          formControlName="name"
+          id="name"
+          class="w-full"
+          pTooltip="Nome deve conter entre 3 e 100 caracteres, com somente letras e espaços"
+          tooltipEvent="focus"
+          tooltipPosition="top"
+        />
+        <label for="name">Novo nome</label>
+      </p-floatlabel>
+      <div class="flex items-center w-full justify-end gap-2">
+        <p-button severity="danger" label="Cancelar" (click)="changeNameDialogVisible.set(false)" />
+        <p-button severity="success" label="Salvar" type="submit" [loading]="loading()" />
+      </div>
+    </div>
+  </form>
+</app-dialog-component>
+
+<app-dialog-component
+  [title]="'Alterar senha da conta'"
+  [icon]="'pi pi-key'"
+  [visible]="changePasswordDialogVisible()"
+>
+  <form [formGroup]="changePasswordForm" (ngSubmit)="changePassword()">
+    <div class="flex flex-col gap-6">
+      <p-floatlabel>
+        <p-password
+          [feedback]="false"
+          [toggleMask]="true"
+          id="password"
+          type="password"
+          formControlName="password"
+          pTooltip="Senha deve conter entre 08 e 16 caracteres, com número, caractere especial, letra maiúscula e minúscula"
+          tooltipEvent="focus"
+          tooltipPosition="top"
+        />
+        <label for="password">Nova senha</label>
+      </p-floatlabel>
+      <p-floatlabel>
+        <p-password
+          [feedback]="false"
+          [toggleMask]="true"
+          id="confirmPassword"
+          type="password"
+          formControlName="confirmPassword"
+          pTooltip="Confirmação deve ser igual a senha informada"
+          tooltipEvent="focus"
+          tooltipPosition="top"
+        />
+        <label for="confirmPassword">Confirmar nova senha</label>
+      </p-floatlabel>
+      <div class="flex items-center w-full justify-end gap-2">
+        <p-button
+          severity="danger"
+          label="Cancelar"
+          (click)="changePasswordDialogVisible.set(false)"
+        />
+        <p-button severity="success" label="Salvar" type="submit" [loading]="loading()" />
+      </div>
+    </div>
+  </form>
+</app-dialog-component>

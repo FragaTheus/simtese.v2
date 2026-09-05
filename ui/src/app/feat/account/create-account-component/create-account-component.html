@@ -37,12 +37,12 @@
       </p-floatlabel>
 
       <p-floatlabel variant="on">
-        <input
-          pInputText
+        <p-password
+          [feedback]="false"
+          [toggleMask]="true"
           id="password"
           type="password"
           formControlName="password"
-          class="w-full"
           pTooltip="Senha deve conter entre 08 e 16 caracteres, com número, caractere especial, letra maiúscula e minúscula"
           tooltipEvent="focus"
           tooltipPosition="top"
@@ -51,12 +51,12 @@
       </p-floatlabel>
 
       <p-floatlabel variant="on">
-        <input
-          pInputText
+        <p-password
+          [feedback]="false"
+          [toggleMask]="true"
           id="confirmPassword"
           type="password"
           formControlName="confirmPassword"
-          class="w-full"
           pTooltip="Confirmação deve ser igual a senha informada"
           tooltipEvent="focus"
           tooltipPosition="top"

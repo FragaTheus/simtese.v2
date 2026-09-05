@@ -10,6 +10,7 @@ import { InputTextModule } from 'primeng/inputtext';
 import { ApiErrorResponse } from '../../../shared/api/type/api.type';
 import { RouterLink } from '@angular/router';
 import { SelectModule } from 'primeng/select';
+import { PasswordModule } from 'primeng/password';
 
 interface RoleOption {
   label: string;
@@ -27,6 +28,7 @@ interface RoleOption {
     TooltipModule,
     RouterLink,
     SelectModule,
+    PasswordModule,
   ],
   templateUrl: './create-account-component.html',
 })

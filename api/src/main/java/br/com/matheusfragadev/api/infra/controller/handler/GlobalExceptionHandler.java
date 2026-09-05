@@ -89,4 +89,13 @@ public class GlobalExceptionHandler {
         return ResponseEntity.status(status).body(response);
     }
 
+    @ExceptionHandler(Exception.class)
+    public ResponseEntity<ApiErrorResponse> handlerGenericException(Exception ex){
+        var status = HttpStatus.INTERNAL_SERVER_ERROR;
+        var message = "Erro interno no servidor";
+        log.error("Erro inesperado: {}", ex.getMessage(), ex);
+        var response = new ApiErrorResponse(status, message);
+        return ResponseEntity.status(status).body(response);
+    }
+
 }
