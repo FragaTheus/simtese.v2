@@ -39,6 +39,12 @@ testem.log
 /typings
 __screenshots__/
 
+# Environment (backend URL, machine-specific)
+/src/environments/environment.ts
+
+# Vercel
+.vercel
+
 # System files
 .DS_Store
 Thumbs.db
