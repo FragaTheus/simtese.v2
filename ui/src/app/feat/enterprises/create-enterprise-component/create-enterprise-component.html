@@ -1,0 +1,61 @@
+@if (showTrigger()) {
+  <p-button label="Nova Empresa" icon="pi pi-plus-circle" (click)="visible.set(true)" />
+}
+
+<app-dialog-component [(visible)]="visible" [icon]="'pi pi-building'" [title]="'Cadastrar empresa'">
+  <form [formGroup]="form" (ngSubmit)="createEnterprise()">
+    <div class="flex flex-col gap-6 w-full">
+      <p-floatlabel variant="on">
+        <input
+          pInputText
+          id="name"
+          formControlName="name"
+          class="w-full"
+          pTooltip="Nome da empresa deve conter entre 3 e 200 caracteres"
+          tooltipEvent="focus"
+          tooltipPosition="top"
+        />
+        <label for="name">Nome da empresa</label>
+      </p-floatlabel>
+
+      <p-floatlabel variant="on">
+        <input
+          pInputText
+          id="cnpj"
+          formControlName="cnpj"
+          class="w-full"
+          pTooltip="CNPJ não pode conter letras"
+          tooltipEvent="focus"
+          tooltipPosition="top"
+        />
+        <label for="cnpj">CNPJ</label>
+      </p-floatlabel>
+
+      @if (error() !== null) {
+        <div class="w-full p-2 rounded-md text-center text-sm text-red-500 bg-red-50">
+          {{ error() }}
+        </div>
+      }
+
+      @if (success() && id() !== null) {
+        <a
+          title="Clique para ver mais"
+          [routerLink]="'/painel/empresas/' + id()"
+          class="w-full p-2 rounded-md text-center text-sm text-green-500 bg-green-50"
+        >
+          Empresa cadastrada com sucesso!
+        </a>
+      }
+
+      <div class="flex items-center gap-2 w-full justify-end">
+        <p-button label="Cancelar" (click)="closeDialog()" severity="danger" />
+        <p-button
+          label="Cadastrar"
+          type="submit"
+          severity="success"
+          [disabled]="loading() || form.invalid"
+        />
+      </div>
+    </div>
+  </form>
+</app-dialog-component>

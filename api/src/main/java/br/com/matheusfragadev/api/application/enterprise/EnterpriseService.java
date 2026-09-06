@@ -9,11 +9,13 @@ import br.com.matheusfragadev.api.domain.enterprise.exception.EnterpriseExceptio
 import br.com.matheusfragadev.api.domain.enterprise.repository.EnterpriseRepository;
 import br.com.matheusfragadev.api.infra.repository.enterprise.EnterpriseSpec;
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.data.domain.Page;
 import org.springframework.stereotype.Service;
 
 import java.util.UUID;
 
+@Slf4j
 @Service
 @RequiredArgsConstructor
 public class EnterpriseService {
@@ -76,10 +78,9 @@ public class EnterpriseService {
         return repository.save(enterprise);
     }
 
-    public Enterprise unlinkAccount(UUID targetId, UUID accountId){
+    public Enterprise unlinkAccount(UUID targetId){
         Enterprise enterprise = findById(targetId);
-        Account account = accountService.findById(accountId);
-        enterprise.unlinkAccount(account);
+        enterprise.unlinkAccount();
         return repository.save(enterprise);
     }
 

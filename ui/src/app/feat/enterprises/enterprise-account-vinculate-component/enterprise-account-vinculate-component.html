@@ -1,0 +1,60 @@
+<p-button label="Vincular" icon="pi pi-user-plus" (click)="openList($event)" severity="secondary" />
+
+<p-popover #op styleClass="w-full max-w-md p-2">
+  <form (ngSubmit)="onSearch()">
+    <div class="flex items-center gap-2 py-2">
+      <p-floatlabel variant="on">
+        <input
+          pInputText
+          id="search"
+          name="search"
+          type="text"
+          [(ngModel)]="params().search"
+          pTooltip="Busque por nome ou email"
+          tooltipEvent="focus"
+          tooltipPosition="top"
+          [disabled]="loading()"
+        />
+
+        <label for="search">Buscar conta empresarial</label>
+      </p-floatlabel>
+
+      <p-button severity="secondary" icon="pi pi-search" type="submit" />
+    </div>
+  </form>
+
+  @if (error() !== null) {
+    <div class="w-full bg-red-50 p-2 rounded-sm text-sm text-red-500 text-center">
+      {{ error() }}
+    </div>
+  }
+
+  <p-dataview
+    [value]="pageableResponse()?.content"
+    [paginator]="true"
+    [rows]="pageableResponse()?.size"
+    [totalRecords]="pageableResponse()?.totalElements"
+    (onPage)="changePage($event)"
+  >
+    <ng-template #list let-items>
+      @for (i of items; track i.id) {
+        <div
+          class="flex items-center justify-between w-full py-4 border-b p-2 rounded-sm border-surface-300"
+        >
+          <div class="flex flex-col gap-1">
+            <span class="text-sm">{{ i.name }}</span>
+            <span class="text-surface-700 text-xs">{{ i.email }}</span>
+          </div>
+          <p-button
+            size="small"
+            severity="secondary"
+            icon="pi pi-link"
+            (click)="confirmLinkAccount($event, i.id)"
+            [disabled]="loading()"
+          />
+        </div>
+      }
+      <p-confirmdialog key="link-account" appendTo="body" />
+    </ng-template>
+  </p-dataview>
+</p-popover>

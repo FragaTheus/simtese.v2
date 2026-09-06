@@ -50,6 +50,11 @@ export interface AccountsParams {
   page?: number;
 }
 
+export interface AvailableEnterpriseAccountsParams {
+  search?: string;
+  page?: number;
+}
+
 @Injectable({
   providedIn: 'root',
 })
@@ -82,6 +87,25 @@ export class AccountService {
 
   info(targetId: string): Observable<AccountInfo> {
     return this.http.get<AccountInfo>(`${API_V1_URL}/accounts/${targetId}`);
+  }
+
+  availableEnterpriseAccounts(
+    params: AvailableEnterpriseAccountsParams = {},
+  ): Observable<PageableResponse<AccountSummary>> {
+    let httpParams = new HttpParams();
+
+    if (params.page !== undefined) {
+      httpParams = httpParams.set('page', params.page.toString());
+    }
+
+    if (params.search) {
+      httpParams = httpParams.set('search', params.search);
+    }
+
+    return this.http.get<PageableResponse<AccountSummary>>(
+      `${API_V1_URL}/accounts/enterprise/available`,
+      { params: httpParams },
+    );
   }
 
   create(request: CreateAccountRequest): Observable<string> {

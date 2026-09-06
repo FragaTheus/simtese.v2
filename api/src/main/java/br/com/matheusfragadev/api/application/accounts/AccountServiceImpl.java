@@ -1,6 +1,7 @@
 package br.com.matheusfragadev.api.application.accounts;
 
 import br.com.matheusfragadev.api.application.accounts.aggregates.AccountFIlterCommand;
+import br.com.matheusfragadev.api.application.accounts.aggregates.AvailableEnterpriseAccountsCommand;
 import br.com.matheusfragadev.api.application.accounts.aggregates.ChangePasswordCommand;
 import br.com.matheusfragadev.api.application.accounts.aggregates.CreateAccountCommand;
 import br.com.matheusfragadev.api.domain.accounts.aggregate.Password;
@@ -49,6 +50,12 @@ public class AccountServiceImpl implements AccountService {
         return repository.findAll(AccountSpec.accountFilter
                 (command.search(), command.role(), command.active()), command.pageable());
     }
+
+    public Page<Account> findAvailableEnterpriseAccounts(AvailableEnterpriseAccountsCommand command){
+        return repository.findAll(AccountSpec.availableEnterpriseAccounts
+                (command.search()), command.pageable());
+    }
+    
 
     public void delete(UUID targetId){
         Account account = findById(targetId);

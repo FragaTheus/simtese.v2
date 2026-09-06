@@ -51,10 +51,8 @@ public class Enterprise extends Auditory {
         this.account = account;
     }
 
-    public void unlinkAccount(Account account){
-        if (account == null) throw new AccountException("Conta não pode ser nula");
-        if (this.account == null) return;
-        if (!this.account.equals(account)) throw new AccountException("Empresa não está vinculada a essa conta");
+    public void unlinkAccount(){
+        if (this.account == null) throw new AccountException("Empresa não está vinculada a nenhuma conta");
         this.account = null;
     }
 

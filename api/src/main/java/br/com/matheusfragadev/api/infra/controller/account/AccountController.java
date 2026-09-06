@@ -2,6 +2,7 @@ package br.com.matheusfragadev.api.infra.controller.account;
 
 import br.com.matheusfragadev.api.application.accounts.AccountServiceImpl;
 import br.com.matheusfragadev.api.application.accounts.aggregates.AccountFIlterCommand;
+import br.com.matheusfragadev.api.application.accounts.aggregates.AvailableEnterpriseAccountsCommand;
 import br.com.matheusfragadev.api.application.accounts.aggregates.ChangePasswordCommand;
 import br.com.matheusfragadev.api.domain.accounts.aggregate.Role;
 import br.com.matheusfragadev.api.infra.auditory.AuditingResolver;
@@ -47,6 +48,21 @@ public class AccountController {
             ){
         var command = new AccountFIlterCommand(search, role, active, pageable);
         var accounts = accountService.findAll(command);
+        var summaries = accounts.map(AccountMapper::toAccountSummary);
+        return ResponseEntity.ok(summaries);
+    }
+
+    @GetMapping("/enterprise/available")
+    public ResponseEntity<Page<AccountSummary>> availableEnterpriseAccounts(
+            @RequestParam(required = false) String search,
+            @PageableDefault(
+                    size = 20,
+                    sort = "name",
+                    direction = Sort.Direction.ASC
+            ) Pageable pageable
+    ){
+        var command = new AvailableEnterpriseAccountsCommand(search, pageable);
+        var accounts = accountService.findAvailableEnterpriseAccounts(command);
         var summaries = accounts.map(AccountMapper::toAccountSummary);
         return ResponseEntity.ok(summaries);
     }

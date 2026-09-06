@@ -8,6 +8,9 @@ import { ExamInfoComponent } from './feat/exams/exam-info-component/exam-info-co
 import { AccountListComponent } from './feat/account/account-list-component/account-list-component';
 import { HomeComponent } from './feat/home/home-component/home-component';
 import { ProfileInfoComponent } from './feat/account/profile/profile-info-component/profile-info-component';
+import { EnterprisesListComponent } from './feat/enterprises/enterprises-list-component/enterprises-list-component';
+import { EnterpriseInfoComponent } from './feat/enterprises/enterprise-info-component/enterprise-info-component';
+import { EnterpriseAccountVinculateComponent } from './feat/enterprises/enterprise-account-vinculate-component/enterprise-account-vinculate-component';
 
 export const routes: Routes = [
   { path: '', component: HomeComponent },
@@ -21,6 +24,11 @@ export const routes: Routes = [
       { path: 'exames/:id', component: ExamInfoComponent },
       { path: 'contas', component: AccountListComponent },
       { path: 'contas/:id', component: AccountInfoComponent },
+      { path: 'empresas', component: EnterprisesListComponent },
+      {
+        path: 'empresas/:id',
+        component: EnterpriseInfoComponent,
+      },
       { path: 'perfil', component: ProfileInfoComponent },
     ],
   },

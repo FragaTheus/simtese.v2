@@ -1,0 +1,45 @@
+<p-button label="Editar" icon="pi pi-pencil" (click)="menu.toggle($event)" />
+
+<p-menu #menu [model]="items" [popup]="true" [appendTo]="'body'" />
+
+<p-confirmdialog [key]="'toggle-enterprise-status'" styleClass="max-w-xs" [closable]="false" />
+
+<app-dialog-component
+  [title]="'Alterar nome da empresa'"
+  [icon]="'pi pi-building'"
+  [visible]="changeNameDialogVisible()"
+>
+  <form [formGroup]="changeNameForm" (ngSubmit)="changeName()">
+    <div class="flex flex-col gap-6">
+      <p-floatlabel>
+        <input
+          pInputText
+          formControlName="name"
+          id="name"
+          class="w-full"
+          pTooltip="Novo nome da empresa deve conter entre 3 e 200 caracteres"
+          tooltipEvent="focus"
+          tooltipPosition="top"
+        />
+        <label for="name">Novo nome</label>
+      </p-floatlabel>
+
+      @if (error() !== null) {
+        <div class="w-full p-2 rounded-md text-center text-sm text-red-500 bg-red-50">
+          {{ error()?.message }}
+        </div>
+      }
+
+      <div class="flex items-center w-full justify-end gap-2">
+        <p-button severity="danger" label="Cancelar" (click)="changeNameDialogVisible.set(false)" />
+        <p-button
+          severity="success"
+          label="Salvar"
+          type="submit"
+          [loading]="loading()"
+          [disabled]="loading() || changeNameForm.invalid"
+        />
+      </div>
+    </div>
+  </form>
+</app-dialog-component>

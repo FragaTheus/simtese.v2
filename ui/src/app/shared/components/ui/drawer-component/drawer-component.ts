@@ -41,6 +41,11 @@ export class DrawerComponent {
       icon: 'pi pi-users',
       routerLink: `${DASH_ROUTE}/contas`,
     },
+    {
+      label: 'Empresas',
+      icon: 'pi pi-building',
+      routerLink: `${DASH_ROUTE}/empresas`,
+    },
   ];
 
   profileItems: MenuItem[] = [

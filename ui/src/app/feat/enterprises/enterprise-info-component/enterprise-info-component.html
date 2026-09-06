@@ -1,0 +1,75 @@
+@if (error() !== null) {
+  <app-error-component [error]="error()">
+    <p-button severity="danger" label="Voltar" [routerLink]="'/painel/empresas'" />
+    <p-button severity="success" label="Tentar novamente" (click)="retry()" />
+  </app-error-component>
+} @else {
+  <app-dash-page-layout>
+    <div class="items-center justify-center w-full h-full flex">
+      <p-card class="w-full max-w-xl">
+        <div class="flex items-center justify-between gap-4 w-full flex-wrap">
+          @if (loading()) {
+            <div class="w-full max-w-xs">
+              <p-skeleton class="p-4 max-w-10" />
+              <p-skeleton class="max-w-xs p-14" />
+            </div>
+            <div class="flex items-center gap-2 w-full max-w-xs">
+              <p-skeleton class="p-6" />
+              <p-skeleton class="p-6" />
+            </div>
+          } @else if (enterprise() !== undefined) {
+            <div>
+              <span
+                class="{{
+                  enterprise()?.active ? 'bg-green-50 text-green-500' : 'bg-red-50 text-red-500'
+                }} p-2 rounded-full text-xs uppercase"
+                >{{ enterprise()?.active ? 'Ativo' : 'Inativo' }}</span
+              >
+              <h1 class="text-3xl font-semibold max-w-xs mt-4">{{ enterprise()?.name }}</h1>
+              <p class="text-sm text-surface-700 mt-1">CNPJ: {{ enterprise()?.cnpj }}</p>
+            </div>
+
+            <div class="flex items-center gap-2">
+              <app-edit-enterprise-component [enterprise]="enterprise()!" />
+            </div>
+          }
+        </div>
+
+        <div class="w-full h-px bg-surface-300 my-4"></div>
+
+        @if (loading()) {
+          <p-skeleton class="p-20" />
+        } @else {
+          <div class="bg-surface-50 p-4 rounded-md">
+            <div class="flex items-center gap-2">
+              <span class="pi pi-briefcase text-xl text-clinical-teal"></span>
+              <h3 class="font-semibold">Vínculo</h3>
+            </div>
+
+            <div class="flex flex-col mt-6">
+              <label class="text-xs uppercase font-semibold">Conta vinculada:</label>
+              <span class="mb-2">{{
+                enterprise()?.linkedAccountName || 'Nenhuma conta vinculada'
+              }}</span>
+              @if (enterprise()?.linkedAccountName === null) {
+                <app-enterprise-account-vinculate-component [enterpriseId]="enterprise()!.id" />
+              } @else {
+                <app-unlink-account-component [enterpriseId]="enterprise()!.id" />
+              }
+            </div>
+          </div>
+        }
+
+        <div class="w-full h-px bg-surface-300 my-4"></div>
+
+        <app-audit-info-component
+          [loading]="loading()"
+          [createdBy]="enterprise()?.createdBy"
+          [createdAt]="enterprise()?.createdAt"
+          [updatedBy]="enterprise()?.updatedBy"
+          [updatedAt]="enterprise()?.updatedAt"
+        />
+      </p-card>
+    </div>
+  </app-dash-page-layout>
+}

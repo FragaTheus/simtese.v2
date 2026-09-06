@@ -16,6 +16,12 @@ public class AccountSpec {
                 .and(active(active));
     }
 
+    public static Specification<Account> availableEnterpriseAccounts(String search) {
+        return search(search)
+                .and(role(Role.ENTERPRISE))
+                .and(active(true));
+    }
+
     private static Specification<Account> search(String search) {
         if (search == null || search.isBlank()) {
             return Specification.unrestricted();
@@ -46,4 +52,5 @@ public class AccountSpec {
         return (root, query, cb) ->
                 cb.equal(root.get("active"), active);
     }
+
 }

@@ -11,6 +11,7 @@ import { ErrorComponent } from '../../../shared/components/ui/error-component/er
 import { DashPageLayout } from '../../../shared/components/layout/dash/dash-page-layout/dash-page-layout';
 import { CreateExamComponent } from '../../exams/create-exam-component/create-exam-component';
 import { CreateAccountComponent } from '../../account/create-account-component/create-account-component';
+import { CreateEnterpriseComponent } from '../../enterprises/create-enterprise-component/create-enterprise-component';
 
 interface Card {
   icon: string;
@@ -39,6 +40,7 @@ interface FastAccessCard {
     DashPageLayout,
     CreateExamComponent,
     CreateAccountComponent,
+    CreateEnterpriseComponent,
   ],
   templateUrl: './dash-component.html',
 })
@@ -49,6 +51,7 @@ export class DashComponent {
   error = signal<ApiErrorResponse | null>(null);
   examCreate = viewChild<CreateExamComponent>('examCreate');
   accountCreate = viewChild<CreateAccountComponent>('accountCreate');
+  enterpriseCreate = viewChild<CreateEnterpriseComponent>('enterpriseCreate');
 
   cards: Card[] = [
     {
@@ -64,6 +67,12 @@ export class DashComponent {
         'As contas de usuarios serão acessadas pelos usuários do painel administrativo, seja interno ou externo.',
       href: '/painel/contas',
     },
+    {
+      icon: 'pi pi-building',
+      title: 'Empresas',
+      description: 'Gerencie as empresas parceiras vinculadas à plataforma.',
+      href: '/painel/empresas',
+    },
   ];
 
   fastAccess: FastAccessCard[] = [
@@ -78,6 +87,12 @@ export class DashComponent {
       title: 'Nova Conta',
       description: 'Cadastrar nova conta',
       action: () => this.accountCreate()?.visible.set(true),
+    },
+    {
+      icon: 'pi pi-building',
+      title: 'Nova Empresa',
+      description: 'Cadastrar nova empresa',
+      action: () => this.enterpriseCreate()?.visible.set(true),
     },
   ];
 
