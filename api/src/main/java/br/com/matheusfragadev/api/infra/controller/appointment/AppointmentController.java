@@ -9,6 +9,7 @@ import br.com.matheusfragadev.api.infra.controller.appointment.aggregate.Appoint
 import br.com.matheusfragadev.api.infra.controller.appointment.aggregate.AppointmentMapper;
 import br.com.matheusfragadev.api.infra.controller.appointment.aggregate.AppointmentSummary;
 import br.com.matheusfragadev.api.infra.controller.appointment.aggregate.CreateAppointmentRequest;
+import br.com.matheusfragadev.api.infra.security.ratelimit.RateLimited;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
@@ -56,6 +57,7 @@ public class AppointmentController {
     }
 
     @PostMapping("/schedule")
+    @RateLimited(limit = 10, windowSeconds = 60)
     public ResponseEntity<UUID> create(@Valid @RequestBody CreateAppointmentRequest request){
         var command = AppointmentMapper.toAppointmentCommand(request);
         var appointmentId = appointmentService.create(command).getId();

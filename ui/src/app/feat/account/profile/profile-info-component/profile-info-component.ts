@@ -4,7 +4,6 @@ import { DashPageLayout } from '../../../../shared/components/layout/dash/dash-p
 import { AccountInfo, AccountService, Role } from '../../account-service';
 import { ApiErrorResponse } from '../../../../shared/api/type/api.type';
 import { HttpErrorResponse } from '@angular/common/http';
-import { ErrorComponent } from '../../../../shared/components/ui/error-component/error-component';
 import { DashPageHeaderLayout } from '../../../../shared/components/layout/dash/dash-page-header-layout/dash-page-header-layout';
 import { ProfileChangePasswordComponent } from '../profile-change-password-component/profile-change-password-component';
 import { ProfileChangeNameComponent } from '../profile-change-name-component/profile-change-name-component';
@@ -14,7 +13,6 @@ import { ProfileChangeNameComponent } from '../profile-change-name-component/pro
   imports: [
     AccountInfoLayout,
     DashPageLayout,
-    ErrorComponent,
     DashPageHeaderLayout,
     ProfileChangePasswordComponent,
     ProfileChangeNameComponent,

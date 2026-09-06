@@ -41,4 +41,14 @@ public class JwtService {
             throw new MalformedJwtException("Subject do token não é um UUID válido", e);
         }
     }
+
+    public Instant getExpiration(String token) {
+        return Jwts.parser()
+                .verifyWith(jwtSecretKey)
+                .build()
+                .parseSignedClaims(token)
+                .getPayload()
+                .getExpiration()
+                .toInstant();
+    }
 }

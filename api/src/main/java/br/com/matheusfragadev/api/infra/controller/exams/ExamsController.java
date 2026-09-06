@@ -8,6 +8,7 @@ import br.com.matheusfragadev.api.infra.controller.exams.aggregate.CreateExamReq
 import br.com.matheusfragadev.api.infra.controller.exams.aggregate.ExamInfo;
 import br.com.matheusfragadev.api.infra.controller.exams.aggregate.ExamMapper;
 import br.com.matheusfragadev.api.infra.controller.exams.aggregate.ExamSummary;
+import br.com.matheusfragadev.api.infra.security.ratelimit.RateLimited;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
@@ -40,6 +41,7 @@ public class ExamsController {
 
     @GetMapping
     @PreAuthorize("permitAll()")
+    @RateLimited(limit = 30, windowSeconds = 60)
     public ResponseEntity<Page<ExamSummary>> all(
             @RequestParam(required = false) String search,
             @RequestParam(required = false) Boolean active,
