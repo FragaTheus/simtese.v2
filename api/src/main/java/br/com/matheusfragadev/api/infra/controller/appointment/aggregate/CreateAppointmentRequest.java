@@ -3,11 +3,11 @@ package br.com.matheusfragadev.api.infra.controller.appointment.aggregate;
 
 import br.com.matheusfragadev.api.domain.appointment.aggregate.ExamType;
 import br.com.matheusfragadev.api.domain.appointment.aggregate.Shift;
-import br.com.matheusfragadev.api.domain.exams.entity.Exam;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.Size;
 
 import java.util.Set;
+import java.util.UUID;
 
 public record CreateAppointmentRequest(
         @NotBlank(message = "Nome do funcionário é obrigatório")
@@ -20,7 +20,7 @@ public record CreateAppointmentRequest(
         String enterpriseCnpj,
         Shift shift,
         ExamType examType,
-        Set<Exam> exams,
+        Set<UUID> examIds,
         @Size(max = 500, message = "Observação deve ter no máximo 500 caracteres")
         String observation
 ) {

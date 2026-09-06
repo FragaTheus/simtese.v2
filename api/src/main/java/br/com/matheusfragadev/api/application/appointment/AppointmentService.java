@@ -10,10 +10,14 @@ import br.com.matheusfragadev.api.domain.enterprise.aggregate.CNPJ;
 import br.com.matheusfragadev.api.domain.enterprise.entity.Enterprise;
 import br.com.matheusfragadev.api.infra.repository.appointment.AppointmentSpec;
 import br.com.matheusfragadev.api.infra.repository.appointment.aggregate.AppointmentSpecCommand;
+import br.com.matheusfragadev.api.application.exams.ExamService;
+import br.com.matheusfragadev.api.domain.exams.entity.Exam;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
+import java.util.Set;
 import java.util.UUID;
 
 @Service
@@ -23,6 +27,7 @@ public class AppointmentService {
     //Atributos da classe
     private final AppointmentRepository repository;
     private final EnterpriseService enterpriseService;
+    private final ExamService examService;
 
 
     //Metodos CRUD
@@ -46,6 +51,7 @@ public class AppointmentService {
     }
 
     //Metodos da classe
+    @Transactional
     public Appointment create(CreateAppointmentCommand command){
         Employee employee = Employee.of(command.employeeName(), command.employeeCpf());
 
@@ -54,12 +60,14 @@ public class AppointmentService {
             enterprise = enterpriseService.findByCnpj(command.enterpriseCnpj());
         }else{
             CNPJ cnpj = CNPJ.of(command.enterpriseCnpj());
-            enterprise = new Enterprise(command.enterpriseName(), cnpj);
+            enterprise = enterpriseService.save(new Enterprise(command.enterpriseName(), cnpj));
         }
+
+        Set<Exam> exams = examService.findAllByIds(command.examIds());
 
         Appointment appointment =
                 new Appointment
-                        (employee, enterprise, command.shift(), command.examType(), command.exams(), command.observation());
+                        (employee, enterprise, command.shift(), command.examType(), exams, command.observation());
 
         return repository.save(appointment);
     }

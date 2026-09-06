@@ -10,6 +10,8 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
+import java.util.HashSet;
+import java.util.Set;
 import java.util.UUID;
 
 @Service
@@ -25,6 +27,19 @@ public class ExamService {
 
     public Page<Exam> findAllExams(ExamFilterCommand command){
         return repository.findAll(ExamSpec.examFilter(command.search(), command.active()), command.pageable());
+    }
+
+    public Set<Exam> findAllByIds(Set<UUID> ids){
+        if (ids == null || ids.isEmpty()) {
+            return new HashSet<>();
+        }
+
+        Set<Exam> exams = new HashSet<>(repository.findAllById(ids));
+        if (exams.size() != ids.size()) {
+            throw new ExamException("Um ou mais exames não foram encontrados");
+        }
+
+        return exams;
     }
 
     //Metodos da classe

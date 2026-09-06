@@ -32,6 +32,11 @@ export class DrawerComponent {
       routerLink: `${DASH_ROUTE}`,
     },
     {
+      label: 'Agendamentos',
+      icon: 'pi pi-calendar',
+      routerLink: `${DASH_ROUTE}/agendamentos`,
+    },
+    {
       label: 'Exames',
       icon: 'pi pi-clipboard',
       routerLink: `${DASH_ROUTE}/exames`,

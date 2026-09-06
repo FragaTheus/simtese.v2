@@ -1,0 +1,136 @@
+@if (showTrigger()) {
+  <p-button label="Novo Agendamento" icon="pi pi-calendar-plus" (click)="visible.set(true)" />
+}
+
+<app-dialog-component
+  [(visible)]="visible"
+  [icon]="'pi pi-calendar-plus'"
+  [title]="'Cadastrar novo agendamento'"
+>
+  <form [formGroup]="form" (ngSubmit)="createAppointment()">
+    <div class="flex flex-col gap-6 w-full">
+      <p-floatlabel variant="on">
+        <input
+          pInputText
+          id="employeeName"
+          formControlName="employeeName"
+          class="w-full"
+          pTooltip="Nome completo do funcionário"
+          tooltipEvent="focus"
+          tooltipPosition="top"
+        />
+        <label for="employeeName">Nome do funcionário</label>
+      </p-floatlabel>
+
+      <p-floatlabel variant="on">
+        <input
+          pInputText
+          id="employeeCpf"
+          formControlName="employeeCpf"
+          class="w-full"
+          pTooltip="CPF do funcionário"
+          tooltipEvent="focus"
+          tooltipPosition="top"
+        />
+        <label for="employeeCpf">CPF do funcionário</label>
+      </p-floatlabel>
+
+      <p-floatlabel variant="on">
+        <input
+          pInputText
+          id="enterpriseName"
+          formControlName="enterpriseName"
+          class="w-full"
+          pTooltip="Nome da empresa"
+          tooltipEvent="focus"
+          tooltipPosition="top"
+        />
+        <label for="enterpriseName">Nome da empresa</label>
+      </p-floatlabel>
+
+      <p-floatlabel variant="on">
+        <input
+          pInputText
+          id="enterpriseCnpj"
+          formControlName="enterpriseCnpj"
+          class="w-full"
+          pTooltip="CNPJ da empresa"
+          tooltipEvent="focus"
+          tooltipPosition="top"
+        />
+        <label for="enterpriseCnpj">CNPJ da empresa</label>
+      </p-floatlabel>
+
+      <p-select
+        [options]="shiftOptions"
+        optionLabel="label"
+        optionValue="value"
+        formControlName="shift"
+        placeholder="Turno"
+        appendTo="body"
+        class="w-full"
+      />
+
+      <p-select
+        [options]="examTypeOptions"
+        optionLabel="label"
+        optionValue="value"
+        formControlName="examType"
+        placeholder="Tipo de exame"
+        appendTo="body"
+        class="w-full"
+      />
+
+      <p-multiselect
+        [options]="examOptions()"
+        optionLabel="name"
+        optionValue="id"
+        formControlName="exams"
+        placeholder="Exames"
+        appendTo="body"
+        class="w-full"
+      />
+
+      <p-floatlabel variant="on">
+        <textarea
+          pTextarea
+          id="observation"
+          formControlName="observation"
+          rows="3"
+          class="w-full"
+          pTooltip="Observação deve ter no máximo 500 caracteres"
+          tooltipEvent="focus"
+          tooltipPosition="top"
+        ></textarea>
+        <label for="observation">Observação</label>
+      </p-floatlabel>
+
+      @if (error() !== null) {
+        <div class="w-full p-2 rounded-md text-center text-sm text-red-500 bg-red-50">
+          {{ error() }}
+        </div>
+      }
+
+      @if (success() && id() !== null) {
+        <a
+          title="Clique para ver mais"
+          [routerLink]="'/painel/agendamentos/' + id()"
+          class="w-full p-2 rounded-md text-center text-sm text-green-500 bg-green-50"
+        >
+          Agendamento cadastrado com sucesso!
+        </a>
+      }
+
+      <div class="flex items-center gap-2 w-full justify-end">
+        <p-button label="Cancelar" (click)="closeDialog()" severity="danger" />
+        <p-button
+          label="Cadastrar"
+          type="submit"
+          severity="success"
+          [loading]="loading()"
+          [disabled]="loading() || form.invalid"
+        />
+      </div>
+    </div>
+  </form>
+</app-dialog-component>

@@ -11,6 +11,7 @@ import { ProfileInfoComponent } from './feat/account/profile/profile-info-compon
 import { EnterprisesListComponent } from './feat/enterprises/enterprises-list-component/enterprises-list-component';
 import { EnterpriseInfoComponent } from './feat/enterprises/enterprise-info-component/enterprise-info-component';
 import { EnterpriseAccountVinculateComponent } from './feat/enterprises/enterprise-account-vinculate-component/enterprise-account-vinculate-component';
+import { AppointmentListComponent } from './feat/appointments/appointment-list-component/appointment-list-component';
 
 export const routes: Routes = [
   { path: '', component: HomeComponent },
@@ -20,6 +21,7 @@ export const routes: Routes = [
     component: DashRouter,
     children: [
       { path: '', component: DashComponent },
+      { path: 'agendamentos', component: AppointmentListComponent },
       { path: 'exames', component: ExamsListComponent },
       { path: 'exames/:id', component: ExamInfoComponent },
       { path: 'contas', component: AccountListComponent },

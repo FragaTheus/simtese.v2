@@ -43,7 +43,7 @@ public class AppointmentMapper {
                 .enterpriseCnpj(request.enterpriseCnpj())
                 .shift(request.shift())
                 .examType(request.examType())
-                .exams(request.exams())
+                .examIds(request.examIds())
                 .observation(request.observation())
                 .build();
     }

@@ -12,6 +12,7 @@ import { DashPageLayout } from '../../../shared/components/layout/dash/dash-page
 import { CreateExamComponent } from '../../exams/create-exam-component/create-exam-component';
 import { CreateAccountComponent } from '../../account/create-account-component/create-account-component';
 import { CreateEnterpriseComponent } from '../../enterprises/create-enterprise-component/create-enterprise-component';
+import { CreateAppointmentComponent } from '../../appointments/create/create-appointment-component/create-appointment-component';
 
 interface Card {
   icon: string;
@@ -41,6 +42,7 @@ interface FastAccessCard {
     CreateExamComponent,
     CreateAccountComponent,
     CreateEnterpriseComponent,
+    CreateAppointmentComponent,
   ],
   templateUrl: './dash-component.html',
 })
@@ -52,8 +54,15 @@ export class DashComponent {
   examCreate = viewChild<CreateExamComponent>('examCreate');
   accountCreate = viewChild<CreateAccountComponent>('accountCreate');
   enterpriseCreate = viewChild<CreateEnterpriseComponent>('enterpriseCreate');
+  appointmentCreate = viewChild<CreateAppointmentComponent>('appointmentCreate');
 
   cards: Card[] = [
+    {
+      icon: 'pi pi-calendar',
+      title: 'Agendamentos',
+      description: 'Gerencie os agendamentos de exames ocupacionais dos funcionários.',
+      href: '/painel/agendamentos',
+    },
     {
       icon: 'pi pi-clipboard',
       title: 'Exames',
@@ -76,6 +85,12 @@ export class DashComponent {
   ];
 
   fastAccess: FastAccessCard[] = [
+    {
+      icon: 'pi pi-calendar-plus',
+      title: 'Novo Agendamento',
+      description: 'Cadastrar novo agendamento',
+      action: () => this.appointmentCreate()?.visible.set(true),
+    },
     {
       icon: 'pi pi-clipboard',
       title: 'Novo Exame',
