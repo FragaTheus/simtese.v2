@@ -1,4 +1,5 @@
 import { Component } from '@angular/core';
+import { RouterLink } from '@angular/router';
 import { HomePageLayout } from '../../../shared/components/layout/home/home-page-layout/home-page-layout';
 import { CardModule } from 'primeng/card';
 import { ButtonModule } from 'primeng/button';
@@ -13,7 +14,7 @@ interface Solution {
 
 @Component({
   selector: 'app-solutions-component',
-  imports: [HomePageLayout, CardModule, ButtonModule],
+  imports: [HomePageLayout, CardModule, ButtonModule, RouterLink],
   templateUrl: './solutions-component.html',
 })
 export class SolutionsComponent {
@@ -24,7 +25,7 @@ export class SolutionsComponent {
       description:
         'Avaliação médica completa para admissão, demissão, mudança de função e exames periódicos.',
       styleClass: 'md:col-span-2',
-      href: '/agendar',
+      href: '/atendimento',
     },
     {
       icon: 'pi pi-mobile',

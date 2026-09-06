@@ -12,10 +12,12 @@ import { EnterprisesListComponent } from './feat/enterprises/enterprises-list-co
 import { EnterpriseInfoComponent } from './feat/enterprises/enterprise-info-component/enterprise-info-component';
 import { EnterpriseAccountVinculateComponent } from './feat/enterprises/enterprise-account-vinculate-component/enterprise-account-vinculate-component';
 import { AppointmentListComponent } from './feat/appointments/appointment-list-component/appointment-list-component';
+import { AtendimentoPageComponent } from './feat/appointments/create/atendimento-page-component/atendimento-page-component';
 
 export const routes: Routes = [
   { path: '', component: HomeComponent },
   { path: 'entrar', component: LoginComponent },
+  { path: 'atendimento', component: AtendimentoPageComponent },
   {
     path: 'painel',
     component: DashRouter,
