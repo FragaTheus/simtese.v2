@@ -17,8 +17,7 @@
         <span class="pi pi-check-circle text-5xl text-green-500"></span>
         <h2 class="text-xl font-semibold tracking-tighter">Agendamento realizado com sucesso!</h2>
         <p class="text-sm text-surface-700 font-light max-w-md">
-          Em breve nossa equipe entrará em contato para confirmar as informações do seu
-          atendimento.
+          Em breve nossa equipe entrará em contato para confirmar as informações do seu atendimento.
         </p>
         <p-button label="Novo agendamento" severity="secondary" (click)="newAppointment()" />
       </div>
@@ -110,6 +109,7 @@
     <p-floatlabel variant="on">
       <input
         pInputText
+        pInputMask="999.999.999-99"
         id="employeeCpf"
         formControlName="employeeCpf"
         class="w-full"
@@ -149,6 +149,7 @@
     <p-floatlabel variant="on">
       <input
         pInputText
+        pInputMask="99.999.999/9999-99"
         id="enterpriseCnpj"
         formControlName="enterpriseCnpj"
         class="w-full"

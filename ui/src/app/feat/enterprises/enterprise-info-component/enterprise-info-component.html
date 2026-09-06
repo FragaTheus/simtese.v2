@@ -26,7 +26,9 @@
                 >{{ enterprise()?.active ? 'Ativo' : 'Inativo' }}</span
               >
               <h1 class="text-3xl font-semibold max-w-xs mt-4">{{ enterprise()?.name }}</h1>
-              <p class="text-sm text-surface-700 mt-1">CNPJ: {{ enterprise()?.cnpj }}</p>
+              <p class="text-sm text-surface-700 mt-1">
+                CNPJ: {{ enterprise()?.cnpj | documentFormat }}
+              </p>
             </div>
 
             <div class="flex items-center gap-2">

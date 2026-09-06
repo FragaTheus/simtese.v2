@@ -2,6 +2,9 @@ package br.com.matheusfragadev.api.infra.controller.handler;
 
 import br.com.matheusfragadev.api.domain.accounts.exception.AccountException;
 import br.com.matheusfragadev.api.domain.accounts.exception.PasswordException;
+import br.com.matheusfragadev.api.domain.appointment.exception.AppointmentException;
+import br.com.matheusfragadev.api.domain.appointment.exception.EmployeeException;
+import br.com.matheusfragadev.api.domain.enterprise.exception.CNPJException;
 import br.com.matheusfragadev.api.domain.enterprise.exception.EnterpriseException;
 import br.com.matheusfragadev.api.domain.exams.exception.ExamException;
 import lombok.extern.slf4j.Slf4j;
@@ -81,6 +84,33 @@ public class GlobalExceptionHandler {
 
     @ExceptionHandler(EnterpriseException.class)
     public ResponseEntity<ApiErrorResponse> handlerEnterprise(EnterpriseException ex){
+        var message = ex.getMessage();
+        var status = HttpStatus.CONFLICT;
+        log.warn("Erro de RN em: {}", ex.getMessage());
+        var response = new ApiErrorResponse(status, message);
+        return ResponseEntity.status(status).body(response);
+    }
+
+    @ExceptionHandler(CNPJException.class)
+    public ResponseEntity<ApiErrorResponse> handlerCNPJ(CNPJException ex){
+        var message = ex.getMessage();
+        var status = HttpStatus.CONFLICT;
+        log.warn("Erro de RN em: {}", ex.getMessage());
+        var response = new ApiErrorResponse(status, message);
+        return ResponseEntity.status(status).body(response);
+    }
+
+    @ExceptionHandler(AppointmentException.class)
+    public ResponseEntity<ApiErrorResponse> handlerAppointment(AppointmentException ex){
+        var message = ex.getMessage();
+        var status = HttpStatus.CONFLICT;
+        log.warn("Erro de RN em: {}", ex.getMessage());
+        var response = new ApiErrorResponse(status, message);
+        return ResponseEntity.status(status).body(response);
+    }
+
+    @ExceptionHandler(EmployeeException.class)
+    public ResponseEntity<ApiErrorResponse> handlerEmployee(EmployeeException ex){
         var message = ex.getMessage();
         var status = HttpStatus.CONFLICT;
         log.warn("Erro de RN em: {}", ex.getMessage());

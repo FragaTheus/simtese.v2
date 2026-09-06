@@ -10,8 +10,8 @@ import { HomeComponent } from './feat/home/home-component/home-component';
 import { ProfileInfoComponent } from './feat/account/profile/profile-info-component/profile-info-component';
 import { EnterprisesListComponent } from './feat/enterprises/enterprises-list-component/enterprises-list-component';
 import { EnterpriseInfoComponent } from './feat/enterprises/enterprise-info-component/enterprise-info-component';
-import { EnterpriseAccountVinculateComponent } from './feat/enterprises/enterprise-account-vinculate-component/enterprise-account-vinculate-component';
 import { AppointmentListComponent } from './feat/appointments/appointment-list-component/appointment-list-component';
+import { AppointmentInfoComponent } from './feat/appointments/appointment-info-component/appointment-info-component';
 import { AtendimentoPageComponent } from './feat/appointments/create/atendimento-page-component/atendimento-page-component';
 
 export const routes: Routes = [
@@ -24,6 +24,7 @@ export const routes: Routes = [
     children: [
       { path: '', component: DashComponent },
       { path: 'agendamentos', component: AppointmentListComponent },
+      { path: 'agendamentos/:id', component: AppointmentInfoComponent },
       { path: 'exames', component: ExamsListComponent },
       { path: 'exames/:id', component: ExamInfoComponent },
       { path: 'contas', component: AccountListComponent },

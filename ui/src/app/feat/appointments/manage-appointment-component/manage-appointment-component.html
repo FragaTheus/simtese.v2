@@ -1,0 +1,11 @@
+<p-button label="Gerenciar" icon="pi pi-cog" (click)="menu.toggle($event)" />
+
+<p-menu #menu [model]="items" [popup]="true" [appendTo]="'body'" />
+
+<p-confirmdialog [key]="'toggle-appointment-status'" styleClass="max-w-xs" [closable]="false" />
+
+@if (error() !== null) {
+  <div class="w-full p-2 rounded-md text-center text-sm text-red-500 bg-red-50 mt-2">
+    {{ error()?.message }}
+  </div>
+}

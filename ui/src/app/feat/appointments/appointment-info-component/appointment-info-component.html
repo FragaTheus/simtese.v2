@@ -1,0 +1,218 @@
+@if (error() !== null) {
+  <app-error-component [error]="error()">
+    <p-button severity="danger" label="Voltar" [routerLink]="'/painel/agendamentos'" />
+    <p-button severity="success" label="Tentar novamente" (click)="retry()" />
+  </app-error-component>
+} @else {
+  <app-dash-page-layout>
+    <app-dash-page-header-layout
+      [loading]="loading()"
+      [label]="' Agendamento '"
+      [title]="'Informações do Agendamento'"
+      [description]="'Visualize os dados cadastrais e os detalhes do agendamento.'"
+    />
+
+    <div class="flex flex-col gap-6 w-full max-w-6xl mx-auto mt-6">
+      <p-card>
+        <div class="flex items-center justify-between gap-4 w-full flex-wrap">
+          @if (loading()) {
+            <div class="w-full max-w-xs">
+              <p-skeleton class="p-4 max-w-10" />
+              <p-skeleton class="max-w-xs p-14" />
+            </div>
+            <div class="flex items-center gap-2 w-full max-w-xs">
+              <p-skeleton class="p-6" />
+              <p-skeleton class="p-6" />
+            </div>
+          } @else if (appointment() !== undefined) {
+            <div>
+              <span
+                class="{{
+                  examStatusStyles[appointment()!.examStatus]
+                }} p-2 rounded-full text-xs uppercase"
+                >{{ examStatusLabels[appointment()!.examStatus] }}</span
+              >
+              <h1 class="text-3xl font-semibold max-w-xs mt-4">
+                {{ appointment()?.employeeName }}
+              </h1>
+              <p class="text-sm text-surface-700 mt-1">{{ appointment()?.enterpriseName }}</p>
+            </div>
+
+            <app-manage-appointment-component [appointment]="appointment()!" />
+          }
+        </div>
+      </p-card>
+
+      <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+        @if (loading()) {
+          @for (item of [1, 2]; track item) {
+            <p-card>
+              <p-skeleton class="p-40" />
+            </p-card>
+          }
+        } @else if (appointment(); as appointment) {
+          <p-card>
+            <div class="flex items-center gap-2">
+              <span class="pi pi-user text-xl text-clinical-teal"></span>
+              <h3 class="font-semibold">Colaborador</h3>
+            </div>
+
+            <div class="flex flex-col mt-6">
+              <label class="text-xs uppercase font-semibold">Nome:</label>
+              <div class="flex items-center gap-2">
+                <span>{{ appointment.employeeName }}</span>
+                @if (appointment.examStatus === 'ATTENDED') {
+                  <ng-container
+                    *ngTemplateOutlet="
+                      copyButton;
+                      context: { field: 'employeeName', value: appointment.employeeName }
+                    "
+                  />
+                }
+              </div>
+            </div>
+            <div class="flex flex-col mt-6">
+              <label class="text-xs uppercase font-semibold">CPF:</label>
+              <div class="flex items-center gap-2">
+                <span>{{ appointment.employeeCpf | documentFormat }}</span>
+                @if (appointment.examStatus === 'ATTENDED') {
+                  <ng-container
+                    *ngTemplateOutlet="
+                      copyButton;
+                      context: {
+                        field: 'employeeCpf',
+                        value: appointment.employeeCpf | documentFormat,
+                      }
+                    "
+                  />
+                }
+              </div>
+            </div>
+          </p-card>
+          <p-card>
+            <div class="flex items-center gap-2">
+              <span class="pi pi-building text-xl text-clinical-teal"></span>
+              <h3 class="font-semibold">Empresa</h3>
+            </div>
+
+            <div class="flex flex-col mt-6">
+              <label class="text-xs uppercase font-semibold">Razão social:</label>
+              <div class="flex items-center gap-2">
+                <span>{{ appointment.enterpriseName }}</span>
+                @if (appointment.examStatus === 'ATTENDED') {
+                  <ng-container
+                    *ngTemplateOutlet="
+                      copyButton;
+                      context: { field: 'enterpriseName', value: appointment.enterpriseName }
+                    "
+                  />
+                }
+              </div>
+            </div>
+            <div class="flex flex-col mt-6">
+              <label class="text-xs uppercase font-semibold">CNPJ:</label>
+              <div class="flex items-center gap-2">
+                <span>{{ appointment.enterpriseCnpj | documentFormat }}</span>
+                @if (appointment.examStatus === 'ATTENDED') {
+                  <ng-container
+                    *ngTemplateOutlet="
+                      copyButton;
+                      context: {
+                        field: 'enterpriseCnpj',
+                        value: appointment.enterpriseCnpj | documentFormat,
+                      }
+                    "
+                  />
+                }
+              </div>
+            </div>
+          </p-card>
+        }
+      </div>
+
+      @if (loading()) {
+        <p-card>
+          <p-skeleton class="p-20" />
+        </p-card>
+      } @else if (appointment(); as appointment) {
+        <p-card>
+          <div class="flex items-center gap-2">
+            <span class="pi pi-calendar-clock text-xl text-clinical-teal"></span>
+            <h3 class="font-semibold">Atendimento</h3>
+          </div>
+
+          <div class="grid grid-cols-1 md:grid-cols-3 gap-6 mt-6">
+            <div class="flex flex-col">
+              <label class="text-xs uppercase font-semibold">Turno:</label>
+              <div class="flex items-center gap-2">
+                <span>{{ shiftLabels[appointment.shift] }}</span>
+                @if (appointment.examStatus === 'ATTENDED') {
+                  <ng-container
+                    *ngTemplateOutlet="
+                      copyButton;
+                      context: { field: 'shift', value: shiftLabels[appointment.shift] }
+                    "
+                  />
+                }
+              </div>
+            </div>
+            <div class="flex flex-col">
+              <label class="text-xs uppercase font-semibold">Tipo de exame:</label>
+              <div class="flex items-center gap-2">
+                <span>{{ examTypeLabels[appointment.examType] }}</span>
+                @if (appointment.examStatus === 'ATTENDED') {
+                  <ng-container
+                    *ngTemplateOutlet="
+                      copyButton;
+                      context: { field: 'examType', value: examTypeLabels[appointment.examType] }
+                    "
+                  />
+                }
+              </div>
+            </div>
+            <div class="flex flex-col">
+              <label class="text-xs uppercase font-semibold">Status:</label>
+              <span>{{ examStatusLabels[appointment.examStatus] }}</span>
+            </div>
+          </div>
+
+          <div class="flex flex-col mt-6">
+            <label class="text-xs uppercase font-semibold">Observação:</label>
+            <div class="flex items-center gap-2">
+              <span>{{ appointment.obs || 'N/A' }}</span>
+              @if (appointment.examStatus === 'ATTENDED' && appointment.obs) {
+                <ng-container
+                  *ngTemplateOutlet="copyButton; context: { field: 'obs', value: appointment.obs }"
+                />
+              }
+            </div>
+          </div>
+        </p-card>
+      }
+
+      <p-card>
+        <app-audit-info-component
+          [loading]="loading()"
+          [createdBy]="appointment()?.createdBy"
+          [createdByFallback]="'Agendado por alguém sem login'"
+          [createdAt]="appointment()?.createdAt"
+          [updatedBy]="appointment()?.updatedBy"
+          [updatedAt]="appointment()?.updatedAt"
+        />
+      </p-card>
+    </div>
+  </app-dash-page-layout>
+}
+
+<ng-template #copyButton let-field="field" let-value="value">
+  <p-button
+    [icon]="copiedField() === field ? 'pi pi-check' : 'pi pi-copy'"
+    [text]="true"
+    [rounded]="true"
+    size="small"
+    severity="secondary"
+    pTooltip="Copiar"
+    tooltipPosition="top"
+    (click)="copy(field, value)"
+  />
+</ng-template>

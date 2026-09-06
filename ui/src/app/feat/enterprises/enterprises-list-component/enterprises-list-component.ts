@@ -16,6 +16,7 @@ import { FloatLabelModule } from 'primeng/floatlabel';
 import { TooltipModule } from 'primeng/tooltip';
 import { FormsModule } from '@angular/forms';
 import { SelectModule } from 'primeng/select';
+import { DocumentFormatPipe } from '../../../shared/pipes/document-format-pipe';
 
 interface ActiveOption {
   label: string;
@@ -39,6 +40,7 @@ interface ActiveOption {
     TooltipModule,
     FormsModule,
     SelectModule,
+    DocumentFormatPipe,
   ],
   templateUrl: './enterprises-list-component.html',
 })

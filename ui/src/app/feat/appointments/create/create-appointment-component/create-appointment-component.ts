@@ -5,9 +5,11 @@ import { ButtonModule } from 'primeng/button';
 import { ReactiveFormsModule, FormBuilder, Validators } from '@angular/forms';
 import { AppointmentService, ExamType, Shift } from '../../appointment-service';
 import { ExamService, ExamSummary } from '../../../exams/exam-service';
+import { stripDocumentMask } from '../../../../shared/pipes/document-format-pipe';
 import { HttpErrorResponse } from '@angular/common/http';
 import { FloatLabelModule } from 'primeng/floatlabel';
 import { InputTextModule } from 'primeng/inputtext';
+import { InputMaskModule } from 'primeng/inputmask';
 import { TextareaModule } from 'primeng/textarea';
 import { ApiErrorResponse } from '../../../../shared/api/type/api.type';
 import { RouterLink } from '@angular/router';
@@ -32,6 +34,7 @@ interface ExamTypeOption {
     ReactiveFormsModule,
     FloatLabelModule,
     InputTextModule,
+    InputMaskModule,
     TextareaModule,
     TooltipModule,
     RouterLink,
@@ -91,19 +94,26 @@ export class CreateAppointmentComponent {
 
     const { exams, ...rest } = this.form.getRawValue();
 
-    this.appointmentService.create({ ...rest, examIds: exams }).subscribe({
-      next: (id) => {
-        this.id.set(id);
-        this.loading.set(false);
-        this.success.set(true);
-        this.refresh.emit();
-      },
-      error: (err: HttpErrorResponse) => {
-        const apiError = err.error as ApiErrorResponse;
-        this.error.set(apiError.message);
-        this.loading.set(false);
-      },
-    });
+    this.appointmentService
+      .create({
+        ...rest,
+        employeeCpf: stripDocumentMask(rest.employeeCpf),
+        enterpriseCnpj: stripDocumentMask(rest.enterpriseCnpj),
+        examIds: exams,
+      })
+      .subscribe({
+        next: (id) => {
+          this.id.set(id);
+          this.loading.set(false);
+          this.success.set(true);
+          this.refresh.emit();
+        },
+        error: (err: HttpErrorResponse) => {
+          const apiError = err.error as ApiErrorResponse;
+          this.error.set(apiError.message);
+          this.loading.set(false);
+        },
+      });
   }
 
   closeDialog() {

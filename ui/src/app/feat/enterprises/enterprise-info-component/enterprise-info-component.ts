@@ -12,6 +12,7 @@ import { EditEnterpriseComponent } from '../edit-enterprise-component/edit-enter
 import { AuditInfoComponent } from '../../../shared/components/ui/audit-info-component/audit-info-component';
 import { EnterpriseAccountVinculateComponent } from '../enterprise-account-vinculate-component/enterprise-account-vinculate-component';
 import { UnlinkAccountComponent } from '../unlink-account-component/unlink-account-component';
+import { DocumentFormatPipe } from '../../../shared/pipes/document-format-pipe';
 
 @Component({
   selector: 'app-enterprise-info-component',
@@ -26,6 +27,7 @@ import { UnlinkAccountComponent } from '../unlink-account-component/unlink-accou
     AuditInfoComponent,
     EnterpriseAccountVinculateComponent,
     UnlinkAccountComponent,
+    DocumentFormatPipe,
   ],
   templateUrl: './enterprise-info-component.html',
 })

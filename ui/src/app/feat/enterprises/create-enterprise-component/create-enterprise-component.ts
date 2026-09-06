@@ -7,8 +7,10 @@ import { EnterpriseService } from '../enterprise-service';
 import { HttpErrorResponse } from '@angular/common/http';
 import { FloatLabelModule } from 'primeng/floatlabel';
 import { InputTextModule } from 'primeng/inputtext';
+import { InputMaskModule } from 'primeng/inputmask';
 import { ApiErrorResponse } from '../../../shared/api/type/api.type';
 import { RouterLink } from '@angular/router';
+import { stripDocumentMask } from '../../../shared/pipes/document-format-pipe';
 
 @Component({
   selector: 'app-create-enterprise-component',
@@ -18,6 +20,7 @@ import { RouterLink } from '@angular/router';
     ReactiveFormsModule,
     FloatLabelModule,
     InputTextModule,
+    InputMaskModule,
     TooltipModule,
     RouterLink,
   ],
@@ -43,7 +46,9 @@ export class CreateEnterpriseComponent {
     this.loading.set(true);
     this.success.set(false);
 
-    this.enterpriseService.create(this.form.getRawValue()).subscribe({
+    const { cnpj, ...rest } = this.form.getRawValue();
+
+    this.enterpriseService.create({ ...rest, cnpj: stripDocumentMask(cnpj) }).subscribe({
       next: (id) => {
         this.id.set(id);
         this.loading.set(false);

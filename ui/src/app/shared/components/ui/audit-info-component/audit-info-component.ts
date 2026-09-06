@@ -10,6 +10,7 @@ import { DatePipe } from '@angular/common';
 export class AuditInfoComponent {
   loading = input<boolean>(false);
   createdBy = input<string | undefined>(undefined);
+  createdByFallback = input<string>('N/A');
   createdAt = input<string | undefined>(undefined);
   updatedBy = input<string | undefined>(undefined);
   updatedAt = input<string | undefined>(undefined);

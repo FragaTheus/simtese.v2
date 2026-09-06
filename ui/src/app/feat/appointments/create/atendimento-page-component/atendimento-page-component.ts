@@ -6,6 +6,7 @@ import { ButtonModule } from 'primeng/button';
 import { StepperModule } from 'primeng/stepper';
 import { FloatLabelModule } from 'primeng/floatlabel';
 import { InputTextModule } from 'primeng/inputtext';
+import { InputMaskModule } from 'primeng/inputmask';
 import { TextareaModule } from 'primeng/textarea';
 import { SelectModule } from 'primeng/select';
 import { MultiSelectModule } from 'primeng/multiselect';
@@ -20,6 +21,7 @@ import {
 } from '../../appointment-service';
 import { ExamService, ExamSummary } from '../../../exams/exam-service';
 import { ApiErrorResponse } from '../../../../shared/api/type/api.type';
+import { stripDocumentMask } from '../../../../shared/pipes/document-format-pipe';
 
 interface ShiftOption {
   label: string;
@@ -40,6 +42,7 @@ interface ExamTypeOption {
     StepperModule,
     FloatLabelModule,
     InputTextModule,
+    InputMaskModule,
     TextareaModule,
     SelectModule,
     MultiSelectModule,
@@ -132,12 +135,16 @@ export class AtendimentoPageComponent {
     this.success.set(false);
 
     const { exams, ...appointmentRest } = this.appointmentForm.getRawValue();
+    const employee = this.employeeForm.getRawValue();
+    const enterprise = this.enterpriseForm.getRawValue();
 
     // Os 3 formulários são combinados num único payload apenas no frontend
     const request: CreateAppointmentRequest = {
-      ...this.employeeForm.getRawValue(),
-      ...this.enterpriseForm.getRawValue(),
+      ...employee,
+      ...enterprise,
       ...appointmentRest,
+      employeeCpf: stripDocumentMask(employee.employeeCpf),
+      enterpriseCnpj: stripDocumentMask(enterprise.enterpriseCnpj),
       examIds: exams,
     };
 
