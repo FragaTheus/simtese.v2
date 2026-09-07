@@ -11,9 +11,7 @@
     [label]="' SIMTESE Saúde Ocupacional '"
     [title]="'Painel de Recursos'"
     [description]="' Acesse e gerencie rapidamente os principais módulos operacionais do sistema SIMTESE Medicina e Segurança do Trabalho. '"
-  >
-    <p-button label="Novo agendamento" icon="pi pi-plus-circle" />
-  </app-dash-page-header-layout>
+  />
 
   <div id="content" class="mt-8">
     <div class="grid grid-cols-1 md:grid-cols-4 gap-6">
@@ -25,7 +23,7 @@
       } @else {
         @for (c of cards; track c.title) {
           <p-card
-            styleClass="shadow-none hover:shadow-md hover:scale-105 transition-all group max-w-3xs"
+            styleClass="shadow-none hover:shadow-md hover:scale-105 transition-all group max-w-xs"
           >
             <div id="card-header">
               <span
