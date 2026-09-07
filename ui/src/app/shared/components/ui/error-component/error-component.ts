@@ -1,4 +1,4 @@
-import { Component, input } from '@angular/core';
+import { Component, computed, input } from '@angular/core';
 import { ApiErrorResponse } from '../../../api/type/api.type';
 import { CardModule } from 'primeng/card';
 import { ButtonModule } from 'primeng/button';
@@ -10,4 +10,6 @@ import { ButtonModule } from 'primeng/button';
 })
 export class ErrorComponent {
   error = input.required<ApiErrorResponse | null>();
+  // 403 means the user can't access this resource, so retrying won't help
+  isForbidden = computed(() => this.error()?.status === 'FORBIDDEN');
 }

@@ -1,7 +1,7 @@
 @if (error()) {
   <app-error-component [error]="error()">
-    <p-button label="Cancelar" [routerLink]="'/entrar'" severity="danger" />
-    <p-button label="Tentar novamente" (click)="authenticate()" severity="success" />
+    <p-button cancel label="Cancelar" [routerLink]="'/entrar'" severity="danger" />
+    <p-button retry label="Tentar novamente" (click)="authenticate()" severity="success" />
   </app-error-component>
 }
 

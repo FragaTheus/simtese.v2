@@ -3,7 +3,7 @@ import { DashPageLayout } from '../../../shared/components/layout/dash/dash-page
 import { AccountInfoLayout } from '../../../shared/components/layout/account-info-layout/account-info-layout';
 import { DashPageHeaderLayout } from '../../../shared/components/layout/dash/dash-page-header-layout/dash-page-header-layout';
 import { ButtonModule } from 'primeng/button';
-import { ActivatedRoute, RouterLink } from '@angular/router';
+import { ActivatedRoute, Router, RouterLink } from '@angular/router';
 import { AccountInfo, AccountService } from '../account-service';
 import { ApiErrorResponse } from '../../../shared/api/type/api.type';
 import { HttpErrorResponse } from '@angular/common/http';
@@ -12,6 +12,7 @@ import { EditAccountComponent } from '../edit-account-component/edit-account-com
 import { CardModule } from 'primeng/card';
 import { SkeletonModule } from 'primeng/skeleton';
 import { DatePipe } from '@angular/common';
+import { AuthService } from '../../auth/auth-service';
 
 @Component({
   selector: 'app-account-info-component',
@@ -32,6 +33,8 @@ import { DatePipe } from '@angular/common';
 export class AccountInfoComponent {
   private accountService = inject(AccountService);
   private actRoute = inject(ActivatedRoute);
+  private router = inject(Router);
+  private authService = inject(AuthService);
   loading = signal<boolean>(false);
   error = signal<ApiErrorResponse | null>(null);
   account = signal<AccountInfo | undefined>(undefined);
@@ -50,7 +53,14 @@ export class AccountInfoComponent {
         this.loading.set(false);
       },
       error: (err: HttpErrorResponse) => {
-        this.error.set(err.error);
+        const apiError = err.error as ApiErrorResponse;
+
+        if (err.status === 401 || apiError.status === 'UNAUTHORIZED') {
+          this.authService.logout();
+          this.router.navigate(['/entrar']);
+        }
+
+        this.error.set(apiError);
         this.loading.set(false);
       },
     });

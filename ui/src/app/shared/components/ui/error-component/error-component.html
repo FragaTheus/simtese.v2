@@ -9,7 +9,10 @@
       {{ error()?.message ?? 'Ocorreu um erro inesperado' }}
     </p>
     <div class="flex items-center gap-2 flex-wrap justify-end mt-6">
-      <ng-content />
+      <ng-content select="[cancel]" />
+      @if (!isForbidden()) {
+        <ng-content select="[retry]" />
+      }
     </div>
   </p-card>
 </div>

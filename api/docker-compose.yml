@@ -29,16 +29,18 @@ services:
       retries: 10
 
   api:
-    build:
-      context: .
-      dockerfile: Dockerfile
+    image: eclipse-temurin:25-jre
     container_name: simtese-api
     restart: unless-stopped
+    working_dir: /app
     environment:
       SPRING_PROFILES_ACTIVE: prod
+    entrypoint: >
+      sh -c "java -jar $(ls /jar/*.jar | grep -v -- '-plain.jar' | head -n1)"
     ports:
-      - "8080:8080"
+      - "8082:8080"
     volumes:
+      - .:/jar:ro
       - api-logs:/app/logs
     depends_on:
       postgres:

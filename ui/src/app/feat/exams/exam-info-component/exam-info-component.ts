@@ -5,11 +5,12 @@ import { DashPageLayout } from '../../../shared/components/layout/dash/dash-page
 import { SkeletonModule } from 'primeng/skeleton';
 import { ExamInfo, ExamService } from '../exam-service';
 import { ApiErrorResponse } from '../../../shared/api/type/api.type';
-import { ActivatedRoute, RouterLink } from '@angular/router';
+import { ActivatedRoute, Router, RouterLink } from '@angular/router';
 import { HttpErrorResponse } from '@angular/common/http';
 import { ErrorComponent } from '../../../shared/components/ui/error-component/error-component';
 import { DatePipe } from '@angular/common';
 import { EditExamComponent } from '../edit-exam-component/edit-exam-component';
+import { AuthService } from '../../auth/auth-service';
 
 @Component({
   selector: 'app-exam-info-component',
@@ -28,6 +29,8 @@ import { EditExamComponent } from '../edit-exam-component/edit-exam-component';
 export class ExamInfoComponent {
   private examService = inject(ExamService);
   private actRoute = inject(ActivatedRoute);
+  private router = inject(Router);
+  private authService = inject(AuthService);
   loading = signal<boolean>(false);
   error = signal<ApiErrorResponse | null>(null);
   exam = signal<ExamInfo | undefined>(undefined);
@@ -46,7 +49,14 @@ export class ExamInfoComponent {
         this.loading.set(false);
       },
       error: (err: HttpErrorResponse) => {
-        this.error.set(err.error);
+        const apiError = err.error as ApiErrorResponse;
+
+        if (err.status === 401 || apiError.status === 'UNAUTHORIZED') {
+          this.authService.logout();
+          this.router.navigate(['/entrar']);
+        }
+
+        this.error.set(apiError);
         this.loading.set(false);
       },
     });

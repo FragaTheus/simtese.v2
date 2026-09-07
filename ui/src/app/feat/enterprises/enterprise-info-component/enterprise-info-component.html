@@ -1,7 +1,7 @@
 @if (error() !== null) {
   <app-error-component [error]="error()">
-    <p-button severity="danger" label="Voltar" [routerLink]="'/painel/empresas'" />
-    <p-button severity="success" label="Tentar novamente" (click)="retry()" />
+    <p-button cancel severity="danger" label="Voltar" [routerLink]="'/painel/empresas'" />
+    <p-button retry severity="success" label="Tentar novamente" (click)="retry()" />
   </app-error-component>
 } @else {
   <app-dash-page-layout>

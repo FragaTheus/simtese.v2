@@ -1,7 +1,21 @@
 <div class="flex w-full h-svh">
-  <app-drawer-component />
-  <div class="flex-1 md:ml-80">
-    <div class="h-full w-full p-6 overflow-auto">
+  <app-drawer-component [(visible)]="drawerVisible" />
+  <div class="flex-1 flex flex-col h-full md:ml-80">
+    <header class="w-full flex items-center gap-3 px-4 py-3 border-b border-surface-200">
+      <p-button
+        icon="pi pi-bars"
+        severity="secondary"
+        variant="text"
+        styleClass="md:hidden"
+        (click)="drawerVisible.set(!drawerVisible())"
+      />
+      <p-breadcrumb
+        [model]="breadcrumbItems()"
+        [home]="home"
+        styleClass="border-none bg-transparent p-0"
+      />
+    </header>
+    <div class="flex-1 w-full p-6 overflow-auto">
       <ng-content />
     </div>
   </div>

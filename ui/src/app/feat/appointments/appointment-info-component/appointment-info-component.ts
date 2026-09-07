@@ -4,7 +4,7 @@ import { CardModule } from 'primeng/card';
 import { SkeletonModule } from 'primeng/skeleton';
 import { TooltipModule } from 'primeng/tooltip';
 import { NgTemplateOutlet } from '@angular/common';
-import { ActivatedRoute, RouterLink } from '@angular/router';
+import { ActivatedRoute, Router, RouterLink } from '@angular/router';
 import { HttpErrorResponse } from '@angular/common/http';
 import { DashPageLayout } from '../../../shared/components/layout/dash/dash-page-layout/dash-page-layout';
 import { DashPageHeaderLayout } from '../../../shared/components/layout/dash/dash-page-header-layout/dash-page-header-layout';
@@ -20,6 +20,7 @@ import {
 import { ApiErrorResponse } from '../../../shared/api/type/api.type';
 import { ManageAppointmentComponent } from '../manage-appointment-component/manage-appointment-component';
 import { DocumentFormatPipe } from '../../../shared/pipes/document-format-pipe';
+import { AuthService } from '../../auth/auth-service';
 
 const SHIFT_LABELS: Record<Shift, string> = {
   MORNING: 'Manhã',
@@ -67,6 +68,8 @@ const EXAM_STATUS_STYLES: Record<ExamStatus, string> = {
 export class AppointmentInfoComponent {
   private appointmentService = inject(AppointmentService);
   private actRoute = inject(ActivatedRoute);
+  private router = inject(Router);
+  private authService = inject(AuthService);
   loading = signal<boolean>(false);
   error = signal<ApiErrorResponse | null>(null);
   appointment = signal<AppointmentInfo | undefined>(undefined);
@@ -90,7 +93,14 @@ export class AppointmentInfoComponent {
         this.loading.set(false);
       },
       error: (err: HttpErrorResponse) => {
-        this.error.set(err.error);
+        const apiError = err.error as ApiErrorResponse;
+
+        if (err.status === 401 || apiError.status === 'UNAUTHORIZED') {
+          this.authService.logout();
+          this.router.navigate(['/entrar']);
+        }
+
+        this.error.set(apiError);
         this.loading.set(false);
       },
     });

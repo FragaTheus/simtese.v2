@@ -29,6 +29,7 @@ export const routes: Routes = [
       },
       {
         path: 'agendamentos',
+        data: { breadcrumb: 'Agendamentos' },
         loadComponent: () =>
           import('./feat/appointments/appointment-list-component/appointment-list-component').then(
             (m) => m.AppointmentListComponent,
@@ -36,6 +37,7 @@ export const routes: Routes = [
       },
       {
         path: 'agendamentos/:id',
+        data: { breadcrumb: 'Detalhes do agendamento' },
         loadComponent: () =>
           import('./feat/appointments/appointment-info-component/appointment-info-component').then(
             (m) => m.AppointmentInfoComponent,
@@ -43,6 +45,7 @@ export const routes: Routes = [
       },
       {
         path: 'exames',
+        data: { breadcrumb: 'Exames' },
         loadComponent: () =>
           import('./feat/exams/exams-list-component/exams-list-component').then(
             (m) => m.ExamsListComponent,
@@ -50,6 +53,7 @@ export const routes: Routes = [
       },
       {
         path: 'exames/:id',
+        data: { breadcrumb: 'Detalhes do exame' },
         loadComponent: () =>
           import('./feat/exams/exam-info-component/exam-info-component').then(
             (m) => m.ExamInfoComponent,
@@ -57,6 +61,7 @@ export const routes: Routes = [
       },
       {
         path: 'contas',
+        data: { breadcrumb: 'Contas' },
         loadComponent: () =>
           import('./feat/account/account-list-component/account-list-component').then(
             (m) => m.AccountListComponent,
@@ -64,6 +69,7 @@ export const routes: Routes = [
       },
       {
         path: 'contas/:id',
+        data: { breadcrumb: 'Detalhes da conta' },
         loadComponent: () =>
           import('./feat/account/account-info-component/account-info-component').then(
             (m) => m.AccountInfoComponent,
@@ -71,6 +77,7 @@ export const routes: Routes = [
       },
       {
         path: 'empresas',
+        data: { breadcrumb: 'Empresas' },
         loadComponent: () =>
           import('./feat/enterprises/enterprises-list-component/enterprises-list-component').then(
             (m) => m.EnterprisesListComponent,
@@ -78,6 +85,7 @@ export const routes: Routes = [
       },
       {
         path: 'empresas/:id',
+        data: { breadcrumb: 'Detalhes da empresa' },
         loadComponent: () =>
           import('./feat/enterprises/enterprise-info-component/enterprise-info-component').then(
             (m) => m.EnterpriseInfoComponent,
@@ -85,6 +93,7 @@ export const routes: Routes = [
       },
       {
         path: 'perfil',
+        data: { breadcrumb: 'Perfil' },
         loadComponent: () =>
           import('./feat/account/profile/profile-info-component/profile-info-component').then(
             (m) => m.ProfileInfoComponent,

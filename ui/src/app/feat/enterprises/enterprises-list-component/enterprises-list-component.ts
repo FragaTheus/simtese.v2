@@ -17,6 +17,7 @@ import { TooltipModule } from 'primeng/tooltip';
 import { FormsModule } from '@angular/forms';
 import { SelectModule } from 'primeng/select';
 import { DocumentFormatPipe } from '../../../shared/pipes/document-format-pipe';
+import { AuthService } from '../../auth/auth-service';
 
 interface ActiveOption {
   label: string;
@@ -48,6 +49,7 @@ export class EnterprisesListComponent {
   private enterpriseService = inject(EnterpriseService);
   private route = inject(ActivatedRoute);
   private router = inject(Router);
+  private authService = inject(AuthService);
   loading = signal<boolean>(false);
   error = signal<ApiErrorResponse | null>(null);
   pageableResponse = signal<PageableResponse<EnterpriseSummary> | null>(null);
@@ -106,7 +108,14 @@ export class EnterprisesListComponent {
         this.loading.set(false);
       },
       error: (err: HttpErrorResponse) => {
-        this.error.set(err.error);
+        const apiError = err.error as ApiErrorResponse;
+
+        if (err.status === 401 || apiError.status === 'UNAUTHORIZED') {
+          this.authService.logout();
+          this.router.navigate(['/entrar']);
+        }
+
+        this.error.set(apiError);
         this.loading.set(false);
       },
     });

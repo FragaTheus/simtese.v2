@@ -5,7 +5,7 @@ import { DashPageLayout } from '../../../shared/components/layout/dash/dash-page
 import { SkeletonModule } from 'primeng/skeleton';
 import { EnterpriseInfo, EnterpriseService } from '../enterprise-service';
 import { ApiErrorResponse } from '../../../shared/api/type/api.type';
-import { ActivatedRoute, RouterLink } from '@angular/router';
+import { ActivatedRoute, Router, RouterLink } from '@angular/router';
 import { HttpErrorResponse } from '@angular/common/http';
 import { ErrorComponent } from '../../../shared/components/ui/error-component/error-component';
 import { EditEnterpriseComponent } from '../edit-enterprise-component/edit-enterprise-component';
@@ -13,6 +13,7 @@ import { AuditInfoComponent } from '../../../shared/components/ui/audit-info-com
 import { EnterpriseAccountVinculateComponent } from '../enterprise-account-vinculate-component/enterprise-account-vinculate-component';
 import { UnlinkAccountComponent } from '../unlink-account-component/unlink-account-component';
 import { DocumentFormatPipe } from '../../../shared/pipes/document-format-pipe';
+import { AuthService } from '../../auth/auth-service';
 
 @Component({
   selector: 'app-enterprise-info-component',
@@ -34,6 +35,8 @@ import { DocumentFormatPipe } from '../../../shared/pipes/document-format-pipe';
 export class EnterpriseInfoComponent {
   private enterpriseService = inject(EnterpriseService);
   private actRoute = inject(ActivatedRoute);
+  private router = inject(Router);
+  private authService = inject(AuthService);
   loading = signal<boolean>(false);
   error = signal<ApiErrorResponse | null>(null);
   enterprise = signal<EnterpriseInfo | undefined>(undefined);
@@ -52,7 +55,14 @@ export class EnterpriseInfoComponent {
         this.loading.set(false);
       },
       error: (err: HttpErrorResponse) => {
-        this.error.set(err.error);
+        const apiError = err.error as ApiErrorResponse;
+
+        if (err.status === 401 || apiError.status === 'UNAUTHORIZED') {
+          this.authService.logout();
+          this.router.navigate(['/entrar']);
+        }
+
+        this.error.set(apiError);
         this.loading.set(false);
       },
     });
