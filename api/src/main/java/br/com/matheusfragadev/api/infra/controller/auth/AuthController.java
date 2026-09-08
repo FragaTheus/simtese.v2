@@ -28,7 +28,7 @@ public class AuthController {
     @GetMapping
     public ResponseEntity<AuthResponse> me(@AuthenticationPrincipal UserDetailsImpl userDetails){
         var account = authenticationService.me(userDetails.getId());
-        var response = new AuthResponse(account.getName(), account.getRole());
+        var response = new AuthResponse(account.getId() ,account.getName(), account.getRole());
         return ResponseEntity.ok(response);
     }
 

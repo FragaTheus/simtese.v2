@@ -10,6 +10,7 @@ export interface LoginRequest {
 }
 
 export interface AuthResponse {
+  id: string;
   name: string;
   role: string;
 }

@@ -20,7 +20,7 @@
           <p-skeleton class="w-50 p-42" />
           <p-skeleton class="w-50 p-42" />
         } @else {
-          @for (c of cards; track c.title) {
+          @for (c of cards(); track c.title) {
             <p-card
               styleClass="shadow-none hover:shadow-md hover:scale-105 transition-all group max-w-xs"
             >
@@ -34,7 +34,9 @@
 
               <div id="card-content" class="mt-4">
                 <h2 class="text-xl font-semibold">{{ c.title }}</h2>
-                <p class="font-light text-surface-700 mt-2">{{ c.description }}</p>
+                <p class="font-light text-surface-700 mt-2">
+                  {{ c.description }}
+                </p>
 
                 <p-button
                   variant="text"
@@ -56,11 +58,13 @@
       <p-card styleClass="shadow-none">
         <div>
           <h2 class="text-xl font-semibold">Acesso Rápido</h2>
+
           <p class="font-light text-surface-700 mt-2">
             Acessos instantâneos para fluxos frequentes
           </p>
+
           <div class="grid grid-cols-2 md:grid-cols-4 gap-2">
-            @for (fa of fastAccess; track fa.title) {
+            @for (fa of fastAccess(); track fa.title) {
               <button
                 type="button"
                 (click)="fa.action()"

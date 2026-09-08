@@ -48,67 +48,18 @@ interface FastAccessCard {
 export class DashComponent {
   private authService = inject(AuthService);
   private router = inject(Router);
-  loading = signal<boolean>(false);
+
+  loading = signal(false);
   error = signal<ApiErrorResponse | null>(null);
+  userName = signal<string | null>(null);
+
   examCreate = viewChild<CreateExamComponent>('examCreate');
   accountCreate = viewChild<CreateAccountComponent>('accountCreate');
   enterpriseCreate = viewChild<CreateEnterpriseComponent>('enterpriseCreate');
   appointmentCreate = viewChild<CreateAppointmentComponent>('appointmentCreate');
-  userName = signal<string | null>(null);
-  cards: Card[] = [
-    {
-      icon: 'pi pi-calendar',
-      title: 'Agendamentos',
-      description: 'Gerencie os agendamentos de exames ocupacionais dos funcionários.',
-      href: '/painel/agendamentos',
-    },
-    {
-      icon: 'pi pi-clipboard',
-      title: 'Exames',
-      description: 'Gerencie o catálogo de exames que estarão disponíveis no agendamento.',
-      href: '/painel/exames',
-    },
-    {
-      icon: 'pi pi-users',
-      title: 'Contas',
-      description:
-        'As contas de usuários serão acessadas pelos usuários do painel administrativo, seja interno ou externo.',
-      href: '/painel/contas',
-    },
-    {
-      icon: 'pi pi-building',
-      title: 'Empresas',
-      description: 'Gerencie as empresas parceiras vinculadas à plataforma.',
-      href: '/painel/empresas',
-    },
-  ];
 
-  fastAccess: FastAccessCard[] = [
-    {
-      icon: 'pi pi-calendar-plus',
-      title: 'Novo Agendamento',
-      description: 'Cadastrar novo agendamento',
-      action: () => this.appointmentCreate()?.visible.set(true),
-    },
-    {
-      icon: 'pi pi-clipboard',
-      title: 'Novo Exame',
-      description: 'Cadastrar novo exame',
-      action: () => this.examCreate()?.visible.set(true),
-    },
-    {
-      icon: 'pi pi-user-plus',
-      title: 'Nova Conta',
-      description: 'Cadastrar nova conta',
-      action: () => this.accountCreate()?.visible.set(true),
-    },
-    {
-      icon: 'pi pi-building',
-      title: 'Nova Empresa',
-      description: 'Cadastrar nova empresa',
-      action: () => this.enterpriseCreate()?.visible.set(true),
-    },
-  ];
+  cards = signal<Card[]>([]);
+  fastAccess = signal<FastAccessCard[]>([]);
 
   constructor() {
     this.authenticate();
@@ -122,17 +73,125 @@ export class DashComponent {
       next: (response) => {
         const user = response.body;
 
-        if (user?.role === 'ENTERPRISE') {
-          this.router.navigate(['/empresas/']);
+        if (!user) {
+          this.loading.set(false);
+          return;
         }
 
-        this.userName.set(response.body!.name);
+        this.userName.set(user.name);
+
+        if (user.role === 'ENTERPRISE') {
+          this.router.navigate(['/painel/empresas/vinculadas', user.id]);
+
+          return;
+        }
+
+        if (user.role === 'ADMIN') {
+          this.cards.set([
+            {
+              icon: 'pi pi-calendar',
+              title: 'Agendamentos',
+              description: 'Gerencie os agendamentos de exames ocupacionais dos funcionários.',
+              href: '/painel/agendamentos',
+            },
+            {
+              icon: 'pi pi-clipboard',
+              title: 'Exames',
+              description: 'Gerencie o catálogo de exames que estarão disponíveis no agendamento.',
+              href: '/painel/exames',
+            },
+            {
+              icon: 'pi pi-users',
+              title: 'Contas',
+              description:
+                'As contas de usuários serão acessadas pelos usuários do painel administrativo, seja interno ou externo.',
+              href: '/painel/contas',
+            },
+            {
+              icon: 'pi pi-building',
+              title: 'Empresas',
+              description: 'Gerencie as empresas parceiras vinculadas à plataforma.',
+              href: '/painel/empresas',
+            },
+          ]);
+
+          this.fastAccess.set([
+            {
+              icon: 'pi pi-calendar-plus',
+              title: 'Novo Agendamento',
+              description: 'Cadastrar novo agendamento',
+              action: () => this.appointmentCreate()?.visible.set(true),
+            },
+            {
+              icon: 'pi pi-clipboard',
+              title: 'Novo Exame',
+              description: 'Cadastrar novo exame',
+              action: () => this.examCreate()?.visible.set(true),
+            },
+            {
+              icon: 'pi pi-user-plus',
+              title: 'Nova Conta',
+              description: 'Cadastrar nova conta',
+              action: () => this.accountCreate()?.visible.set(true),
+            },
+            {
+              icon: 'pi pi-building',
+              title: 'Nova Empresa',
+              description: 'Cadastrar nova empresa',
+              action: () => this.enterpriseCreate()?.visible.set(true),
+            },
+          ]);
+        }
+
+        if (user.role === 'NURSE' || user.role === 'RECEPTIONIST') {
+          this.cards.set([
+            {
+              icon: 'pi pi-calendar',
+              title: 'Agendamentos',
+              description: 'Gerencie os agendamentos de exames ocupacionais dos funcionários.',
+              href: '/painel/agendamentos',
+            },
+            {
+              icon: 'pi pi-clipboard',
+              title: 'Exames',
+              description: 'Gerencie o catálogo de exames que estarão disponíveis no agendamento.',
+              href: '/painel/exames',
+            },
+            {
+              icon: 'pi pi-building',
+              title: 'Empresas',
+              description: 'Gerencie as empresas parceiras vinculadas à plataforma.',
+              href: '/painel/empresas',
+            },
+          ]);
+
+          this.fastAccess.set([
+            {
+              icon: 'pi pi-calendar-plus',
+              title: 'Novo Agendamento',
+              description: 'Cadastrar novo agendamento',
+              action: () => this.appointmentCreate()?.visible.set(true),
+            },
+            {
+              icon: 'pi pi-clipboard',
+              title: 'Novo Exame',
+              description: 'Cadastrar novo exame',
+              action: () => this.examCreate()?.visible.set(true),
+            },
+            {
+              icon: 'pi pi-building',
+              title: 'Nova Empresa',
+              description: 'Cadastrar nova empresa',
+              action: () => this.enterpriseCreate()?.visible.set(true),
+            },
+          ]);
+        }
+
         this.loading.set(false);
       },
-      error: (err: HttpErrorResponse) => {
-        const apiError = err.error as ApiErrorResponse;
 
-        this.error.set(apiError);
+      error: (err: HttpErrorResponse) => {
+        this.error.set(err.error as ApiErrorResponse);
         this.loading.set(false);
       },
     });
