@@ -67,6 +67,7 @@ public class AccountController {
         return ResponseEntity.ok(summaries);
     }
 
+
     @PostMapping
     public ResponseEntity<UUID> create(@Valid @RequestBody CreateAccountRequest request){
         var command = AccountMapper.toCreateAccountCommand(request);

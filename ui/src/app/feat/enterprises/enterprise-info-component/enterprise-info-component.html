@@ -32,7 +32,9 @@
             </div>
 
             <div class="flex items-center gap-2">
-              <app-edit-enterprise-component [enterprise]="enterprise()!" />
+              @if (canEdit()) {
+                <app-edit-enterprise-component [enterprise]="enterprise()!" />
+              }
             </div>
           }
         </div>

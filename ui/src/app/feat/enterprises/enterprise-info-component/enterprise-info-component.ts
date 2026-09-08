@@ -14,6 +14,7 @@ import { EnterpriseAccountVinculateComponent } from '../enterprise-account-vincu
 import { UnlinkAccountComponent } from '../unlink-account-component/unlink-account-component';
 import { DocumentFormatPipe } from '../../../shared/pipes/document-format-pipe';
 import { AuthService } from '../../auth/auth-service';
+import { AccountService } from '../../account/account-service';
 
 @Component({
   selector: 'app-enterprise-info-component',
@@ -37,13 +38,25 @@ export class EnterpriseInfoComponent {
   private actRoute = inject(ActivatedRoute);
   private router = inject(Router);
   private authService = inject(AuthService);
+  private accountService = inject(AccountService);
   loading = signal<boolean>(false);
   error = signal<ApiErrorResponse | null>(null);
   enterprise = signal<EnterpriseInfo | undefined>(undefined);
+  canEdit = signal<boolean>(false);
   id = this.actRoute.snapshot.paramMap.get('id');
 
   constructor() {
     this.loadEnterprise();
+    this.loadAccount();
+  }
+
+  loadAccount() {
+    this.accountService.me().subscribe({
+      next: (account) => {
+        this.canEdit.set(account.role === 'ADMIN' || account.role === 'RECEPTIONIST');
+      },
+      error: () => {},
+    });
   }
 
   loadEnterprise() {

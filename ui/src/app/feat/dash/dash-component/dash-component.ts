@@ -1,5 +1,6 @@
 import { Component, computed, inject, signal, viewChild } from '@angular/core';
 import { AuthService } from '../../auth/auth-service';
+import { AccountService } from '../../account/account-service';
 import { HttpErrorResponse } from '@angular/common/http';
 import { ApiErrorResponse } from '../../../shared/api/type/api.type';
 import { Router, RouterLink } from '@angular/router';
@@ -49,6 +50,7 @@ interface FastAccessCard {
 export class DashComponent {
   private router = inject(Router);
   private authService = inject(AuthService);
+  private accountService = inject(AccountService);
   loading = signal<boolean>(false);
   error = signal<ApiErrorResponse | null>(null);
   examCreate = viewChild<CreateExamComponent>('examCreate');
@@ -119,8 +121,13 @@ export class DashComponent {
     this.loading.set(true);
     this.error.set(null);
 
-    this.authService.me().subscribe({
-      next: () => {
+    this.accountService.me().subscribe({
+      next: (account) => {
+        if (account.role === 'ENTERPRISE') {
+          this.router.navigate(['/painel/empresas/vinculadas', account.id]);
+          return;
+        }
+
         this.loading.set(false);
       },
       error: (err: HttpErrorResponse) => {

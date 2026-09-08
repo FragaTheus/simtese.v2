@@ -1,0 +1,47 @@
+@if (error() !== null) {
+  <app-error-component [error]="error()">
+    <div class="flex flex-wrap items-center gap-2">
+      <p-button label="Voltar" severity="danger" routerLink="/" />
+      <p-button label="Tentar novamente" severity="success" (click)="loadEnterprises()" />
+    </div>
+  </app-error-component>
+}
+
+<app-dash-page-layout>
+  <app-dash-page-header-layout
+    label="Empresas vinculadas"
+    title="Suas empresas"
+    description="Essas são as empresas vinculadas à sua conta. Caso não veja alguma empresa aqui, entre em contato com os administradores do sistema."
+    [loading]="loading()"
+  />
+
+  <app-dash-list-page-layout [loading]="loading()">
+    <div toolbar class="w-full">
+      <div class="flex items-center justify-between gap-2 w-full">
+        <span>Não encontrou uma empresa na qual tem vínculo?</span>
+        <p-button severity="success" label="Falar com administradores" icon="pi pi-whatsapp" />
+      </div>
+    </div>
+
+    <div dataview>
+      <p-dataview>
+        <ng-template #list let-items>
+          @for (i of items; track i.id) {
+            <div class="w-full flex items-center justify-between">
+              <div>
+                <span class="font-semibold">{{ i.name }}</span>
+                <span class="font-light text-sm text-surface-700 mt-2">{{ i.cnpj }}</span>
+              </div>
+
+              <p-button
+                severity="secondary"
+                icon="pi pi-ellipsis-v"
+                [routerLink]="['/painel/empresas', i.id]"
+              />
+            </div>
+          }
+        </ng-template>
+      </p-dataview>
+    </div>
+  </app-dash-list-page-layout>
+</app-dash-page-layout>

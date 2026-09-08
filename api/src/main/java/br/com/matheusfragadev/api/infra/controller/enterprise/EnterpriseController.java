@@ -21,6 +21,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
 import java.util.UUID;
 
 @Slf4j
@@ -53,6 +54,13 @@ public class EnterpriseController {
         var enterpriseFilterCommand = new FilterEnterprisesCommand(search, active, pageable);
         var enterprises = enterpriseService.findAll(enterpriseFilterCommand);
         var summaries = enterprises.map(EnterpriseMapper::toEnterpriseSummary);
+        return ResponseEntity.ok(summaries);
+    }
+
+    @GetMapping("/account/{accountId}")
+    public ResponseEntity<List<EnterpriseSummary>> findAllByAccountId(@PathVariable UUID accountId){
+        var enterprises = enterpriseService.findAllByAccountId(accountId);
+        var summaries = enterprises.stream().map(EnterpriseMapper::toEnterpriseSummary).toList();
         return ResponseEntity.ok(summaries);
     }
 

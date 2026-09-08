@@ -92,6 +92,14 @@ export const routes: Routes = [
           ),
       },
       {
+        path: 'empresas/vinculadas/:id',
+        data: { breadcrumb: 'Empresas Vinculadas' },
+        loadComponent: () =>
+          import('./feat/enterprises/account-linked-enterprises-component/account-linked-enterprises-component').then(
+            (m) => m.AccountLinkedEnterprisesComponent,
+          ),
+      },
+      {
         path: 'perfil',
         data: { breadcrumb: 'Perfil' },
         loadComponent: () =>

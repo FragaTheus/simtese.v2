@@ -2,6 +2,7 @@ package br.com.matheusfragadev.api.application.enterprise;
 
 import br.com.matheusfragadev.api.application.accounts.AccountServiceImpl;
 import br.com.matheusfragadev.api.application.enterprise.aggregate.FilterEnterprisesCommand;
+import br.com.matheusfragadev.api.domain.accounts.aggregate.Role;
 import br.com.matheusfragadev.api.domain.accounts.entity.Account;
 import br.com.matheusfragadev.api.domain.enterprise.aggregate.CNPJ;
 import br.com.matheusfragadev.api.domain.enterprise.entity.Enterprise;
@@ -13,6 +14,7 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.data.domain.Page;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
 import java.util.UUID;
 
 @Slf4j
@@ -37,6 +39,14 @@ public class EnterpriseService {
         return repository.findAll
                 (EnterpriseSpec.enterpriseFilter
                         (command.search(), command.active()), command.pageable());
+    }
+
+    public List<Enterprise> findAllByAccountId(UUID accountId){
+        var account = accountService.findById(accountId);
+        if (account.getRole() != Role.ENTERPRISE){
+            throw new EnterpriseException("Conta não é do tipo empresarial, não é possível buscar empresas vinculadas");
+        }
+        return repository.findAllByAccountId(accountId);
     }
 
     public void delete(UUID targetId){

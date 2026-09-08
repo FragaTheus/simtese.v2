@@ -95,4 +95,8 @@ export class EnterpriseService {
   delete(targetId: string): Observable<void> {
     return this.http.delete<void>(`${API_V1_URL}/enterprises/${targetId}`);
   }
+
+  linkedAccounts(accountId: string): Observable<EnterpriseSummary[]> {
+    return this.http.get<EnterpriseSummary[]>(`${API_V1_URL}/enterprises/account/${accountId}`);
+  }
 }
