@@ -24,7 +24,7 @@
     </div>
 
     <div dataview>
-      <p-dataview>
+      <p-dataview [value]="items()">
         <ng-template #list let-items>
           @for (i of items; track i.id) {
             <div class="w-full flex items-center justify-between">
