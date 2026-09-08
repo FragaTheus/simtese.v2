@@ -97,6 +97,7 @@ export class EnterpriseService {
   }
 
   linkedAccounts(accountId: string): Observable<EnterpriseSummary[]> {
+    console.log('Id enviado para o endpoint de contas vinculadas: ' + accountId);
     return this.http.get<EnterpriseSummary[]>(`${API_V1_URL}/enterprises/account/${accountId}`);
   }
 }

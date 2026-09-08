@@ -40,8 +40,10 @@ export class AccountLinkedEnterprisesComponent {
 
   loadEnterprises() {
     this.loading.set(true);
+    console.log('Carregando empresas vinculadas para a conta: ' + this.accountId);
     this.enterpriseService.linkedAccounts(this.accountId!).subscribe({
       next: (items) => {
+        console.log('Empresas vinculadas carregadas de acordo com a api: ', items);
         this.items.set(items);
         this.loading.set(false);
       },
