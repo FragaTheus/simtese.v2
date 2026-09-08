@@ -9,7 +9,7 @@
       [loading]="loading()"
       label="SIMTESE Saúde Ocupacional"
       title="Painel de Recursos"
-      description="Ola, {{ user()!.name }}, que bom ter voce de volta!"
+      description="Ola, {{ userName() }}, que bom ter voce de volta!"
     />
 
     <div id="content" class="mt-8">
@@ -20,7 +20,7 @@
           <p-skeleton class="w-50 p-42" />
           <p-skeleton class="w-50 p-42" />
         } @else {
-          @for (c of cards()!; track c.title) {
+          @for (c of cards; track c.title) {
             <p-card
               styleClass="shadow-none hover:shadow-md hover:scale-105 transition-all group max-w-xs"
             >

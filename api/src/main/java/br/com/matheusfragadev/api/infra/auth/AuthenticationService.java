@@ -2,6 +2,7 @@ package br.com.matheusfragadev.api.infra.auth;
 
 import br.com.matheusfragadev.api.application.accounts.AccountServiceImpl;
 import br.com.matheusfragadev.api.domain.accounts.entity.Account;
+import br.com.matheusfragadev.api.infra.auth.aggregates.LoginResult;
 import br.com.matheusfragadev.api.infra.security.blacklist.TokenBlacklistService;
 import br.com.matheusfragadev.api.infra.security.blacklist.TokenBlacklistServiceImpl;
 import br.com.matheusfragadev.api.infra.security.details.UserDetailsImpl;
@@ -30,7 +31,7 @@ public class AuthenticationService {
         return accountService.findById(accountId);
     }
 
-    public String login(String email, String password){
+    public LoginResult login(String email, String password){
 
         Authentication authentication = authenticationManager.authenticate(
                 new UsernamePasswordAuthenticationToken(
@@ -42,7 +43,9 @@ public class AuthenticationService {
         UUID accountId = ((UserDetailsImpl)
                 Objects.requireNonNull(authentication.getPrincipal())).getId();
 
-        return jwtService.generateToken(accountId);
+        Account account = accountService.findById(accountId);
+
+        return new LoginResult(jwtService.generateToken(accountId), account);
     }
 
     public void logout(String token){

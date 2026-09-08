@@ -22,16 +22,20 @@ export class AuthService {
   private router = inject(Router);
   user = signal<AuthResponse | null>(null);
 
-  login(request: LoginRequest): Observable<HttpResponse<void>> {
-    return this.http.post<void>(`${API_V1_URL}/auth`, request, { observe: 'response' }).pipe(
-      tap((response) => {
-        const auth = response.headers.get('Authorization');
+  login(request: LoginRequest): Observable<HttpResponse<AuthResponse>> {
+    return this.http
+      .post<AuthResponse>(`${API_V1_URL}/auth`, request, { observe: 'response' })
+      .pipe(
+        tap((response) => {
+          const auth = response.headers.get('Authorization');
 
-        if (auth) {
-          localStorage.setItem('accessToken', auth);
-        }
-      }),
-    );
+          if (auth) {
+            localStorage.setItem('accessToken', auth);
+          }
+
+          this.user.set(response.body);
+        }),
+      );
   }
 
   me(): Observable<HttpResponse<AuthResponse>> {
@@ -52,7 +56,8 @@ export class AuthService {
 
   logout(): void {
     localStorage.removeItem('accessToken');
-    this.user.set(null);
     this.router.navigate(['/entrar']);
+    this.serverLogout().subscribe();
+    this.user.set(null);
   }
 }

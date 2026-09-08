@@ -1,6 +1,6 @@
 <p-drawer
   [(visible)]="visible"
-  [modal]="!isMd"
+  [modal]="!isMd()"
   [dismissible]="closeable()"
   [closable]="closeable()"
   [closeOnEscape]="closeable()"
@@ -10,19 +10,32 @@
   <ng-template #header>
     <img src="/icon-logo.png" class="max-w-2xs mx-auto" />
   </ng-template>
+
   <div class="h-full w-full">
-    <label class="text-xs uppercase font-semibold">Navegação</label>
+    <label class="text-xs uppercase font-semibold"> Navegação </label>
+
     <div class="p-2 mt-2 gap-2 flex flex-col">
-      <p-panelMenu [model]="items" />
+      @if (loading()) {
+        <p-skeleton width="100%" height="2rem" class="mt-2" />
+        <p-skeleton width="100%" height="2rem" class="mt-2" />
+        <p-skeleton width="100%" height="2rem" class="mt-2" />
+        <p-skeleton width="100%" height="2rem" class="mt-2" />
+        <p-skeleton width="100%" height="2rem" class="mt-2" />
+        <p-skeleton width="100%" height="2rem" class="mt-2" />
+      } @else {
+        <p-panelMenu [model]="items()" styleClass="w-full" />
+      }
     </div>
   </div>
+
   <ng-template #footer>
     <p-button styleClass="w-full" severity="secondary" variant="text" (click)="menu.toggle($event)">
       <div class="w-full flex items-center gap-2">
         <p-avatar icon="pi pi-cog" />
-        <span class="text-surface-700">Configurações</span>
+        <span class="text-surface-700"> Configurações </span>
       </div>
     </p-button>
+
     <p-menu #menu [popup]="true" [model]="profileItems" appendTo="body" />
   </ng-template>
 </p-drawer>

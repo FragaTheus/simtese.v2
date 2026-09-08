@@ -1,22 +1,18 @@
 import { Component, inject, signal, viewChild } from '@angular/core';
 import { HttpErrorResponse } from '@angular/common/http';
-import { RouterLink } from '@angular/router';
-
+import { Router, RouterLink } from '@angular/router';
 import { SkeletonModule } from 'primeng/skeleton';
 import { CardModule } from 'primeng/card';
 import { ButtonModule } from 'primeng/button';
-
-import { AuthResponse, AuthService } from '../../auth/auth-service';
 import { ApiErrorResponse } from '../../../shared/api/type/api.type';
-
 import { DashPageHeaderLayout } from '../../../shared/components/layout/dash/dash-page-header-layout/dash-page-header-layout';
 import { ErrorComponent } from '../../../shared/components/ui/error-component/error-component';
 import { DashPageLayout } from '../../../shared/components/layout/dash/dash-page-layout/dash-page-layout';
-
 import { CreateExamComponent } from '../../exams/create-exam-component/create-exam-component';
 import { CreateAccountComponent } from '../../account/create-account-component/create-account-component';
 import { CreateEnterpriseComponent } from '../../enterprises/create-enterprise-component/create-enterprise-component';
 import { CreateAppointmentComponent } from '../../appointments/create/create-appointment-component/create-appointment-component';
+import { AuthService } from '../../auth/auth-service';
 
 interface Card {
   icon: string;
@@ -51,18 +47,41 @@ interface FastAccessCard {
 })
 export class DashComponent {
   private authService = inject(AuthService);
-
+  private router = inject(Router);
   loading = signal<boolean>(false);
   error = signal<ApiErrorResponse | null>(null);
-
-  user = signal<AuthResponse | null>(null);
-
-  cards = signal<Card[]>([]);
-
   examCreate = viewChild<CreateExamComponent>('examCreate');
   accountCreate = viewChild<CreateAccountComponent>('accountCreate');
   enterpriseCreate = viewChild<CreateEnterpriseComponent>('enterpriseCreate');
   appointmentCreate = viewChild<CreateAppointmentComponent>('appointmentCreate');
+  userName = signal<string | null>(null);
+  cards: Card[] = [
+    {
+      icon: 'pi pi-calendar',
+      title: 'Agendamentos',
+      description: 'Gerencie os agendamentos de exames ocupacionais dos funcionários.',
+      href: '/painel/agendamentos',
+    },
+    {
+      icon: 'pi pi-clipboard',
+      title: 'Exames',
+      description: 'Gerencie o catálogo de exames que estarão disponíveis no agendamento.',
+      href: '/painel/exames',
+    },
+    {
+      icon: 'pi pi-users',
+      title: 'Contas',
+      description:
+        'As contas de usuários serão acessadas pelos usuários do painel administrativo, seja interno ou externo.',
+      href: '/painel/contas',
+    },
+    {
+      icon: 'pi pi-building',
+      title: 'Empresas',
+      description: 'Gerencie as empresas parceiras vinculadas à plataforma.',
+      href: '/painel/empresas',
+    },
+  ];
 
   fastAccess: FastAccessCard[] = [
     {
@@ -98,71 +117,22 @@ export class DashComponent {
   authenticate() {
     this.loading.set(true);
     this.error.set(null);
-    this.user.set(null);
-    this.cards.set([]);
 
     this.authService.me().subscribe({
       next: (response) => {
         const user = response.body;
 
-        this.user.set(user);
-
-        if (user?.role === 'ADMIN') {
-          this.cards.set([
-            {
-              icon: 'pi pi-calendar',
-              title: 'Agendamentos',
-              description: 'Gerencie os agendamentos de exames ocupacionais dos funcionários.',
-              href: '/painel/agendamentos',
-            },
-            {
-              icon: 'pi pi-clipboard',
-              title: 'Exames',
-              description: 'Gerencie o catálogo de exames que estarão disponíveis no agendamento.',
-              href: '/painel/exames',
-            },
-            {
-              icon: 'pi pi-users',
-              title: 'Contas',
-              description:
-                'As contas de usuários serão acessadas pelos usuários do painel administrativo, seja interno ou externo.',
-              href: '/painel/contas',
-            },
-            {
-              icon: 'pi pi-building',
-              title: 'Empresas',
-              description: 'Gerencie as empresas parceiras vinculadas à plataforma.',
-              href: '/painel/empresas',
-            },
-          ]);
+        if (user?.role === 'ENTERPRISE') {
+          this.router.navigate(['/empresas/']);
         }
 
-        if (user?.role === 'NURSE') {
-          this.cards.set([
-            {
-              icon: 'pi pi-calendar',
-              title: 'Agendamentos',
-              description: 'Gerencie os agendamentos de exames ocupacionais dos funcionários.',
-              href: '/painel/agendamentos',
-            },
-            {
-              icon: 'pi pi-building',
-              title: 'Empresas',
-              description: 'Gerencie as empresas parceiras vinculadas à plataforma.',
-              href: '/painel/empresas',
-            },
-          ]);
-        }
-
+        this.userName.set(response.body!.name);
         this.loading.set(false);
       },
-
       error: (err: HttpErrorResponse) => {
         const apiError = err.error as ApiErrorResponse;
 
         this.error.set(apiError);
-        this.user.set(null);
-        this.cards.set([]);
         this.loading.set(false);
       },
     });

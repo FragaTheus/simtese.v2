@@ -34,11 +34,13 @@ public class AuthController {
 
     @PostMapping
     @RateLimited(limit = 5, windowSeconds = 60)
-    public ResponseEntity<Void> login(@Valid @RequestBody LoginRequest loginRequest){
-        var token = authenticationService.login(loginRequest.email(), loginRequest.password());
+    public ResponseEntity<AuthResponse> login(@Valid @RequestBody LoginRequest loginRequest){
+        var result = authenticationService.login(loginRequest.email(), loginRequest.password());
+        var token = result.token();
+        var response = new AuthResponse(result.account().getName(), result.account().getRole());
         return ResponseEntity.ok().header
                         (HttpHeaders.AUTHORIZATION, "Bearer " + token)
-                .build();
+                .body(response);
     }
 
     @DeleteMapping
