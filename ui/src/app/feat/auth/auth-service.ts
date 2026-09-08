@@ -34,6 +34,10 @@ export class AuthService {
     return this.http.get<AuthResponse>(`${API_V1_URL}/auth`, { observe: 'response' });
   }
 
+  serverLogout(): Observable<void> {
+    return this.http.delete<void>(`${API_V1_URL}/auth`);
+  }
+
   logout(): void {
     localStorage.removeItem('accessToken');
   }

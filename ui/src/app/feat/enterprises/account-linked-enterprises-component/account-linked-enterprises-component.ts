@@ -40,7 +40,7 @@ export class AccountLinkedEnterprisesComponent {
 
   loadEnterprises() {
     this.loading.set(true);
-    this.enterpriseService.linkedAccounts(this.accountId).subscribe({
+    this.enterpriseService.linkedAccounts(this.accountId!).subscribe({
       next: (items) => {
         this.items.set(items);
         this.loading.set(false);
