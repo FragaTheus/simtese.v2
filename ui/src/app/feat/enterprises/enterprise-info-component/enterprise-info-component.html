@@ -55,10 +55,12 @@
               <span class="mb-2">{{
                 enterprise()?.linkedAccountName || 'Nenhuma conta vinculada'
               }}</span>
-              @if (enterprise()?.linkedAccountName === null) {
-                <app-enterprise-account-vinculate-component [enterpriseId]="enterprise()!.id" />
-              } @else {
-                <app-unlink-account-component [enterpriseId]="enterprise()!.id" />
+              @if (canEdit()) {
+                @if (enterprise()?.linkedAccountName === null) {
+                  <app-enterprise-account-vinculate-component [enterpriseId]="enterprise()!.id" />
+                } @else {
+                  <app-unlink-account-component [enterpriseId]="enterprise()!.id" />
+                }
               }
             </div>
           </div>
