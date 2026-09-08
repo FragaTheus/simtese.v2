@@ -26,8 +26,8 @@ public class AppointmentSpec {
 
         return (root, query, cb) ->
                 cb.or(
-                        cb.like(cb.lower(root.get("employee").get("name")), value),
-                        cb.like(cb.lower(root.get("employee").get("cpf")), value),
+                        cb.like(cb.lower(root.get("employee").get("employeeName")), value),
+                        cb.like(cb.lower(root.get("employee").get("employeeCpf")), value),
                         cb.like(cb.lower(root.get("enterprise").get("name")), value),
                         cb.like(cb.lower(root.get("enterprise").get("cnpj")), value)
                 );

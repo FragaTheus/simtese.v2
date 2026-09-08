@@ -2,11 +2,7 @@
   <p-button label="Nova Conta" icon="pi pi-plus-circle" (click)="visible.set(true)" />
 }
 
-<app-dialog-component
-  [(visible)]="visible"
-  [icon]="'pi pi-user-plus'"
-  [title]="'Cadastrar nova conta'"
->
+<app-dialog-component [(visible)]="visible" icon="pi pi-user-plus" title="Cadastrar nova conta">
   <form [formGroup]="form" (ngSubmit)="createAccount()">
     <div class="flex flex-col gap-6 w-full">
       <p-floatlabel variant="on">

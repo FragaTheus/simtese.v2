@@ -54,19 +54,9 @@ export class AccountInfoComponent {
       },
       error: (err: HttpErrorResponse) => {
         const apiError = err.error as ApiErrorResponse;
-
-        if (err.status === 401 || apiError.status === 'UNAUTHORIZED') {
-          this.authService.logout();
-          this.router.navigate(['/entrar']);
-        }
-
         this.error.set(apiError);
         this.loading.set(false);
       },
     });
-  }
-
-  retry() {
-    this.loadAccount();
   }
 }
