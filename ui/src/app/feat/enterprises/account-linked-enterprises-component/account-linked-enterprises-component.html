@@ -28,15 +28,18 @@
         <ng-template #list let-items>
           @for (i of items; track i.id) {
             <div class="w-full flex items-center justify-between">
-              <div>
-                <span class="font-semibold">{{ i.name }}</span>
-                <span class="font-light text-sm text-surface-700 mt-2">{{ i.cnpj }}</span>
+              <div class="flex flex-col gap-4">
+                <span class="font-semibold text-sm">{{ i.name }}</span>
+                <span class="font-light text-xs text-surface-700 mt-2">{{
+                  i.cnpj | documentFormat
+                }}</span>
               </div>
 
               <p-button
                 severity="secondary"
                 icon="pi pi-ellipsis-v"
                 [routerLink]="['/painel/empresas', i.id]"
+                size="small"
               />
             </div>
           }

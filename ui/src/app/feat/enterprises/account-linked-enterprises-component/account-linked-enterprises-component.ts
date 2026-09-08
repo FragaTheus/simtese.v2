@@ -11,6 +11,7 @@ import { DataViewModule } from 'primeng/dataview';
 import { EnterpriseSummary } from '../enterprise-service';
 import { ApiErrorResponse } from '../../../shared/api/type/api.type';
 import { HttpErrorResponse } from '@angular/common/http';
+import { DocumentFormatPipe } from '../../../shared/pipes/document-format-pipe';
 
 @Component({
   selector: 'app-account-linked-enterprises-component',
@@ -23,6 +24,7 @@ import { HttpErrorResponse } from '@angular/common/http';
     DialogModule,
     DataViewModule,
     RouterLink,
+    DocumentFormatPipe,
   ],
   templateUrl: './account-linked-enterprises-component.html',
 })
