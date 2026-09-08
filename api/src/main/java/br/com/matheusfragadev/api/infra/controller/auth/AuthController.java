@@ -35,12 +35,10 @@ public class AuthController {
     @PostMapping
     @RateLimited(limit = 5, windowSeconds = 60)
     public ResponseEntity<AuthResponse> login(@Valid @RequestBody LoginRequest loginRequest){
-        var result = authenticationService.login(loginRequest.email(), loginRequest.password());
-        var token = result.token();
-        var response = new AuthResponse(result.account().getName(), result.account().getRole());
+        var token = authenticationService.login(loginRequest.email(), loginRequest.password());
         return ResponseEntity.ok().header
                         (HttpHeaders.AUTHORIZATION, "Bearer " + token)
-                .body(response);
+                .build();
     }
 
     @DeleteMapping
