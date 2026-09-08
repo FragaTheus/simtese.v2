@@ -8,6 +8,7 @@ import br.com.matheusfragadev.api.domain.enterprise.aggregate.CNPJ;
 import br.com.matheusfragadev.api.domain.enterprise.entity.Enterprise;
 import br.com.matheusfragadev.api.domain.enterprise.exception.EnterpriseException;
 import br.com.matheusfragadev.api.domain.enterprise.repository.EnterpriseRepository;
+import br.com.matheusfragadev.api.domain.exams.entity.Exam;
 import br.com.matheusfragadev.api.infra.repository.enterprise.EnterpriseSpec;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -15,6 +16,7 @@ import org.springframework.data.domain.Page;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Set;
 import java.util.UUID;
 
 @Slf4j
@@ -105,6 +107,5 @@ public class EnterpriseService {
         enterprise.deactivate();
         return repository.save(enterprise);
     }
-
 
 }

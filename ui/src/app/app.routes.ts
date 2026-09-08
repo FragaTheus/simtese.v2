@@ -19,6 +19,20 @@ export const routes: Routes = [
       ),
   },
   {
+    path: '403',
+    loadComponent: () =>
+      import('./shared/components/ui/forbidden-component/forbidden-component').then(
+        (m) => m.ForbiddenComponent,
+      ),
+  },
+  {
+    path: '401',
+    loadComponent: () =>
+      import('./shared/components/ui/session-expired-component/session-expired-component').then(
+        (m) => m.SessionExpiredComponent,
+      ),
+  },
+  {
     path: 'painel',
     loadComponent: () => import('./shared/dash/dash-router/dash-router').then((m) => m.DashRouter),
     children: [

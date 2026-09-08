@@ -1,4 +1,4 @@
-import { Component, effect, inject, input, signal } from '@angular/core';
+import { Component, effect, inject, input, output, signal } from '@angular/core';
 import { ButtonModule } from 'primeng/button';
 import { MenuModule } from 'primeng/menu';
 import { ConfirmDialogModule } from 'primeng/confirmdialog';
@@ -21,6 +21,8 @@ export class ManageAppointmentComponent {
   error = signal<ApiErrorResponse | null>(null);
   appointment = input.required<AppointmentInfo>();
   items: MenuItem[] = [];
+  exams = signal<string[]>([]);
+  examsLoaded = output<string[]>();
 
   constructor() {
     effect(() => {
@@ -52,7 +54,10 @@ export class ManageAppointmentComponent {
       rejectLabel: 'Cancelar',
       accept: () => {
         this.appointmentService.attend(this.appointment().id).subscribe({
-          next: () => window.location.reload(),
+          next: (exams: string[]) => {
+            this.exams.set(exams);
+            this.examsLoaded.emit(exams);
+          },
           error: (err: HttpErrorResponse) => {
             this.error.set(err.error);
           },

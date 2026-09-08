@@ -89,8 +89,8 @@ export class AppointmentService {
     return this.http.post<string>(`${API_V1_URL}/appointments/schedule`, request);
   }
 
-  attend(targetId: string): Observable<void> {
-    return this.http.patch<void>(`${API_V1_URL}/appointments/${targetId}/attend`, {});
+  attend(targetId: string): Observable<string[]> {
+    return this.http.patch<string[]>(`${API_V1_URL}/appointments/${targetId}/attend`, {});
   }
 
   release(targetId: string): Observable<void> {

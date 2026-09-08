@@ -1,82 +1,84 @@
 @if (error()) {
   <app-error-component [error]="error()">
-    <p-button cancel label="Cancelar" [routerLink]="'/entrar'" severity="danger" />
+    <p-button cancel label="Cancelar" routerLink="/entrar" severity="danger" />
     <p-button retry label="Tentar novamente" (click)="authenticate()" severity="success" />
   </app-error-component>
-}
+} @else {
+  <app-dash-page-layout>
+    <app-dash-page-header-layout
+      [loading]="loading()"
+      label="SIMTESE Saúde Ocupacional"
+      title="Painel de Recursos"
+      description="Ola, {{ user()!.name }}, que bom ter voce de volta!"
+    />
 
-<app-dash-page-layout>
-  <app-dash-page-header-layout
-    [loading]="loading()"
-    [label]="' SIMTESE Saúde Ocupacional '"
-    [title]="'Painel de Recursos'"
-    [description]="' Acesse e gerencie rapidamente os principais módulos operacionais do sistema SIMTESE Medicina e Segurança do Trabalho. '"
-  />
-
-  <div id="content" class="mt-8">
-    <div class="grid grid-cols-1 md:grid-cols-4 gap-6">
-      @if (loading()) {
-        <p-skeleton class="w-50 p-42" />
-        <p-skeleton class="w-50 p-42" />
-        <p-skeleton class="w-50 p-42" />
-        <p-skeleton class="w-50 p-42" />
-      } @else {
-        @for (c of cards; track c.title) {
-          <p-card
-            styleClass="shadow-none hover:shadow-md hover:scale-105 transition-all group max-w-xs"
-          >
-            <div id="card-header">
-              <span
-                class="{{
-                  c.icon
-                }} text-2xl text-clinical-teal bg-surface-300 p-2 rounded-md group-hover:text-white group-hover:bg-clinical-teal transition-all"
-              ></span>
-            </div>
-
-            <div id="card-content" class="mt-4">
-              <h2 class="text-xl font-semibold">{{ c.title }}</h2>
-              <p class="font-light text-surface-700 mt-2">{{ c.description }}</p>
-
-              <p-button
-                variant="text"
-                size="small"
-                styleClass="text-clinical-teal mt-4 self-end justify-self-end"
-                [routerLink]="c.href"
-              >
-                <span>Ver mais</span>
-                <span class="pi pi-arrow-right"></span>
-              </p-button>
-            </div>
-          </p-card>
-        }
-      }
-    </div>
-  </div>
-
-  <div id="fast-access" class="mt-8">
-    <p-card styleClass="shadow-none">
-      <div>
-        <h2 class="text-xl font-semibold">Acesso Rápido</h2>
-        <p class="font-light text-surface-700 mt-2">Acessos instantâneos para fluxos frequentes</p>
-        <div class="grid grid-cols-2 md:grid-cols-4 gap-2">
-          @for (fa of fastAccess; track fa.title) {
-            <button
-              type="button"
-              (click)="fa.action()"
-              class="text-left bg-surface-50 p-4 rounded-md hover:shadow-md hover:scale-101 transition-all mt-4 cursor-pointer"
+    <div id="content" class="mt-8">
+      <div class="grid grid-cols-1 md:grid-cols-4 gap-6">
+        @if (loading()) {
+          <p-skeleton class="w-50 p-42" />
+          <p-skeleton class="w-50 p-42" />
+          <p-skeleton class="w-50 p-42" />
+          <p-skeleton class="w-50 p-42" />
+        } @else {
+          @for (c of cards()!; track c.title) {
+            <p-card
+              styleClass="shadow-none hover:shadow-md hover:scale-105 transition-all group max-w-xs"
             >
-              <span class="{{ fa.icon }} text-clinical-teal text-xl"></span>
-              <h2 class="font-semibold mt-2">{{ fa.title }}</h2>
-              <p class="font-light text-sm mt-2">{{ fa.description }}</p>
-            </button>
-          }
-        </div>
-      </div>
-    </p-card>
-  </div>
+              <div id="card-header">
+                <span
+                  class="{{
+                    c.icon
+                  }} text-2xl text-clinical-teal bg-surface-300 p-2 rounded-md group-hover:text-white group-hover:bg-clinical-teal transition-all"
+                ></span>
+              </div>
 
-  <app-create-exam-component #examCreate [showTrigger]="false" />
-  <app-create-account-component #accountCreate [showTrigger]="false" />
-  <app-create-enterprise-component #enterpriseCreate [showTrigger]="false" />
-  <app-create-appointment-component #appointmentCreate [showTrigger]="false" />
-</app-dash-page-layout>
+              <div id="card-content" class="mt-4">
+                <h2 class="text-xl font-semibold">{{ c.title }}</h2>
+                <p class="font-light text-surface-700 mt-2">{{ c.description }}</p>
+
+                <p-button
+                  variant="text"
+                  size="small"
+                  styleClass="text-clinical-teal mt-4 self-end justify-self-end"
+                  [routerLink]="c.href"
+                >
+                  <span>Ver mais</span>
+                  <span class="pi pi-arrow-right"></span>
+                </p-button>
+              </div>
+            </p-card>
+          }
+        }
+      </div>
+    </div>
+
+    <div id="fast-access" class="mt-8">
+      <p-card styleClass="shadow-none">
+        <div>
+          <h2 class="text-xl font-semibold">Acesso Rápido</h2>
+          <p class="font-light text-surface-700 mt-2">
+            Acessos instantâneos para fluxos frequentes
+          </p>
+          <div class="grid grid-cols-2 md:grid-cols-4 gap-2">
+            @for (fa of fastAccess; track fa.title) {
+              <button
+                type="button"
+                (click)="fa.action()"
+                class="text-left bg-surface-50 p-4 rounded-md hover:shadow-md hover:scale-101 transition-all mt-4 cursor-pointer"
+              >
+                <span class="{{ fa.icon }} text-clinical-teal text-xl"></span>
+                <h2 class="font-semibold mt-2">{{ fa.title }}</h2>
+                <p class="font-light text-sm mt-2">{{ fa.description }}</p>
+              </button>
+            }
+          </div>
+        </div>
+      </p-card>
+    </div>
+
+    <app-create-exam-component #examCreate [showTrigger]="false" />
+    <app-create-account-component #accountCreate [showTrigger]="false" />
+    <app-create-enterprise-component #enterpriseCreate [showTrigger]="false" />
+    <app-create-appointment-component #appointmentCreate [showTrigger]="false" />
+  </app-dash-page-layout>
+}

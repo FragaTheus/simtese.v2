@@ -1,6 +1,7 @@
 package br.com.matheusfragadev.api.infra.security.jwt;
 
 import br.com.matheusfragadev.api.infra.security.blacklist.TokenBlacklistService;
+import br.com.matheusfragadev.api.infra.security.blacklist.TokenBlacklistServiceImpl;
 import br.com.matheusfragadev.api.infra.security.details.UserDetailsImpl;
 import br.com.matheusfragadev.api.infra.security.details.UserDetailsServiceImpl;
 import io.jsonwebtoken.JwtException;
@@ -29,7 +30,7 @@ public class JwtFilter extends OncePerRequestFilter {
     private final JwtService jwtService;
     private final UserDetailsServiceImpl userDetailsService;
     private final AuthenticationEntryPoint authenticationEntryPoint;
-    private final TokenBlacklistService tokenBlacklistService;
+    private final TokenBlacklistService tokenBlackListService;
 
     @Override
     protected void doFilterInternal(
@@ -44,7 +45,7 @@ public class JwtFilter extends OncePerRequestFilter {
         }
         try {
             String token = authHeader.substring(PREFIX.length());
-            if (tokenBlacklistService.isBlacklisted(token)) {
+            if (tokenBlackListService.isBlacklisted(token)) {
                 throw new JwtException("Token invalidado (logout realizado)");
             }
             UserDetailsImpl userDetails = userDetailsService.loadByUserId(

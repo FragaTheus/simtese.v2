@@ -79,6 +79,7 @@ export class AppointmentInfoComponent {
   examStatusLabels = EXAM_STATUS_LABELS;
   examStatusStyles = EXAM_STATUS_STYLES;
   copiedField = signal<string | null>(null);
+  exams = signal<string[]>([]);
 
   constructor() {
     this.loadAppointment();
@@ -116,5 +117,9 @@ export class AppointmentInfoComponent {
     setTimeout(() => {
       if (this.copiedField() === field) this.copiedField.set(null);
     }, 1500);
+  }
+
+  onExamsLoaded(exams: string[]) {
+    this.exams.set(exams);
   }
 }

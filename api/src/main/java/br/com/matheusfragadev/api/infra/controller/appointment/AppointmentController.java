@@ -4,6 +4,7 @@ import br.com.matheusfragadev.api.application.appointment.AppointmentService;
 import br.com.matheusfragadev.api.application.appointment.aggregate.AppointmentFilterCommand;
 import br.com.matheusfragadev.api.domain.appointment.aggregate.ExamStatus;
 import br.com.matheusfragadev.api.domain.appointment.aggregate.Shift;
+import br.com.matheusfragadev.api.domain.exams.entity.Exam;
 import br.com.matheusfragadev.api.infra.auditory.AuditingResolver;
 import br.com.matheusfragadev.api.infra.controller.appointment.aggregate.AppointmentInfo;
 import br.com.matheusfragadev.api.infra.controller.appointment.aggregate.AppointmentMapper;
@@ -21,7 +22,9 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.Set;
 import java.util.UUID;
+import java.util.stream.Collectors;
 
 @RestController
 @RequiredArgsConstructor
@@ -66,9 +69,10 @@ public class AppointmentController {
 
     @PreAuthorize("hasAnyAuthority('ADMIN', 'RECEPTIONIST')")
     @PatchMapping("/{targetId}/attend")
-    public ResponseEntity<Void> attend(@PathVariable UUID targetId){
-       appointmentService.attend(targetId);
-        return ResponseEntity.ok().build();
+    public ResponseEntity<Set<String>> attend(@PathVariable UUID targetId){
+       var exams = appointmentService.attend(targetId);
+       var examName = exams.stream().map(Exam::getName).collect(Collectors.toSet());
+       return ResponseEntity.ok(examName);
     }
 
     @PreAuthorize("hasAnyAuthority('ADMIN', 'NURSE')")

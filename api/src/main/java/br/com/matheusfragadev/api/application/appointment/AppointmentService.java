@@ -17,6 +17,7 @@ import org.springframework.data.domain.Page;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.HashSet;
 import java.util.Set;
 import java.util.UUID;
 
@@ -72,10 +73,12 @@ public class AppointmentService {
         return repository.save(appointment);
     }
 
-    public Appointment attend(UUID targetId){
+    @Transactional
+    public Set<Exam> attend(UUID targetId){
         Appointment appointment = findById(targetId);
         appointment.attend();
-        return repository.save(appointment);
+        repository.save(appointment);
+        return new HashSet<>(appointment.getExams());
     }
 
     public Appointment release(UUID targetId){

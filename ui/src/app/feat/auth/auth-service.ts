@@ -1,5 +1,6 @@
 import { HttpClient, HttpResponse } from '@angular/common/http';
-import { inject, Injectable } from '@angular/core';
+import { inject, Injectable, signal } from '@angular/core';
+import { Router } from '@angular/router';
 import { API_V1_URL } from '../../shared/api/config/api.config';
 import { Observable, tap } from 'rxjs';
 
@@ -10,6 +11,7 @@ export interface LoginRequest {
 
 export interface AuthResponse {
   name: string;
+  role: string;
 }
 
 @Injectable({
@@ -17,6 +19,8 @@ export interface AuthResponse {
 })
 export class AuthService {
   private http = inject(HttpClient);
+  private router = inject(Router);
+  user = signal<AuthResponse | null>(null);
 
   login(request: LoginRequest): Observable<HttpResponse<void>> {
     return this.http.post<void>(`${API_V1_URL}/auth`, request, { observe: 'response' }).pipe(
@@ -31,7 +35,15 @@ export class AuthService {
   }
 
   me(): Observable<HttpResponse<AuthResponse>> {
-    return this.http.get<AuthResponse>(`${API_V1_URL}/auth`, { observe: 'response' });
+    return this.http
+      .get<AuthResponse>(`${API_V1_URL}/auth`, {
+        observe: 'response',
+      })
+      .pipe(
+        tap((response) => {
+          this.user.set(response.body);
+        }),
+      );
   }
 
   serverLogout(): Observable<void> {
@@ -40,5 +52,7 @@ export class AuthService {
 
   logout(): void {
     localStorage.removeItem('accessToken');
+    this.user.set(null);
+    this.router.navigate(['/entrar']);
   }
 }

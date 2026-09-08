@@ -38,7 +38,10 @@
               <p class="text-sm text-surface-700 mt-1">{{ appointment()?.enterpriseName }}</p>
             </div>
 
-            <app-manage-appointment-component [appointment]="appointment()!" />
+            <app-manage-appointment-component
+              [appointment]="appointment()!"
+              (examsLoaded)="onExamsLoaded($event)"
+            />
           }
         </div>
       </p-card>
@@ -200,6 +203,17 @@
           [updatedAt]="appointment()?.updatedAt"
         />
       </p-card>
+
+      @if (appointment()?.examStatus === 'ATTENDED' && exams().length > 0) {
+        <h3 class="font-semibold text-lg mt-4">Exames do atendimento</h3>
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-6 mt-4">
+          @for (e of exams(); track e) {
+            <p-card>
+              <span>{{ e }}</span>
+            </p-card>
+          }
+        </div>
+      }
     </div>
   </app-dash-page-layout>
 }
