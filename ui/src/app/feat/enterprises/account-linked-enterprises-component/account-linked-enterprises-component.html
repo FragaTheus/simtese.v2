@@ -5,46 +5,46 @@
       <p-button label="Tentar novamente" severity="success" (click)="loadEnterprises()" />
     </div>
   </app-error-component>
-}
+} @else {
+  <app-dash-page-layout>
+    <app-dash-page-header-layout
+      label="Empresas vinculadas"
+      title="Suas empresas"
+      description="Essas são as empresas vinculadas à sua conta. Caso não veja alguma empresa aqui, entre em contato com os administradores do sistema."
+      [loading]="loading()"
+    />
 
-<app-dash-page-layout>
-  <app-dash-page-header-layout
-    label="Empresas vinculadas"
-    title="Suas empresas"
-    description="Essas são as empresas vinculadas à sua conta. Caso não veja alguma empresa aqui, entre em contato com os administradores do sistema."
-    [loading]="loading()"
-  />
-
-  <app-dash-list-page-layout [loading]="loading()">
-    <div toolbar class="w-full">
-      <div class="flex items-center justify-between gap-2 w-full">
-        <span>Não encontrou uma empresa na qual tem vínculo?</span>
-        <p-button severity="success" label="Falar com administradores" icon="pi pi-whatsapp" />
+    <app-dash-list-page-layout [loading]="loading()">
+      <div toolbar class="w-full">
+        <div class="flex items-center justify-between gap-2 w-full">
+          <span>Não encontrou uma empresa na qual tem vínculo?</span>
+          <p-button severity="success" label="Falar com administradores" icon="pi pi-whatsapp" />
+        </div>
       </div>
-    </div>
 
-    <div dataview>
-      <p-dataview [value]="items()">
-        <ng-template #list let-items>
-          @for (i of items; track i.id) {
-            <div class="w-full flex items-center justify-between">
-              <div class="flex flex-col gap-4">
-                <span class="font-semibold text-sm">{{ i.name }}</span>
-                <span class="font-light text-xs text-surface-700 mt-2">{{
-                  i.cnpj | documentFormat
-                }}</span>
+      <div dataview>
+        <p-dataview [value]="items()">
+          <ng-template #list let-items>
+            @for (i of items; track i.id) {
+              <div class="w-full flex items-center justify-between">
+                <div class="flex flex-col gap-4">
+                  <span class="font-semibold text-sm">{{ i.name }}</span>
+                  <span class="font-light text-xs text-surface-700 mt-2">{{
+                    i.cnpj | documentFormat
+                  }}</span>
+                </div>
+
+                <p-button
+                  severity="secondary"
+                  icon="pi pi-ellipsis-v"
+                  [routerLink]="['/painel/empresas', i.id]"
+                  size="small"
+                />
               </div>
-
-              <p-button
-                severity="secondary"
-                icon="pi pi-ellipsis-v"
-                [routerLink]="['/painel/empresas', i.id]"
-                size="small"
-              />
-            </div>
-          }
-        </ng-template>
-      </p-dataview>
-    </div>
-  </app-dash-list-page-layout>
-</app-dash-page-layout>
+            }
+          </ng-template>
+        </p-dataview>
+      </div>
+    </app-dash-list-page-layout>
+  </app-dash-page-layout>
+}

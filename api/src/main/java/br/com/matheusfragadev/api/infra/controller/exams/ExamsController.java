@@ -20,7 +20,9 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.Set;
 import java.util.UUID;
+import java.util.stream.Collectors;
 
 @RestController
 @RequiredArgsConstructor
@@ -29,6 +31,14 @@ public class ExamsController {
 
     private final ExamService examService;
     private final AuditingResolver auditingResolver;
+
+    @GetMapping("/appointment/{appointmentId}")
+    @PreAuthorize("isAuthenticated()")
+    public ResponseEntity<Set<String>> findAllExamsByAppointment(@PathVariable("appointmentId") UUID appointmentId){
+        Set<Exam> exams = examService.findAllByAppointment(appointmentId);
+        Set<String> examNames = exams.stream().map(Exam::getName).collect(Collectors.toSet());
+        return ResponseEntity.ok(examNames);
+    }
 
     @GetMapping("/{targetId}")
     @PreAuthorize("isAuthenticated()")

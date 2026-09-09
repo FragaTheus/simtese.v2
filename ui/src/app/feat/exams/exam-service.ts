@@ -79,4 +79,8 @@ export class ExamService {
   delete(targetId: string): Observable<void> {
     return this.http.delete<void>(`${API_V1_URL}/exams/${targetId}`);
   }
+
+  listByAppointment(appointmentId: string): Observable<string[]> {
+    return this.http.get<string[]>(`${API_V1_URL}/exams/appointment/${appointmentId}`);
+  }
 }

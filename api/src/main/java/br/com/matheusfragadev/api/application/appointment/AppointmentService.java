@@ -74,11 +74,11 @@ public class AppointmentService {
     }
 
     @Transactional
-    public Set<Exam> attend(UUID targetId){
+    public Appointment attend(UUID targetId){
         Appointment appointment = findById(targetId);
         appointment.attend();
         repository.save(appointment);
-        return new HashSet<>(appointment.getExams());
+        return appointment;
     }
 
     public Appointment release(UUID targetId){

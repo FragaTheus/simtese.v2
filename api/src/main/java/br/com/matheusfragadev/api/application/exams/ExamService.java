@@ -42,6 +42,10 @@ public class ExamService {
         return exams;
     }
 
+    public Set<Exam> findAllByAppointment(UUID appointmentId){
+        return repository.findAllByAppointmentId(appointmentId);
+    }
+
     //Metodos da classe
     public Exam createExam(String name){
         if (repository.existsByName(name)) {

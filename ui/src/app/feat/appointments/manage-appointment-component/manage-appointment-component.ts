@@ -7,6 +7,8 @@ import { Router } from '@angular/router';
 import { HttpErrorResponse } from '@angular/common/http';
 import { AppointmentInfo, AppointmentService } from '../appointment-service';
 import { ApiErrorResponse } from '../../../shared/api/type/api.type';
+import { AuthService } from '../../auth/auth-service';
+import { ExamService } from '../../exams/exam-service';
 
 @Component({
   selector: 'app-manage-appointment-component',
@@ -16,13 +18,16 @@ import { ApiErrorResponse } from '../../../shared/api/type/api.type';
 export class ManageAppointmentComponent {
   private appointmentService = inject(AppointmentService);
   private confirmationService = inject(ConfirmationService);
+  private examService = inject(ExamService);
   private router = inject(Router);
+  private authService = inject(AuthService);
   loading = signal<boolean>(false);
   error = signal<ApiErrorResponse | null>(null);
   appointment = input.required<AppointmentInfo>();
   items: MenuItem[] = [];
   exams = signal<string[]>([]);
   examsLoaded = output<string[]>();
+  statusChanged = output<void>();
 
   constructor() {
     effect(() => {
@@ -33,15 +38,39 @@ export class ManageAppointmentComponent {
         return;
       }
 
-      this.items = [
-        ...(appointment.examStatus === 'SCHEDULED'
-          ? [{ label: 'Atender', icon: 'pi pi-check', command: () => this.attend() }]
-          : []),
-        ...(appointment.examStatus === 'ATTENDED'
-          ? [{ label: 'Liberar', icon: 'pi pi-unlock', command: () => this.release() }]
-          : []),
-        { label: 'Excluir', icon: 'pi pi-trash', command: () => this.delete() },
-      ];
+      this.authService.me().subscribe({
+        next: (response) => {
+          const user = response.body;
+
+          if (user!.role === 'ADMIN') {
+            this.items = [
+              ...(appointment.examStatus === 'SCHEDULED'
+                ? [{ label: 'Atender', icon: 'pi pi-check', command: () => this.attend() }]
+                : []),
+              ...(appointment.examStatus === 'ATTENDED'
+                ? [{ label: 'Liberar', icon: 'pi pi-unlock', command: () => this.release() }]
+                : []),
+              { label: 'Excluir', icon: 'pi pi-trash', command: () => this.delete() },
+            ];
+          } else if (user!.role === 'RECEPTIONIST') {
+            this.items = [
+              ...(appointment.examStatus === 'SCHEDULED'
+                ? [{ label: 'Atender', icon: 'pi pi-check', command: () => this.attend() }]
+                : []),
+            ];
+          } else if (user!.role === 'NURSE') {
+            this.items = [
+              ...(appointment.examStatus === 'ATTENDED'
+                ? [{ label: 'Liberar', icon: 'pi pi-unlock', command: () => this.release() }]
+                : []),
+            ];
+          }
+
+          if (appointment.examStatus === 'ATTENDED') {
+            this.loadAppointmentExams();
+          }
+        },
+      });
     });
   }
 
@@ -54,9 +83,9 @@ export class ManageAppointmentComponent {
       rejectLabel: 'Cancelar',
       accept: () => {
         this.appointmentService.attend(this.appointment().id).subscribe({
-          next: (exams: string[]) => {
-            this.exams.set(exams);
-            this.examsLoaded.emit(exams);
+          next: () => {
+            this.loadAppointmentExams();
+            this.statusChanged.emit();
           },
           error: (err: HttpErrorResponse) => {
             this.error.set(err.error);
@@ -75,7 +104,10 @@ export class ManageAppointmentComponent {
       rejectLabel: 'Cancelar',
       accept: () => {
         this.appointmentService.release(this.appointment().id).subscribe({
-          next: () => window.location.reload(),
+          next: () => {
+            this.statusChanged.emit();
+            window.location.reload();
+          },
           error: (err: HttpErrorResponse) => {
             this.error.set(err.error);
           },
@@ -98,6 +130,18 @@ export class ManageAppointmentComponent {
             this.error.set(err.error);
           },
         });
+      },
+    });
+  }
+
+  loadAppointmentExams() {
+    this.examService.listByAppointment(this.appointment().id).subscribe({
+      next: (exams: string[]) => {
+        this.exams.set(exams);
+        this.examsLoaded.emit(exams);
+      },
+      error: (err: HttpErrorResponse) => {
+        this.error.set(err.error);
       },
     });
   }

@@ -41,6 +41,7 @@
             <app-manage-appointment-component
               [appointment]="appointment()!"
               (examsLoaded)="onExamsLoaded($event)"
+              (statusChanged)="loadAppointment()"
             />
           }
         </div>
@@ -205,14 +206,30 @@
       </p-card>
 
       @if (appointment()?.examStatus === 'ATTENDED' && exams().length > 0) {
-        <h3 class="font-semibold text-lg mt-4">Exames do atendimento</h3>
-        <div class="grid grid-cols-1 md:grid-cols-2 gap-6 mt-4">
-          @for (e of exams(); track e) {
-            <p-card>
-              <span>{{ e }}</span>
-            </p-card>
-          }
-        </div>
+        <p-card>
+          <div class="flex items-center gap-2 mb-6">
+            <span class="pi pi-list-check text-xl text-clinical-teal"></span>
+            <h3 class="font-semibold">Exames do atendimento</h3>
+          </div>
+
+          <div class="flex flex-col gap-4">
+            @for (e of exams(); track e; let i = $index) {
+              <div class="flex items-center justify-between gap-4">
+                <span>{{ e }}</span>
+
+                <ng-container
+                  *ngTemplateOutlet="
+                    copyButton;
+                    context: {
+                      field: 'exam-' + i,
+                      value: e,
+                    }
+                  "
+                />
+              </div>
+            }
+          </div>
+        </p-card>
       }
     </div>
   </app-dash-page-layout>

@@ -69,10 +69,9 @@ public class AppointmentController {
 
     @PreAuthorize("hasAnyAuthority('ADMIN', 'RECEPTIONIST')")
     @PatchMapping("/{targetId}/attend")
-    public ResponseEntity<Set<String>> attend(@PathVariable UUID targetId){
-       var exams = appointmentService.attend(targetId);
-       var examName = exams.stream().map(Exam::getName).collect(Collectors.toSet());
-       return ResponseEntity.ok(examName);
+    public ResponseEntity<Void> attend(@PathVariable UUID targetId){
+       appointmentService.attend(targetId);
+       return ResponseEntity.ok().build();
     }
 
     @PreAuthorize("hasAnyAuthority('ADMIN', 'NURSE')")
