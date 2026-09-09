@@ -3,10 +3,12 @@
 
   <main class="flex-1 w-full max-w-3xl mx-auto px-6 pt-28 pb-16">
     <div class="flex flex-col gap-2 text-center mb-8">
-      <label class="text-xs uppercase font-semibold text-clinical-teal">Atendimento</label>
+      <label class="text-xs uppercase font-semibold text-clinical-teal"> Atendimento </label>
+
       <h1 class="text-2xl md:text-3xl font-semibold tracking-tighter">
         Agende seu exame ocupacional
       </h1>
+
       <p class="text-sm font-light text-surface-700">
         Preencha os dados abaixo em 3 etapas simples para agendar seu atendimento.
       </p>
@@ -15,10 +17,13 @@
     @if (success()) {
       <div class="flex flex-col items-center gap-4 text-center py-12">
         <span class="pi pi-check-circle text-5xl text-green-500"></span>
+
         <h2 class="text-xl font-semibold tracking-tighter">Agendamento realizado com sucesso!</h2>
+
         <p class="text-sm text-surface-700 font-light max-w-md">
           Em breve nossa equipe entrará em contato para confirmar as informações do seu atendimento.
         </p>
+
         <p-button label="Novo agendamento" severity="secondary" (click)="newAppointment()" />
       </div>
     } @else if (isDesktop()) {
@@ -28,6 +33,7 @@
           <p-step [value]="2">Empresa</p-step>
           <p-step [value]="3">Agendamento</p-step>
         </p-step-list>
+
         <p-step-panels>
           <p-step-panel [value]="1">
             <ng-template #content let-activateCallback="activateCallback">
@@ -36,6 +42,7 @@
               />
             </ng-template>
           </p-step-panel>
+
           <p-step-panel [value]="2">
             <ng-template #content let-activateCallback="activateCallback">
               <ng-container
@@ -43,6 +50,7 @@
               />
             </ng-template>
           </p-step-panel>
+
           <p-step-panel [value]="3">
             <ng-template #content let-activateCallback="activateCallback">
               <ng-container
@@ -56,6 +64,7 @@
       <p-stepper [(value)]="activeStep">
         <p-step-item [value]="1">
           <p-step>Funcionário</p-step>
+
           <p-step-panel>
             <ng-template #content let-activateCallback="activateCallback">
               <ng-container
@@ -64,8 +73,10 @@
             </ng-template>
           </p-step-panel>
         </p-step-item>
+
         <p-step-item [value]="2">
           <p-step>Empresa</p-step>
+
           <p-step-panel>
             <ng-template #content let-activateCallback="activateCallback">
               <ng-container
@@ -74,8 +85,10 @@
             </ng-template>
           </p-step-panel>
         </p-step-item>
+
         <p-step-item [value]="3">
           <p-step>Agendamento</p-step>
+
           <p-step-panel>
             <ng-template #content let-activateCallback="activateCallback">
               <ng-container
@@ -91,6 +104,8 @@
   <app-footer-component />
 </div>
 
+<!-- Funcionário -->
+
 <ng-template #employeeStep let-activateCallback="activateCallback">
   <form [formGroup]="employeeForm" class="flex flex-col gap-6 py-4">
     <p-floatlabel variant="on">
@@ -103,7 +118,8 @@
         tooltipEvent="focus"
         tooltipPosition="top"
       />
-      <label for="employeeName">Nome do funcionário</label>
+
+      <label for="employeeName"> Nome do funcionário </label>
     </p-floatlabel>
 
     <p-floatlabel variant="on">
@@ -117,12 +133,14 @@
         tooltipEvent="focus"
         tooltipPosition="top"
       />
-      <label for="employeeCpf">CPF do funcionário</label>
+
+      <label for="employeeCpf"> CPF do funcionário </label>
     </p-floatlabel>
 
     <div class="flex pt-2 justify-end">
       <p-button
         label="Próximo"
+        type="button"
         icon="pi pi-arrow-right"
         iconPos="right"
         (click)="goToEnterprise(activateCallback)"
@@ -130,6 +148,8 @@
     </div>
   </form>
 </ng-template>
+
+<!-- Empresa -->
 
 <ng-template #enterpriseStep let-activateCallback="activateCallback">
   <form [formGroup]="enterpriseForm" class="flex flex-col gap-6 py-4">
@@ -143,7 +163,8 @@
         tooltipEvent="focus"
         tooltipPosition="top"
       />
-      <label for="enterpriseName">Nome da empresa</label>
+
+      <label for="enterpriseName"> Nome da empresa </label>
     </p-floatlabel>
 
     <p-floatlabel variant="on">
@@ -157,7 +178,8 @@
         tooltipEvent="focus"
         tooltipPosition="top"
       />
-      <label for="enterpriseCnpj">CNPJ da empresa</label>
+
+      <label for="enterpriseCnpj"> CNPJ da empresa </label>
     </p-floatlabel>
 
     <div class="flex pt-2 justify-between">
@@ -168,8 +190,10 @@
         icon="pi pi-arrow-left"
         (click)="activateCallback(1)"
       />
+
       <p-button
         label="Próximo"
+        type="button"
         icon="pi pi-arrow-right"
         iconPos="right"
         (click)="goToAppointment(activateCallback)"
@@ -178,8 +202,12 @@
   </form>
 </ng-template>
 
+<!-- Agendamento -->
+
 <ng-template #appointmentStep let-activateCallback="activateCallback">
   <form [formGroup]="appointmentForm" (ngSubmit)="schedule()" class="flex flex-col gap-6 py-4">
+    <!-- Turno -->
+
     <p-select
       [options]="shiftOptions"
       optionLabel="label"
@@ -188,10 +216,13 @@
       placeholder="Turno"
       appendTo="body"
       class="w-full"
+      (onChange)="onShiftChange($event.value)"
     />
 
+    <!-- Tipo de exame -->
+
     <p-select
-      [options]="examTypeOptions"
+      [options]="availableExamTypeOptions"
       optionLabel="label"
       optionValue="value"
       formControlName="examType"
@@ -200,15 +231,48 @@
       class="w-full"
     />
 
-    <p-multiselect
-      [options]="examOptions()"
-      optionLabel="name"
-      optionValue="id"
-      formControlName="exams"
-      placeholder="Exames"
-      appendTo="body"
-      class="w-full"
-    />
+    <!-- Exame clínico obrigatório -->
+
+    @if (clinicalExam()) {
+      <div class="flex items-center gap-3 p-4 rounded-lg border border-surface-200 bg-surface-0">
+        <span class="pi pi-check-circle text-green-500"></span>
+
+        <div class="flex flex-col">
+          <span class="text-sm font-medium">
+            {{ clinicalExam()!.name }}
+          </span>
+
+          <span class="text-xs text-surface-500"> Exame obrigatório incluído automaticamente </span>
+        </div>
+      </div>
+    }
+
+    <!-- Complementares apenas pela manhã -->
+
+    @if (appointmentForm.controls.shift.value === 'MORNING') {
+      <p-multiselect
+        [options]="complementaryExamOptions()"
+        optionLabel="name"
+        optionValue="id"
+        formControlName="complementaryExamIds"
+        placeholder="Exames complementares"
+        appendTo="body"
+        class="w-full"
+        display="chip"
+      />
+    }
+
+    <!-- Informação quando for tarde -->
+
+    @if (appointmentForm.controls.shift.value === 'AFTERNOON') {
+      <div class="flex items-start gap-3 p-4 rounded-lg bg-surface-100 text-surface-700">
+        <span class="pi pi-info-circle mt-0.5"></span>
+
+        <span class="text-sm"> No período da tarde não são realizados exames complementares. </span>
+      </div>
+    }
+
+    <!-- Observação -->
 
     <p-floatlabel variant="on">
       <textarea
@@ -221,14 +285,19 @@
         tooltipEvent="focus"
         tooltipPosition="top"
       ></textarea>
-      <label for="observation">Observação</label>
+
+      <label for="observation"> Observação </label>
     </p-floatlabel>
+
+    <!-- Erro -->
 
     @if (error() !== null) {
       <div class="w-full p-2 rounded-md text-center text-sm text-red-500 bg-red-50">
         {{ error() }}
       </div>
     }
+
+    <!-- Navegação -->
 
     <div class="flex pt-2 justify-between">
       <p-button
@@ -238,12 +307,13 @@
         icon="pi pi-arrow-left"
         (click)="activateCallback(2)"
       />
+
       <p-button
         label="Agendar"
         type="submit"
         severity="success"
         [loading]="loading()"
-        [disabled]="loading() || appointmentForm.invalid"
+        [disabled]="loading() || appointmentForm.invalid || clinicalExam() === null"
       />
     </div>
   </form>

@@ -12,7 +12,6 @@ import lombok.NoArgsConstructor;
 
 @Entity
 @Getter
-@Table(name = "results")
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 public class Result extends Auditory {
 

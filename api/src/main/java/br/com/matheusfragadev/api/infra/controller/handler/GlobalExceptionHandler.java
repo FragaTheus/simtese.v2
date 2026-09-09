@@ -1,5 +1,6 @@
 package br.com.matheusfragadev.api.infra.controller.handler;
 
+import br.com.matheusfragadev.api.application.result.FileException;
 import br.com.matheusfragadev.api.domain.accounts.exception.AccountException;
 import br.com.matheusfragadev.api.domain.accounts.exception.PasswordException;
 import br.com.matheusfragadev.api.domain.appointment.exception.AppointmentException;
@@ -7,6 +8,7 @@ import br.com.matheusfragadev.api.domain.appointment.exception.EmployeeException
 import br.com.matheusfragadev.api.domain.enterprise.exception.CNPJException;
 import br.com.matheusfragadev.api.domain.enterprise.exception.EnterpriseException;
 import br.com.matheusfragadev.api.domain.exams.exception.ExamException;
+import br.com.matheusfragadev.api.domain.result.ResultException;
 import br.com.matheusfragadev.api.infra.security.ratelimit.ClientIpResolver;
 import br.com.matheusfragadev.api.infra.security.ratelimit.RateLimitExceededException;
 import jakarta.servlet.http.HttpServletRequest;
@@ -29,6 +31,24 @@ import org.springframework.security.core.AuthenticationException;
 public class GlobalExceptionHandler {
 
     private static final Logger SECURITY_LOG = LoggerFactory.getLogger("SECURITY");
+
+    @ExceptionHandler(ResultException.class)
+    public ResponseEntity<ApiErrorResponse> handleResultException(ResultException ex){
+        var message = ex.getMessage();
+        var status = HttpStatus.CONFLICT;
+        log.warn("Erro de RN em: {}", ex.getMessage());
+        var response = new ApiErrorResponse(status, message);
+        return ResponseEntity.status(status).body(response);
+    }
+
+    @ExceptionHandler(FileException.class)
+    public ResponseEntity<ApiErrorResponse> handleFileException(FileException ex){
+        var message = ex.getMessage();
+        var status = HttpStatus.CONFLICT;
+        log.warn("Erro de RN em: {}", ex.getMessage());
+        var response = new ApiErrorResponse(status, message);
+        return ResponseEntity.status(status).body(response);
+    }
 
     @ExceptionHandler(UsernameNotFoundException.class)
     public ResponseEntity<ApiErrorResponse> handleUsernameNotFound(UsernameNotFoundException ex, HttpServletRequest request){

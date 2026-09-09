@@ -22,6 +22,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.io.InputStream;
+import java.util.List;
 import java.util.UUID;
 
 @RestController
@@ -100,5 +101,12 @@ public class ResultController {
         );
         Page<ResultSummary> resultSummaries = resultService.list(command).map(ResultSummary::of);
         return ResponseEntity.ok(resultSummaries);
+    }
+
+    @GetMapping("/enterprise/{enterpriseId}")
+    public ResponseEntity<List<ResultSummary>> listByEnterprise(@PathVariable UUID enterpriseId){
+        var results = resultService.findAllByEnterpriseId(enterpriseId);
+        var summaries = results.stream().map(ResultSummary::of).toList();
+        return ResponseEntity.ok(summaries);
     }
 }

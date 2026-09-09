@@ -113,6 +113,12 @@ export class DashComponent {
               description: 'Gerencie as empresas parceiras vinculadas à plataforma.',
               href: '/painel/empresas',
             },
+            {
+              icon: 'pi pi-file',
+              title: 'Resultados',
+              description: 'Gerencie os resultados dos exames ocupacionais.',
+              href: '/painel/resultados',
+            },
           ]);
 
           this.fastAccess.set([
@@ -162,6 +168,12 @@ export class DashComponent {
               title: 'Empresas',
               description: 'Gerencie as empresas parceiras vinculadas à plataforma.',
               href: '/painel/empresas',
+            },
+            {
+              icon: 'pi pi-file',
+              title: 'Resultados',
+              description: 'Gerencie os resultados dos exames ocupacionais.',
+              href: '/painel/resultados',
             },
           ]);
 

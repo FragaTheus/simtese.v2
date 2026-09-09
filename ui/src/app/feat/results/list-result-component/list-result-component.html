@@ -1,0 +1,104 @@
+@if (error() !== null) {
+  <app-error-component [error]="error()">
+    <p-button cancel label="Cancelar" severity="danger" [routerLink]="'/painel'" />
+
+    <p-button retry label="Tentar novamente" severity="success" (click)="loadResults()" />
+  </app-error-component>
+} @else {
+  <app-dash-page-layout>
+    <app-dash-page-header-layout
+      [loading]="loading()"
+      [label]="' Resultados Ocupacionais'"
+      [title]="'Resultados de Exames'"
+      [description]="'Consulte os resultados dos exames realizados pelos colaboradores.'"
+    />
+
+    <app-dash-list-page-layout [loading]="loading()">
+      <div toolbar class="w-full flex items-center justify-between flex-wrap gap-2">
+        <form (ngSubmit)="onSearch()">
+          <div class="flex items-center gap-2">
+            <p-floatlabel variant="on">
+              <input
+                pInputText
+                id="search"
+                name="search"
+                type="text"
+                [(ngModel)]="params().search"
+              />
+
+              <label for="search"> Pesquisar resultados </label>
+            </p-floatlabel>
+
+            <p-button severity="secondary" icon="pi pi-search" type="submit" />
+          </div>
+        </form>
+
+        <p-select
+          [options]="aptOptions"
+          optionLabel="label"
+          optionValue="apt"
+          [(ngModel)]="params().apt"
+          placeholder="Resultado"
+          (onChange)="onApt($event.value)"
+        />
+      </div>
+
+      <div dataview>
+        @if (pageableResponse() !== null) {
+          <p-dataView
+            [value]="pageableResponse()!.content"
+            [paginator]="true"
+            [rows]="pageableResponse()!.size"
+            [totalRecords]="pageableResponse()!.totalElements"
+            (onPage)="changePage($event)"
+          >
+            <ng-template #list let-items>
+              @for (i of items; track i.id) {
+                <div
+                  class="w-full flex items-center justify-between py-4 border-b border-surface-200 gap-4"
+                >
+                  <div class="flex items-center gap-4 min-w-0">
+                    @if (i.apt) {
+                      <div
+                        class="bg-green-50 flex items-center gap-1 text-green-500 p-1 rounded-full shrink-0"
+                      >
+                        <div class="size-2 rounded-full hidden md:inline bg-green-500"></div>
+
+                        <span class="text-xs uppercase"> Apto </span>
+                      </div>
+                    } @else {
+                      <div
+                        class="bg-red-50 flex items-center gap-1 text-red-500 p-1 rounded-full shrink-0"
+                      >
+                        <div class="size-2 rounded-full hidden md:inline bg-red-500"></div>
+
+                        <span class="text-xs uppercase"> Inapto </span>
+                      </div>
+                    }
+
+                    <div class="flex flex-col">
+                      <span class="font-semibold truncate">
+                        {{ i.employeeName }}
+                      </span>
+
+                      <span class="text-sm font-medium truncate text-surface-700">
+                        {{ i.enterpriseName }}
+                      </span>
+                    </div>
+                  </div>
+
+                  <p-button
+                    severity="secondary"
+                    icon="pi pi-ellipsis-v"
+                    size="small"
+                    [routerLink]="'/painel/resultados/' + i.id"
+                  />
+                </div>
+              }
+            </ng-template>
+          </p-dataView>
+        }
+      </div>
+    </app-dash-list-page-layout>
+  </app-dash-page-layout>
+}

@@ -1,99 +1,16 @@
-2026-09-08 11:03:49.371 [http-nio-8080-exec-1] WARN  SECURITY - Falha de autenticacao | ip=127.0.0.1 motivo=Token invalido ou expirado
-2026-09-08 11:03:50.018 [http-nio-8080-exec-3] WARN  SECURITY - Falha de autenticacao | ip=127.0.0.1 motivo=Token invalido ou expirado
-2026-09-08 11:03:51.197 [http-nio-8080-exec-4] WARN  SECURITY - Falha de autenticacao | ip=127.0.0.1 motivo=Token invalido ou expirado
-2026-09-08 11:03:55.651 [http-nio-8080-exec-6] WARN  SECURITY - Falha de autenticacao | ip=127.0.0.1 motivo=Token invalido ou expirado
-2026-09-08 11:04:00.366 [http-nio-8080-exec-7] WARN  SECURITY - Falha de autenticacao | ip=127.0.0.1 motivo=Token invalido ou expirado
-2026-09-08 11:55:33.027 [http-nio-8080-exec-4] INFO  SECURITY - Logout realizado | accountId=11111111-1111-1111-1111-111111111111
-2026-09-08 11:55:33.063 [http-nio-8080-exec-6] WARN  SECURITY - Requisicao nao autenticada | ip=127.0.0.1 uri=/api/v1/auth motivo=Full authentication is required to access this resource
-2026-09-08 11:55:45.668 [http-nio-8080-exec-5] WARN  SECURITY - Acesso negado | ip=127.0.0.1 uri=/api/v1/accounts motivo=Access Denied
-2026-09-08 11:56:03.062 [http-nio-8080-exec-2] WARN  SECURITY - Acesso negado | ip=127.0.0.1 uri=/api/v1/accounts motivo=Access Denied
-2026-09-08 13:18:14.814 [http-nio-8080-exec-2] WARN  SECURITY - Falha de autenticacao | ip=127.0.0.1 motivo=Token invalido ou expirado
-2026-09-08 13:19:03.528 [http-nio-8080-exec-6] INFO  SECURITY - Logout realizado | accountId=11111111-1111-1111-1111-111111111111
-2026-09-08 13:19:03.558 [http-nio-8080-exec-8] WARN  SECURITY - Requisicao nao autenticada | ip=127.0.0.1 uri=/api/v1/auth motivo=Full authentication is required to access this resource
-2026-09-08 13:19:22.755 [http-nio-8080-exec-2] WARN  SECURITY - Acesso negado | ip=127.0.0.1 uri=/api/v1/accounts motivo=Access Denied
-2026-09-08 13:20:20.077 [http-nio-8080-exec-4] WARN  SECURITY - Acesso negado | ip=127.0.0.1 uri=/api/v1/accounts motivo=Access Denied
-2026-09-08 13:22:16.212 [http-nio-8080-exec-6] WARN  SECURITY - Acesso negado | ip=127.0.0.1 uri=/api/v1/accounts motivo=Access Denied
-2026-09-08 13:22:21.547 [http-nio-8080-exec-10] WARN  SECURITY - Acesso negado | ip=127.0.0.1 uri=/api/v1/accounts motivo=Access Denied
-2026-09-08 13:23:28.979 [http-nio-8080-exec-8] WARN  SECURITY - Acesso negado | ip=127.0.0.1 uri=/api/v1/accounts motivo=Access Denied
-2026-09-08 13:23:34.077 [http-nio-8080-exec-4] WARN  SECURITY - Acesso negado | ip=127.0.0.1 uri=/api/v1/accounts motivo=Access Denied
-2026-09-08 13:23:38.459 [http-nio-8080-exec-5] WARN  SECURITY - Acesso negado | ip=127.0.0.1 uri=/api/v1/accounts motivo=Access Denied
-2026-09-08 13:24:18.924 [http-nio-8080-exec-2] WARN  SECURITY - Acesso negado | ip=127.0.0.1 uri=/api/v1/accounts motivo=Access Denied
-2026-09-08 13:24:46.121 [http-nio-8080-exec-4] WARN  SECURITY - Acesso negado | ip=127.0.0.1 uri=/api/v1/accounts motivo=Access Denied
-2026-09-08 13:25:13.818 [http-nio-8080-exec-7] WARN  SECURITY - Acesso negado | ip=127.0.0.1 uri=/api/v1/accounts motivo=Access Denied
-2026-09-08 13:25:14.765 [http-nio-8080-exec-5] WARN  SECURITY - Acesso negado | ip=127.0.0.1 uri=/api/v1/accounts motivo=Access Denied
-2026-09-08 13:26:02.343 [http-nio-8080-exec-8] WARN  SECURITY - Requisicao nao autenticada | ip=127.0.0.1 uri=/api/v1/accounts motivo=Full authentication is required to access this resource
-2026-09-08 13:26:02.395 [http-nio-8080-exec-9] WARN  SECURITY - Requisicao nao autenticada | ip=127.0.0.1 uri=/api/v1/auth motivo=Full authentication is required to access this resource
-2026-09-08 13:29:41.705 [http-nio-8080-exec-1] WARN  SECURITY - Requisicao nao autenticada | ip=127.0.0.1 uri=/api/v1/auth motivo=Full authentication is required to access this resource
-2026-09-08 13:29:45.986 [http-nio-8080-exec-2] WARN  SECURITY - Requisicao nao autenticada | ip=127.0.0.1 uri=/api/v1/auth motivo=Full authentication is required to access this resource
-2026-09-08 13:29:50.086 [http-nio-8080-exec-4] WARN  SECURITY - Requisicao nao autenticada | ip=127.0.0.1 uri=/api/v1/auth motivo=Full authentication is required to access this resource
-2026-09-08 13:29:53.382 [http-nio-8080-exec-7] WARN  SECURITY - Requisicao nao autenticada | ip=127.0.0.1 uri=/api/v1/auth motivo=Full authentication is required to access this resource
-2026-09-08 13:29:55.957 [http-nio-8080-exec-3] WARN  SECURITY - Requisicao nao autenticada | ip=127.0.0.1 uri=/api/v1/auth motivo=Full authentication is required to access this resource
-2026-09-08 13:30:19.380 [http-nio-8080-exec-5] WARN  SECURITY - Requisicao nao autenticada | ip=127.0.0.1 uri=/api/v1/auth motivo=Full authentication is required to access this resource
-2026-09-08 13:30:22.083 [http-nio-8080-exec-8] WARN  SECURITY - Requisicao nao autenticada | ip=127.0.0.1 uri=/api/v1/auth motivo=Full authentication is required to access this resource
-2026-09-08 13:30:23.564 [http-nio-8080-exec-9] WARN  SECURITY - Requisicao nao autenticada | ip=127.0.0.1 uri=/api/v1/auth motivo=Full authentication is required to access this resource
-2026-09-08 13:30:43.151 [http-nio-8080-exec-10] WARN  SECURITY - Requisicao nao autenticada | ip=127.0.0.1 uri=/api/v1/auth motivo=Full authentication is required to access this resource
-2026-09-08 13:31:09.053 [http-nio-8080-exec-6] WARN  SECURITY - Requisicao nao autenticada | ip=127.0.0.1 uri=/api/v1/auth motivo=Full authentication is required to access this resource
-2026-09-08 13:31:11.068 [http-nio-8080-exec-1] WARN  SECURITY - Requisicao nao autenticada | ip=127.0.0.1 uri=/api/v1/auth motivo=Full authentication is required to access this resource
-2026-09-08 13:34:05.241 [http-nio-8080-exec-4] WARN  SECURITY - Requisicao nao autenticada | ip=127.0.0.1 uri=/api/v1/auth motivo=Full authentication is required to access this resource
-2026-09-08 13:34:06.152 [http-nio-8080-exec-7] WARN  SECURITY - Requisicao nao autenticada | ip=127.0.0.1 uri=/api/v1/auth motivo=Full authentication is required to access this resource
-2026-09-08 13:34:06.878 [http-nio-8080-exec-3] WARN  SECURITY - Requisicao nao autenticada | ip=127.0.0.1 uri=/api/v1/auth motivo=Full authentication is required to access this resource
-2026-09-08 13:34:07.568 [http-nio-8080-exec-5] WARN  SECURITY - Requisicao nao autenticada | ip=127.0.0.1 uri=/api/v1/auth motivo=Full authentication is required to access this resource
-2026-09-08 13:34:08.094 [http-nio-8080-exec-8] WARN  SECURITY - Requisicao nao autenticada | ip=127.0.0.1 uri=/api/v1/auth motivo=Full authentication is required to access this resource
-2026-09-08 13:34:49.427 [http-nio-8080-exec-9] WARN  SECURITY - Requisicao nao autenticada | ip=127.0.0.1 uri=/api/v1/auth motivo=Full authentication is required to access this resource
-2026-09-08 13:34:50.216 [http-nio-8080-exec-10] WARN  SECURITY - Requisicao nao autenticada | ip=127.0.0.1 uri=/api/v1/auth motivo=Full authentication is required to access this resource
-2026-09-08 13:34:50.887 [http-nio-8080-exec-6] WARN  SECURITY - Requisicao nao autenticada | ip=127.0.0.1 uri=/api/v1/auth motivo=Full authentication is required to access this resource
-2026-09-08 13:34:51.420 [http-nio-8080-exec-1] WARN  SECURITY - Requisicao nao autenticada | ip=127.0.0.1 uri=/api/v1/auth motivo=Full authentication is required to access this resource
-2026-09-08 13:34:51.908 [http-nio-8080-exec-2] WARN  SECURITY - Requisicao nao autenticada | ip=127.0.0.1 uri=/api/v1/auth motivo=Full authentication is required to access this resource
-2026-09-08 13:34:52.283 [http-nio-8080-exec-4] WARN  SECURITY - Requisicao nao autenticada | ip=127.0.0.1 uri=/api/v1/auth motivo=Full authentication is required to access this resource
-2026-09-08 13:35:14.316 [http-nio-8080-exec-7] WARN  SECURITY - Requisicao nao autenticada | ip=127.0.0.1 uri=/api/v1/auth motivo=Full authentication is required to access this resource
-2026-09-08 13:35:14.942 [http-nio-8080-exec-3] WARN  SECURITY - Requisicao nao autenticada | ip=127.0.0.1 uri=/api/v1/auth motivo=Full authentication is required to access this resource
-2026-09-08 13:35:18.215 [http-nio-8080-exec-5] WARN  SECURITY - Requisicao nao autenticada | ip=127.0.0.1 uri=/api/v1/auth motivo=Full authentication is required to access this resource
-2026-09-08 13:35:18.712 [http-nio-8080-exec-8] WARN  SECURITY - Requisicao nao autenticada | ip=127.0.0.1 uri=/api/v1/auth motivo=Full authentication is required to access this resource
-2026-09-08 13:35:19.206 [http-nio-8080-exec-9] WARN  SECURITY - Requisicao nao autenticada | ip=127.0.0.1 uri=/api/v1/auth motivo=Full authentication is required to access this resource
-2026-09-08 13:35:21.263 [http-nio-8080-exec-10] WARN  SECURITY - Requisicao nao autenticada | ip=127.0.0.1 uri=/api/v1/auth motivo=Full authentication is required to access this resource
-2026-09-08 13:37:45.589 [http-nio-8080-exec-1] WARN  SECURITY - Requisicao nao autenticada | ip=127.0.0.1 uri=/api/v1/auth motivo=Full authentication is required to access this resource
-2026-09-08 13:38:03.336 [http-nio-8080-exec-9] WARN  SECURITY - Requisicao nao autenticada | ip=127.0.0.1 uri=/api/v1/auth motivo=Full authentication is required to access this resource
-2026-09-08 13:38:05.082 [http-nio-8080-exec-6] WARN  SECURITY - Requisicao nao autenticada | ip=127.0.0.1 uri=/api/v1/auth motivo=Full authentication is required to access this resource
-2026-09-08 13:38:18.792 [http-nio-8080-exec-9] WARN  SECURITY - Acesso negado | ip=127.0.0.1 uri=/api/v1/accounts motivo=Access Denied
-2026-09-08 14:16:28.692 [http-nio-8080-exec-2] WARN  SECURITY - Falha de autenticacao | ip=127.0.0.1 motivo=Token invalido ou expirado
-2026-09-08 14:16:29.410 [http-nio-8080-exec-4] WARN  SECURITY - Falha de autenticacao | ip=127.0.0.1 motivo=Token invalido ou expirado
-2026-09-08 14:16:30.651 [http-nio-8080-exec-5] WARN  SECURITY - Falha de autenticacao | ip=127.0.0.1 motivo=Token invalido ou expirado
-2026-09-08 15:19:57.810 [http-nio-8080-exec-2] INFO  SECURITY - Logout realizado | accountId=11111111-1111-1111-1111-111111111111
-2026-09-08 15:19:57.823 [http-nio-8080-exec-4] WARN  SECURITY - Requisicao nao autenticada | ip=127.0.0.1 uri=/api/v1/auth motivo=Full authentication is required to access this resource
-2026-09-08 15:19:57.835 [http-nio-8080-exec-5] WARN  SECURITY - Requisicao nao autenticada | ip=127.0.0.1 uri=/api/v1/auth motivo=Full authentication is required to access this resource
-2026-09-08 15:25:15.575 [http-nio-8080-exec-9] WARN  SECURITY - Acesso negado | ip=127.0.0.1 uri=/api/v1/accounts motivo=Access Denied
-2026-09-08 15:35:39.053 [http-nio-8080-exec-3] WARN  SECURITY - Acesso negado | ip=127.0.0.1 uri=/api/v1/accounts motivo=Access Denied
-2026-09-08 15:35:39.578 [http-nio-8080-exec-2] WARN  SECURITY - Acesso negado | ip=127.0.0.1 uri=/api/v1/accounts motivo=Access Denied
-2026-09-08 15:36:45.656 [http-nio-8080-exec-9] INFO  SECURITY - Logout realizado | accountId=054a0916-c2d0-4d75-96db-dd056e3131e0
-2026-09-08 15:36:45.811 [http-nio-8080-exec-3] WARN  SECURITY - Requisicao nao autenticada | ip=127.0.0.1 uri=/api/v1/auth motivo=Full authentication is required to access this resource
-2026-09-08 15:36:48.044 [http-nio-8080-exec-2] WARN  SECURITY - Requisicao nao autenticada | ip=127.0.0.1 uri=/api/v1/auth motivo=Full authentication is required to access this resource
-2026-09-08 15:36:48.056 [http-nio-8080-exec-1] WARN  SECURITY - Requisicao nao autenticada | ip=127.0.0.1 uri=/api/v1/auth motivo=Full authentication is required to access this resource
-2026-09-08 15:36:55.864 [http-nio-8080-exec-9] INFO  SECURITY - Logout realizado | accountId=11111111-1111-1111-1111-111111111111
-2026-09-08 15:36:55.877 [http-nio-8080-exec-3] WARN  SECURITY - Requisicao nao autenticada | ip=127.0.0.1 uri=/api/v1/auth motivo=Full authentication is required to access this resource
-2026-09-08 15:36:55.893 [http-nio-8080-exec-2] WARN  SECURITY - Requisicao nao autenticada | ip=127.0.0.1 uri=/api/v1/auth motivo=Full authentication is required to access this resource
-2026-09-08 15:37:00.914 [http-nio-8080-exec-7] INFO  SECURITY - Logout realizado | accountId=11111111-1111-1111-1111-111111111111
-2026-09-08 15:37:00.921 [http-nio-8080-exec-8] WARN  SECURITY - Requisicao nao autenticada | ip=127.0.0.1 uri=/api/v1/auth motivo=Full authentication is required to access this resource
-2026-09-08 15:37:00.937 [http-nio-8080-exec-10] WARN  SECURITY - Requisicao nao autenticada | ip=127.0.0.1 uri=/api/v1/auth motivo=Full authentication is required to access this resource
-2026-09-08 15:59:11.712 [http-nio-8080-exec-6] INFO  SECURITY - Logout realizado | accountId=11111111-1111-1111-1111-111111111111
-2026-09-08 15:59:11.773 [http-nio-8080-exec-4] WARN  SECURITY - Requisicao nao autenticada | ip=127.0.0.1 uri=/api/v1/auth motivo=Full authentication is required to access this resource
-2026-09-08 15:59:11.775 [http-nio-8080-exec-8] WARN  SECURITY - Requisicao nao autenticada | ip=127.0.0.1 uri=/api/v1/auth motivo=Full authentication is required to access this resource
-2026-09-08 15:59:14.438 [http-nio-8080-exec-9] WARN  SECURITY - Requisicao nao autenticada | ip=127.0.0.1 uri=/api/v1/auth motivo=Full authentication is required to access this resource
-2026-09-08 15:59:22.674 [http-nio-8080-exec-3] INFO  SECURITY - Logout realizado | accountId=11111111-1111-1111-1111-111111111111
-2026-09-08 15:59:22.686 [http-nio-8080-exec-2] WARN  SECURITY - Requisicao nao autenticada | ip=127.0.0.1 uri=/api/v1/auth motivo=Full authentication is required to access this resource
-2026-09-08 15:59:22.706 [http-nio-8080-exec-5] WARN  SECURITY - Requisicao nao autenticada | ip=127.0.0.1 uri=/api/v1/auth motivo=Full authentication is required to access this resource
-2026-09-08 15:59:37.898 [http-nio-8080-exec-2] INFO  SECURITY - Logout realizado | accountId=054a0916-c2d0-4d75-96db-dd056e3131e0
-2026-09-08 15:59:37.906 [http-nio-8080-exec-5] WARN  SECURITY - Requisicao nao autenticada | ip=127.0.0.1 uri=/api/v1/auth motivo=Full authentication is required to access this resource
-2026-09-08 15:59:37.921 [http-nio-8080-exec-7] WARN  SECURITY - Requisicao nao autenticada | ip=127.0.0.1 uri=/api/v1/auth motivo=Full authentication is required to access this resource
-2026-09-08 16:05:31.646 [http-nio-8080-exec-7] INFO  SECURITY - Logout realizado | accountId=11111111-1111-1111-1111-111111111111
-2026-09-08 16:05:31.656 [http-nio-8080-exec-6] WARN  SECURITY - Requisicao nao autenticada | ip=127.0.0.1 uri=/api/v1/auth motivo=Full authentication is required to access this resource
-2026-09-08 16:05:31.721 [http-nio-8080-exec-4] WARN  SECURITY - Requisicao nao autenticada | ip=127.0.0.1 uri=/api/v1/auth motivo=Full authentication is required to access this resource
-2026-09-08 16:05:51.103 [http-nio-8080-exec-6] INFO  SECURITY - Logout realizado | accountId=054a0916-c2d0-4d75-96db-dd056e3131e0
-2026-09-08 16:05:51.116 [http-nio-8080-exec-4] WARN  SECURITY - Requisicao nao autenticada | ip=127.0.0.1 uri=/api/v1/auth motivo=Full authentication is required to access this resource
-2026-09-08 16:05:51.136 [http-nio-8080-exec-8] WARN  SECURITY - Requisicao nao autenticada | ip=127.0.0.1 uri=/api/v1/auth motivo=Full authentication is required to access this resource
-2026-09-08 16:07:28.683 [http-nio-8080-exec-7] INFO  SECURITY - Logout realizado | accountId=11111111-1111-1111-1111-111111111111
-2026-09-08 16:07:28.696 [http-nio-8080-exec-8] WARN  SECURITY - Requisicao nao autenticada | ip=127.0.0.1 uri=/api/v1/auth motivo=Full authentication is required to access this resource
-2026-09-08 16:07:28.719 [http-nio-8080-exec-9] WARN  SECURITY - Requisicao nao autenticada | ip=127.0.0.1 uri=/api/v1/auth motivo=Full authentication is required to access this resource
-2026-09-08 16:07:37.260 [http-nio-8080-exec-1] WARN  SECURITY - Falha de autenticacao | ip=127.0.0.1 motivo=Usuário inexistente ou senha inválida
-2026-09-08 16:07:52.964 [http-nio-8080-exec-2] INFO  SECURITY - Logout realizado | accountId=1dee7940-caf3-49de-b14d-33b8e10df69a
-2026-09-08 16:07:52.972 [http-nio-8080-exec-3] WARN  SECURITY - Requisicao nao autenticada | ip=127.0.0.1 uri=/api/v1/auth motivo=Full authentication is required to access this resource
-2026-09-08 16:07:52.991 [http-nio-8080-exec-4] WARN  SECURITY - Requisicao nao autenticada | ip=127.0.0.1 uri=/api/v1/auth motivo=Full authentication is required to access this resource
+2026-09-09 14:30:14.015 [http-nio-8080-exec-3] WARN  SECURITY - Requisicao nao autenticada | ip=127.0.0.1 uri=/favicon.ico motivo=Full authentication is required to access this resource
+2026-09-09 15:34:40.409 [http-nio-8080-exec-5] INFO  SECURITY - Logout realizado | accountId=11111111-1111-1111-1111-111111111111
+2026-09-09 15:34:40.476 [http-nio-8080-exec-6] WARN  SECURITY - Requisicao nao autenticada | ip=127.0.0.1 uri=/api/v1/auth motivo=Full authentication is required to access this resource
+2026-09-09 15:34:40.495 [http-nio-8080-exec-7] WARN  SECURITY - Requisicao nao autenticada | ip=127.0.0.1 uri=/api/v1/auth motivo=Full authentication is required to access this resource
+2026-09-09 20:27:48.947 [http-nio-8080-exec-1] WARN  SECURITY - Falha de autenticacao | ip=127.0.0.1 motivo=Token invalido ou expirado
+2026-09-09 20:27:53.291 [http-nio-8080-exec-2] WARN  SECURITY - Falha de autenticacao | ip=127.0.0.1 motivo=Token invalido ou expirado
+2026-09-09 20:27:56.123 [http-nio-8080-exec-4] WARN  SECURITY - Falha de autenticacao | ip=127.0.0.1 motivo=Token invalido ou expirado
+2026-09-09 20:27:57.316 [http-nio-8080-exec-5] WARN  SECURITY - Falha de autenticacao | ip=127.0.0.1 motivo=Token invalido ou expirado
+2026-09-09 20:28:06.464 [http-nio-8080-exec-7] WARN  SECURITY - Falha de autenticacao | ip=127.0.0.1 motivo=Usuário inexistente ou senha inválida
+2026-09-09 20:34:48.967 [http-nio-8080-exec-9] INFO  SECURITY - Logout realizado | accountId=11111111-1111-1111-1111-111111111111
+2026-09-09 20:34:48.978 [http-nio-8080-exec-10] WARN  SECURITY - Requisicao nao autenticada | ip=127.0.0.1 uri=/api/v1/auth motivo=Full authentication is required to access this resource
+2026-09-09 20:34:50.308 [http-nio-8080-exec-8] WARN  SECURITY - Requisicao nao autenticada | ip=127.0.0.1 uri=/api/v1/auth motivo=Full authentication is required to access this resource
+2026-09-09 20:34:50.319 [http-nio-8080-exec-2] WARN  SECURITY - Requisicao nao autenticada | ip=127.0.0.1 uri=/api/v1/auth motivo=Full authentication is required to access this resource
+2026-09-09 20:35:02.583 [http-nio-8080-exec-2] INFO  SECURITY - Logout realizado | accountId=59a811ac-91cd-4a69-a136-f24791823df7
+2026-09-09 20:35:02.589 [http-nio-8080-exec-6] WARN  SECURITY - Requisicao nao autenticada | ip=127.0.0.1 uri=/api/v1/auth motivo=Full authentication is required to access this resource
+2026-09-09 20:35:02.606 [http-nio-8080-exec-3] WARN  SECURITY - Requisicao nao autenticada | ip=127.0.0.1 uri=/api/v1/auth motivo=Full authentication is required to access this resource

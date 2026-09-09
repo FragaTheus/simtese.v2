@@ -15,6 +15,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.io.InputStream;
+import java.util.List;
 import java.util.UUID;
 
 
@@ -84,5 +85,10 @@ public class ResultService {
         repository.flush();
 
         fileStorageService.delete(result.getFileName());
+    }
+
+    @Transactional
+    public List<Result> findAllByEnterpriseId(UUID enterpriseId) {
+        return repository.findAllByEnterpriseId(enterpriseId);
     }
 }

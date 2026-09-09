@@ -1,0 +1,115 @@
+@if (error() !== null) {
+  <app-error-component [error]="error()">
+    <p-button cancel severity="danger" label="Voltar" [routerLink]="'/painel/resultados'" />
+
+    <p-button retry severity="success" label="Tentar novamente" (click)="retry()" />
+  </app-error-component>
+} @else {
+  <app-dash-page-layout>
+    <app-dash-page-header-layout
+      [loading]="loading()"
+      [label]="' Resultado '"
+      [title]="'Informações do Resultado'"
+      [description]="'Visualize os dados do colaborador, da empresa e o resultado do exame ocupacional.'"
+    />
+
+    <div class="flex flex-col gap-6 w-full max-w-6xl mx-auto mt-6">
+      <p-card>
+        <div class="flex items-center justify-between gap-4 w-full flex-wrap">
+          @if (loading()) {
+            <div class="w-full max-w-xs">
+              <p-skeleton class="p-4 max-w-20" />
+              <p-skeleton class="max-w-xs p-8 mt-4" />
+            </div>
+
+            <p-skeleton class="p-6" />
+          } @else if (result(); as result) {
+            <div>
+              @if (result.apt) {
+                <span class="bg-green-50 text-green-500 p-2 rounded-full text-xs uppercase">
+                  Apto
+                </span>
+              } @else {
+                <span class="bg-red-50 text-red-500 p-2 rounded-full text-xs uppercase">
+                  Inapto
+                </span>
+              }
+
+              <h1 class="text-3xl font-semibold max-w-md mt-4">
+                {{ result.employeeName }}
+              </h1>
+
+              <p class="text-sm text-surface-700 mt-1">
+                {{ result.enterpriseName }}
+              </p>
+            </div>
+
+            <p-button
+              label="Visualizar PDF"
+              icon="pi pi-file-pdf"
+              severity="secondary"
+              [loading]="fileLoading()"
+              (click)="openFile()"
+            />
+          }
+        </div>
+      </p-card>
+
+      <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+        @if (loading()) {
+          @for (item of [1, 2]; track item) {
+            <p-card>
+              <p-skeleton class="p-40" />
+            </p-card>
+          }
+        } @else if (result(); as result) {
+          <p-card>
+            <div class="flex items-center gap-2">
+              <span class="pi pi-user text-xl text-clinical-teal"></span>
+              <h3 class="font-semibold">Colaborador</h3>
+            </div>
+
+            <div class="flex flex-col mt-6">
+              <label class="text-xs uppercase font-semibold"> Nome: </label>
+
+              <span>
+                {{ result.employeeName }}
+              </span>
+            </div>
+
+            <div class="flex flex-col mt-6">
+              <label class="text-xs uppercase font-semibold"> CPF: </label>
+
+              <span>
+                {{ result.employeeCpf | documentFormat }}
+              </span>
+            </div>
+          </p-card>
+
+          <p-card>
+            <div class="flex items-center gap-2">
+              <span class="pi pi-building text-xl text-clinical-teal"></span>
+              <h3 class="font-semibold">Empresa</h3>
+            </div>
+
+            <div class="flex flex-col mt-6">
+              <label class="text-xs uppercase font-semibold"> Razão social: </label>
+
+              <span>
+                {{ result.enterpriseName }}
+              </span>
+            </div>
+
+            <div class="flex flex-col mt-6">
+              <label class="text-xs uppercase font-semibold"> CNPJ: </label>
+
+              <span>
+                {{ result.enterpriseCnpj | documentFormat }}
+              </span>
+            </div>
+          </p-card>
+        }
+      </div>
+    </div>
+  </app-dash-page-layout>
+}

@@ -22,29 +22,7 @@ CREATE TABLE appointment (
 
                              CONSTRAINT fk_appointment_enterprise
                                  FOREIGN KEY (enterprise_id)
-                                     REFERENCES enterprise (id),
-
-                             CONSTRAINT ck_appointment_shift
-                                 CHECK (shift IN (
-                                                  'MORNING',
-                                                  'AFTERNOON'
-                                     )),
-
-                             CONSTRAINT ck_appointment_exam_type
-                                 CHECK (exam_type IN (
-                                                      'PRE_EMPLOYMENT',
-                                                      'TERMINATION',
-                                                      'PERIODIC',
-                                                      'RETURN_TO_WORK',
-                                                      'SPECIFIC_EVALUATION'
-                                     )),
-
-                             CONSTRAINT ck_appointment_exam_status
-                                 CHECK (exam_status IN (
-                                                        'SCHEDULED',
-                                                        'ATTENDED',
-                                                        'RELEASED'
-                                     ))
+                                     REFERENCES enterprise (id)
 );
 
 

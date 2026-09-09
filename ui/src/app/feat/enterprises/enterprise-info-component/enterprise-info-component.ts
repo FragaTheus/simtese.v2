@@ -5,7 +5,7 @@ import { DashPageLayout } from '../../../shared/components/layout/dash/dash-page
 import { SkeletonModule } from 'primeng/skeleton';
 import { EnterpriseInfo, EnterpriseService } from '../enterprise-service';
 import { ApiErrorResponse } from '../../../shared/api/type/api.type';
-import { ActivatedRoute, Router, RouterLink } from '@angular/router';
+import { ActivatedRoute, RouterLink } from '@angular/router';
 import { HttpErrorResponse } from '@angular/common/http';
 import { ErrorComponent } from '../../../shared/components/ui/error-component/error-component';
 import { EditEnterpriseComponent } from '../edit-enterprise-component/edit-enterprise-component';
@@ -13,8 +13,8 @@ import { AuditInfoComponent } from '../../../shared/components/ui/audit-info-com
 import { EnterpriseAccountVinculateComponent } from '../enterprise-account-vinculate-component/enterprise-account-vinculate-component';
 import { UnlinkAccountComponent } from '../unlink-account-component/unlink-account-component';
 import { DocumentFormatPipe } from '../../../shared/pipes/document-format-pipe';
-import { AuthService } from '../../auth/auth-service';
 import { AccountService } from '../../account/account-service';
+import { ResultService, ResultSummary } from '../../results/result-service';
 
 @Component({
   selector: 'app-enterprise-info-component',
@@ -36,18 +36,19 @@ import { AccountService } from '../../account/account-service';
 export class EnterpriseInfoComponent {
   private enterpriseService = inject(EnterpriseService);
   private actRoute = inject(ActivatedRoute);
-  private router = inject(Router);
-  private authService = inject(AuthService);
   private accountService = inject(AccountService);
+  private resultService = inject(ResultService);
   loading = signal<boolean>(false);
   error = signal<ApiErrorResponse | null>(null);
   enterprise = signal<EnterpriseInfo | undefined>(undefined);
   canEdit = signal<boolean>(false);
   id = this.actRoute.snapshot.paramMap.get('id');
+  results = signal<ResultSummary[] | null>(null);
 
   constructor() {
     this.loadEnterprise();
     this.loadAccount();
+    this.loadResults();
   }
 
   loadAccount() {
@@ -75,7 +76,19 @@ export class EnterpriseInfoComponent {
     });
   }
 
+  loadResults() {
+    this.resultService.findAllByEnterpriseId(this.id!).subscribe({
+      next: (results) => {
+        this.results.set(results);
+      },
+      error: () => {
+        this.results.set(null);
+      },
+    });
+  }
+
   retry() {
     this.loadEnterprise();
+    this.loadResults();
   }
 }

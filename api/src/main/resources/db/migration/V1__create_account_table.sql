@@ -17,13 +17,5 @@ CREATE TABLE account (
                              PRIMARY KEY (id),
 
                          CONSTRAINT uk_account_email
-                             UNIQUE (email),
-
-                         CONSTRAINT ck_account_role
-                             CHECK (role IN (
-                                             'ADMIN',
-                                             'NURSE',
-                                             'RECEPTIONIST',
-                                             'ENTERPRISE'
-                                 ))
+                             UNIQUE (email)
 );

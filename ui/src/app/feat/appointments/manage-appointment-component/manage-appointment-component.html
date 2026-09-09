@@ -4,6 +4,12 @@
 
 <p-confirmdialog [key]="'toggle-appointment-status'" styleClass="max-w-xs" [closable]="false" />
 
+<app-create-result-component
+  [showTrigger]="false"
+  [appointmentId]="appointment().id"
+  [(visible)]="resultDialogVisible"
+/>
+
 @if (error() !== null) {
   <div class="w-full p-2 rounded-md text-center text-sm text-red-500 bg-red-50 mt-2">
     {{ error()?.message }}

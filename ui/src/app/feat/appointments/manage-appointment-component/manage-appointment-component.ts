@@ -9,10 +9,11 @@ import { AppointmentInfo, AppointmentService } from '../appointment-service';
 import { ApiErrorResponse } from '../../../shared/api/type/api.type';
 import { AuthService } from '../../auth/auth-service';
 import { ExamService } from '../../exams/exam-service';
+import { CreateResultComponent } from '../../results/create-result-component/create-result-component';
 
 @Component({
   selector: 'app-manage-appointment-component',
-  imports: [ButtonModule, MenuModule, ConfirmDialogModule],
+  imports: [ButtonModule, MenuModule, ConfirmDialogModule, CreateResultComponent],
   templateUrl: './manage-appointment-component.html',
 })
 export class ManageAppointmentComponent {
@@ -28,6 +29,7 @@ export class ManageAppointmentComponent {
   exams = signal<string[]>([]);
   examsLoaded = output<string[]>();
   statusChanged = output<void>();
+  resultDialogVisible = signal<boolean>(false);
 
   constructor() {
     effect(() => {
@@ -105,8 +107,7 @@ export class ManageAppointmentComponent {
       accept: () => {
         this.appointmentService.release(this.appointment().id).subscribe({
           next: () => {
-            this.statusChanged.emit();
-            window.location.reload();
+            this.resultDialogVisible.set(true);
           },
           error: (err: HttpErrorResponse) => {
             this.error.set(err.error);

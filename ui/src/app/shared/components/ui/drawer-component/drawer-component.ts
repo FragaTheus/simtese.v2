@@ -109,6 +109,11 @@ export class DrawerComponent {
               icon: 'pi pi-building',
               routerLink: `${DASH_ROUTE}/empresas`,
             },
+            {
+              label: 'Resultados',
+              icon: 'pi pi-file',
+              routerLink: `${DASH_ROUTE}/resultados`,
+            },
           ]);
         } else if (user.role === 'NURSE' || user.role === 'RECEPTIONIST') {
           this.items.set([
@@ -134,7 +139,13 @@ export class DrawerComponent {
             },
           ]);
         } else if (user.role === 'ENTERPRISE') {
-          this.items.set([]);
+          this.items.set([
+            {
+              label: 'Painel',
+              icon: 'pi pi-home',
+              routerLink: `${DASH_ROUTE}`,
+            },
+          ]);
         }
       },
     });

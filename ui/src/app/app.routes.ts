@@ -114,6 +114,22 @@ export const routes: Routes = [
           ),
       },
       {
+        path: 'resultados',
+        data: { breadcrumb: 'Resultados' },
+        loadComponent: () =>
+          import('./feat/results/list-result-component/list-result-component').then(
+            (m) => m.ListResultComponent,
+          ),
+      },
+      {
+        path: 'resultados/:id',
+        data: { breadcrumb: 'Detalhes do resultado' },
+        loadComponent: () =>
+          import('./feat/results/result-info-component/result-info-component').then(
+            (m) => m.ResultInfoComponent,
+          ),
+      },
+      {
         path: 'perfil',
         data: { breadcrumb: 'Perfil' },
         loadComponent: () =>

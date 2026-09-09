@@ -21,6 +21,7 @@ import { ApiErrorResponse } from '../../../shared/api/type/api.type';
 import { ManageAppointmentComponent } from '../manage-appointment-component/manage-appointment-component';
 import { DocumentFormatPipe } from '../../../shared/pipes/document-format-pipe';
 import { AuthService } from '../../auth/auth-service';
+import { CreateResultComponent } from '../../results/create-result-component/create-result-component';
 
 const SHIFT_LABELS: Record<Shift, string> = {
   MORNING: 'Manhã',
@@ -68,8 +69,6 @@ const EXAM_STATUS_STYLES: Record<ExamStatus, string> = {
 export class AppointmentInfoComponent {
   private appointmentService = inject(AppointmentService);
   private actRoute = inject(ActivatedRoute);
-  private router = inject(Router);
-  private authService = inject(AuthService);
   loading = signal<boolean>(false);
   error = signal<ApiErrorResponse | null>(null);
   appointment = signal<AppointmentInfo | undefined>(undefined);

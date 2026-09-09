@@ -19,7 +19,8 @@
           tooltipEvent="focus"
           tooltipPosition="top"
         />
-        <label for="employeeName">Nome do funcionário</label>
+
+        <label for="employeeName"> Nome do funcionário </label>
       </p-floatlabel>
 
       <p-floatlabel variant="on">
@@ -33,7 +34,8 @@
           tooltipEvent="focus"
           tooltipPosition="top"
         />
-        <label for="employeeCpf">CPF do funcionário</label>
+
+        <label for="employeeCpf"> CPF do funcionário </label>
       </p-floatlabel>
 
       <p-floatlabel variant="on">
@@ -46,7 +48,8 @@
           tooltipEvent="focus"
           tooltipPosition="top"
         />
-        <label for="enterpriseName">Nome da empresa</label>
+
+        <label for="enterpriseName"> Nome da empresa </label>
       </p-floatlabel>
 
       <p-floatlabel variant="on">
@@ -60,8 +63,11 @@
           tooltipEvent="focus"
           tooltipPosition="top"
         />
-        <label for="enterpriseCnpj">CNPJ da empresa</label>
+
+        <label for="enterpriseCnpj"> CNPJ da empresa </label>
       </p-floatlabel>
+
+      <!-- Turno -->
 
       <p-select
         [options]="shiftOptions"
@@ -71,27 +77,66 @@
         placeholder="Turno"
         appendTo="body"
         class="w-full"
+        (onChange)="onShiftChange($event.value)"
       />
 
+      <!-- Tipo -->
+
       <p-select
-        [options]="examTypeOptions"
+        [options]="availableExamTypeOptions"
         optionLabel="label"
         optionValue="value"
         formControlName="examType"
         placeholder="Tipo de exame"
         appendTo="body"
         class="w-full"
+        [disabled]="form.controls.shift.invalid"
       />
 
-      <p-multiselect
-        [options]="examOptions()"
-        optionLabel="name"
-        optionValue="id"
-        formControlName="exams"
-        placeholder="Exames"
-        appendTo="body"
-        class="w-full"
-      />
+      <!-- Exame clínico -->
+
+      @if (clinicalExam()) {
+        <div class="flex items-center gap-3 p-4 rounded-lg border border-surface-200 bg-surface-0">
+          <span class="pi pi-check-circle text-green-500"></span>
+
+          <div class="flex flex-col">
+            <span class="text-sm font-medium">
+              {{ clinicalExam()!.name }}
+            </span>
+
+            <span class="text-xs text-surface-500">
+              Exame obrigatório incluído automaticamente
+            </span>
+          </div>
+        </div>
+      }
+
+      <!-- Complementares -->
+
+      @if (canSelectComplementaryExams) {
+        <p-multiselect
+          [options]="complementaryExamOptions()"
+          optionLabel="name"
+          optionValue="id"
+          formControlName="complementaryExamIds"
+          placeholder="Exames complementares"
+          appendTo="body"
+          class="w-full"
+          display="chip"
+        />
+      }
+
+      <!-- Aviso tarde -->
+
+      @if (form.controls.shift.value === 'AFTERNOON') {
+        <div class="flex items-start gap-3 p-4 rounded-lg bg-surface-100 text-surface-700">
+          <span class="pi pi-info-circle mt-0.5"></span>
+
+          <span class="text-sm">
+            No período da tarde não são realizados exames complementares.
+          </span>
+        </div>
+      }
 
       <p-floatlabel variant="on">
         <textarea
@@ -104,7 +149,8 @@
           tooltipEvent="focus"
           tooltipPosition="top"
         ></textarea>
-        <label for="observation">Observação</label>
+
+        <label for="observation"> Observação </label>
       </p-floatlabel>
 
       @if (error() !== null) {
@@ -124,13 +170,14 @@
       }
 
       <div class="flex items-center gap-2 w-full justify-end">
-        <p-button label="Cancelar" (click)="closeDialog()" severity="danger" />
+        <p-button label="Cancelar" type="button" severity="danger" (click)="closeDialog()" />
+
         <p-button
           label="Cadastrar"
           type="submit"
           severity="success"
           [loading]="loading()"
-          [disabled]="loading() || form.invalid"
+          [disabled]="loading() || form.invalid || clinicalExam() === null"
         />
       </div>
     </div>
