@@ -28,7 +28,7 @@ public class Result extends Auditory {
     @Column(name = "file_name", nullable = false)
     private String fileName;
 
-    private Result(Enterprise enterprise, Employee employee, boolean apt, String fileName) {
+    public Result(Enterprise enterprise, Employee employee, boolean apt, String fileName) {
         this.enterprise = enterprise;
         this.employee = employee;
         this.apt = apt;

@@ -9,6 +9,13 @@ export interface CreateResultRequest {
   file: File;
 }
 
+export interface CreateResultUnlinkedRequest {
+  employeeName: string;
+  employeeCpf: string;
+  apt: boolean;
+  file: File;
+}
+
 export interface ResultSummary {
   id: string;
   employeeName: string;
@@ -44,6 +51,21 @@ export class ResultService {
     formData.append('file', request.file);
 
     return this.http.post(`${API_V1_URL}/results/${appointmentId}`, formData, {
+      responseType: 'text',
+    });
+  }
+
+  createUnlinked(enterpriseId: string, request: CreateResultUnlinkedRequest): Observable<string> {
+    console.log('Creating unlinked result for enterpriseId:', enterpriseId);
+    console.log('Request data:', request);
+    const formData = new FormData();
+
+    formData.append('employeeName', request.employeeName);
+    formData.append('employeeCpf', request.employeeCpf);
+    formData.append('apt', request.apt.toString());
+    formData.append('file', request.file);
+
+    return this.http.post(`${API_V1_URL}/results/unlinked/${enterpriseId}`, formData, {
       responseType: 'text',
     });
   }

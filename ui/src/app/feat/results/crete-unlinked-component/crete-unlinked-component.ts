@@ -1,14 +1,14 @@
 import { Component, inject, input, model, output, signal } from '@angular/core';
+import { DialogComponent } from '../../../shared/components/ui/dialog-component/dialog-component';
 import { ButtonModule } from 'primeng/button';
-import { ReactiveFormsModule, FormBuilder, Validators } from '@angular/forms';
-import { HttpErrorResponse } from '@angular/common/http';
-import { SelectModule } from 'primeng/select';
+import { FormBuilder, ReactiveFormsModule, Validators } from '@angular/forms';
 import { FileUploadModule } from 'primeng/fileupload';
 import { TooltipModule } from 'primeng/tooltip';
-
-import { DialogComponent } from '../../../shared/components/ui/dialog-component/dialog-component';
-import { ApiErrorResponse } from '../../../shared/api/type/api.type';
+import { SelectModule } from 'primeng/select';
 import { ResultService } from '../result-service';
+import { HttpErrorResponse } from '@angular/common/http';
+import { FloatLabelModule } from 'primeng/floatlabel';
+import { InputTextModule } from 'primeng/inputtext';
 import { RouterLink } from '@angular/router';
 
 interface AptOption {
@@ -17,7 +17,7 @@ interface AptOption {
 }
 
 @Component({
-  selector: 'app-create-result-component',
+  selector: 'app-crete-unlinked-component',
   imports: [
     DialogComponent,
     ButtonModule,
@@ -25,22 +25,19 @@ interface AptOption {
     SelectModule,
     FileUploadModule,
     TooltipModule,
+    FloatLabelModule,
+    InputTextModule,
     RouterLink,
   ],
-  templateUrl: './create-result-component.html',
+  templateUrl: './crete-unlinked-component.html',
 })
-export class CreateResultComponent {
-  appointmentId = input.required<string>();
-  showTrigger = input<boolean>(true);
-
-  visible = model<boolean>(false);
+export class CreteUnlinkedComponent {
+  enterpriseId = input.required<string>();
   loading = signal<boolean>(false);
   error = signal<string | null>(null);
   success = signal<boolean>(false);
-
   selectedFile = signal<File | null>(null);
-
-  refresh = output<void>();
+  visible = signal<boolean>(false);
   resultId = signal<string | null>(null);
 
   private fb = inject(FormBuilder);
@@ -58,6 +55,8 @@ export class CreateResultComponent {
   ];
 
   form = this.fb.nonNullable.group({
+    employeeName: ['', Validators.required],
+    employeeCpf: ['', Validators.required],
     apt: [true, Validators.required],
   });
 
@@ -72,7 +71,7 @@ export class CreateResultComponent {
     this.selectedFile.set(null);
   }
 
-  createResult() {
+  creteUnlinkedResult() {
     this.error.set(null);
     this.success.set(false);
 
@@ -86,22 +85,21 @@ export class CreateResultComponent {
     this.loading.set(true);
 
     this.resultService
-      .create(this.appointmentId(), {
+      .createUnlinked(this.enterpriseId(), {
+        employeeName: this.form.getRawValue().employeeName,
+        employeeCpf: this.form.getRawValue().employeeCpf,
         apt: this.form.getRawValue().apt,
         file,
       })
       .subscribe({
         next: (id) => {
-          this.loading.set(false);
-          this.success.set(true);
           this.resultId.set(id);
-          this.refresh.emit();
+          this.success.set(true);
+          this.loading.set(false);
         },
 
         error: (err: HttpErrorResponse) => {
-          const apiError = err.error as ApiErrorResponse;
-
-          this.error.set(apiError.message);
+          this.error.set(err.message);
           this.loading.set(false);
         },
       });

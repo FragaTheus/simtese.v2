@@ -15,6 +15,7 @@ import { UnlinkAccountComponent } from '../unlink-account-component/unlink-accou
 import { DocumentFormatPipe } from '../../../shared/pipes/document-format-pipe';
 import { AccountService } from '../../account/account-service';
 import { ResultService, ResultSummary } from '../../results/result-service';
+import { CreteUnlinkedComponent } from '../../results/crete-unlinked-component/crete-unlinked-component';
 
 @Component({
   selector: 'app-enterprise-info-component',
@@ -30,6 +31,7 @@ import { ResultService, ResultSummary } from '../../results/result-service';
     EnterpriseAccountVinculateComponent,
     UnlinkAccountComponent,
     DocumentFormatPipe,
+    CreteUnlinkedComponent,
   ],
   templateUrl: './enterprise-info-component.html',
 })

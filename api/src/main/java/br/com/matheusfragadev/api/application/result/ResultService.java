@@ -1,10 +1,14 @@
 package br.com.matheusfragadev.api.application.result;
 
 import br.com.matheusfragadev.api.application.appointment.AppointmentService;
+import br.com.matheusfragadev.api.application.enterprise.EnterpriseService;
 import br.com.matheusfragadev.api.application.filestorageservice.FileStorageService;
 import br.com.matheusfragadev.api.application.result.aggregates.CreateResultCommand;
+import br.com.matheusfragadev.api.application.result.aggregates.CreateResultUnlinkedCommand;
 import br.com.matheusfragadev.api.application.result.aggregates.ResultFilterCommand;
+import br.com.matheusfragadev.api.domain.appointment.aggregate.Employee;
 import br.com.matheusfragadev.api.domain.appointment.entity.Appointment;
+import br.com.matheusfragadev.api.domain.enterprise.entity.Enterprise;
 import br.com.matheusfragadev.api.domain.result.Result;
 import br.com.matheusfragadev.api.domain.result.ResultException;
 import br.com.matheusfragadev.api.domain.result.ResultRepository;
@@ -26,6 +30,7 @@ public class ResultService {
     private final ResultRepository repository;
     private final FileStorageService fileStorageService;
     private final AppointmentService appointmentService;
+    private final EnterpriseService enterpriseService;
 
     @Transactional(readOnly = true)
     public Result findById(UUID targetId) {
@@ -53,6 +58,29 @@ public class ResultService {
         try {
             Result result = Result.of(
                     appointment,
+                    command.apt(),
+                    fileName
+            );
+
+            return repository.save(result);
+
+        } catch (RuntimeException e) {
+            fileStorageService.delete(fileName);
+            throw e;
+        }
+    }
+
+    @Transactional
+    public Result createUnlinked(CreateResultUnlinkedCommand command) {
+        Employee employee = Employee.of(command.employeeName(), command.employeeCpf());
+        Enterprise enterprise = enterpriseService.findById(command.enterpriseId());
+        String fileName = fileStorageService.save(command.file());
+
+
+        try {
+            Result result = new Result(
+                    enterprise,
+                    employee,
                     command.apt(),
                     fileName
             );

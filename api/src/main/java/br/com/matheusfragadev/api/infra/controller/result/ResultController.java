@@ -2,12 +2,13 @@ package br.com.matheusfragadev.api.infra.controller.result;
 
 import br.com.matheusfragadev.api.application.result.ResultService;
 import br.com.matheusfragadev.api.application.result.aggregates.CreateResultCommand;
+import br.com.matheusfragadev.api.application.result.aggregates.CreateResultUnlinkedCommand;
 import br.com.matheusfragadev.api.application.result.aggregates.ResultFilterCommand;
 import br.com.matheusfragadev.api.infra.controller.result.aggregates.CreateResultRequest;
+import br.com.matheusfragadev.api.infra.controller.result.aggregates.CreateResultUnlinkedRequest;
 import br.com.matheusfragadev.api.infra.controller.result.aggregates.ResultInfo;
 import br.com.matheusfragadev.api.infra.controller.result.aggregates.ResultSummary;
 import jakarta.validation.Valid;
-import jakarta.websocket.server.PathParam;
 import lombok.RequiredArgsConstructor;
 import org.springframework.core.io.InputStreamResource;
 import org.springframework.core.io.Resource;
@@ -46,6 +47,21 @@ public class ResultController {
                 request.file()
         );
         var result = resultService.create(command);
+        return ResponseEntity
+                .status(HttpStatus.CREATED)
+                .body(result.getId().toString());
+    }
+
+    @PostMapping(
+            value = "/unlinked/{enterpriseId}",
+            consumes = MediaType.MULTIPART_FORM_DATA_VALUE
+    )
+    public ResponseEntity<String> createResultWithoutAppointment(
+            @PathVariable UUID enterpriseId,
+            @Valid @ModelAttribute CreateResultUnlinkedRequest request
+    ) {
+        var command = CreateResultUnlinkedCommand.fromRequest(enterpriseId, request);
+        var result = resultService.createUnlinked(command);
         return ResponseEntity
                 .status(HttpStatus.CREATED)
                 .body(result.getId().toString());
@@ -109,4 +125,6 @@ public class ResultController {
         var summaries = results.stream().map(ResultSummary::of).toList();
         return ResponseEntity.ok(summaries);
     }
+
+
 }

@@ -1,14 +1,22 @@
-@if (showTrigger()) {
-  <p-button label="Adicionar Resultado" icon="pi pi-file-plus" (click)="visible.set(true)" />
-}
+<p-button label="Novo resultado" icon="pi pi-plus" severity="success" (click)="visible.set(true)" />
 
 <app-dialog-component
   [(visible)]="visible"
   [icon]="'pi pi-file-pdf'"
   [title]="'Cadastrar resultado do exame'"
 >
-  <form [formGroup]="form" (ngSubmit)="createResult()">
+  <form [formGroup]="form" (ngSubmit)="creteUnlinkedResult()">
     <div class="flex flex-col gap-6 w-full">
+      <p-floatlabel variant="on">
+        <input pInputText formControlName="employeeName" id="employeeName" class="w-full" />
+        <label for="employeeName">Nome do funcionário</label>
+      </p-floatlabel>
+
+      <p-floatlabel variant="on">
+        <input pInputText formControlName="employeeCpf" id="employeeCpf" class="w-full" />
+        <label for="employeeCpf">CPF do funcionário</label>
+      </p-floatlabel>
+
       <div class="flex flex-col gap-2">
         <label for="apt" class="text-sm font-medium"> Resultado </label>
 
@@ -74,7 +82,7 @@
 
       @if (success()) {
         <a
-          [routerLink]="'/painel/resultados/' + resultId()"
+          [routerLink]="['/painel/resultados/', resultId()]"
           class="w-full p-2 rounded-md text-center text-sm text-green-500 bg-green-50"
         >
           Resultado cadastrado com sucesso!
