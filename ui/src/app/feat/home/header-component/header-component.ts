@@ -32,7 +32,7 @@ export class HeaderComponent {
           {
             label: 'Portal Woty',
             icon: 'pi pi-external-link',
-            url: 'https://portal-woty.com.br',
+            url: 'https://portal.woty.com.br/Account/Login?ReturnUrl=%2F',
             target: '_blank',
           },
         ],
