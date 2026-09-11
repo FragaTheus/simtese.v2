@@ -100,9 +100,7 @@ export class CreteUnlinkedComponent {
         },
 
         error: (err: HttpErrorResponse) => {
-          console.log(err);
-          const apiError = err.error as ApiErrorResponse;
-          console.error(apiError);
+          const apiError: ApiErrorResponse = JSON.parse(err.error);
           this.error.set(apiError.message);
           this.loading.set(false);
         },
