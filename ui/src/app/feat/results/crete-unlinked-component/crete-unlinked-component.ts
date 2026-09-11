@@ -10,6 +10,7 @@ import { HttpErrorResponse } from '@angular/common/http';
 import { FloatLabelModule } from 'primeng/floatlabel';
 import { InputTextModule } from 'primeng/inputtext';
 import { RouterLink } from '@angular/router';
+import { ApiErrorResponse } from '../../../shared/api/type/api.type';
 
 interface AptOption {
   label: string;
@@ -99,7 +100,8 @@ export class CreteUnlinkedComponent {
         },
 
         error: (err: HttpErrorResponse) => {
-          this.error.set(err.message);
+          const apiErro = err.error as ApiErrorResponse;
+          this.error.set(apiErro.message);
           this.loading.set(false);
         },
       });
