@@ -1,6 +1,7 @@
 @if (error() !== null) {
   <app-error-component [error]="error()">
     <p-button cancel severity="danger" label="Voltar" [routerLink]="'/painel/empresas'" />
+
     <p-button retry severity="success" label="Tentar novamente" (click)="retry()" />
   </app-error-component>
 } @else {
@@ -13,6 +14,7 @@
               <p-skeleton class="p-4 max-w-10" />
               <p-skeleton class="max-w-xs p-14" />
             </div>
+
             <div class="flex items-center gap-2 w-full max-w-xs">
               <p-skeleton class="p-6" />
               <p-skeleton class="p-6" />
@@ -25,9 +27,14 @@
                     ? 'bg-green-50 text-green-500 p-2 rounded-sm'
                     : 'bg-red-50 text-red-500'
                 }} p-2 rounded-full text-xs uppercase"
-                >{{ enterprise()?.active ? 'Ativo' : 'Inativo' }}</span
               >
-              <h1 class="text-3xl font-semibold max-w-xs mt-4">{{ enterprise()?.name }}</h1>
+                {{ enterprise()?.active ? 'Ativo' : 'Inativo' }}
+              </span>
+
+              <h1 class="text-3xl font-semibold max-w-xs mt-4">
+                {{ enterprise()?.name }}
+              </h1>
+
               <p class="text-sm text-surface-700 mt-1">
                 CNPJ: {{ enterprise()?.cnpj | documentFormat }}
               </p>
@@ -36,6 +43,7 @@
             <div class="flex items-center gap-2">
               @if (canEdit()) {
                 <app-edit-enterprise-component [enterprise]="enterprise()!" />
+
                 <app-crete-unlinked-component [enterpriseId]="enterprise()!.id" />
               }
             </div>
@@ -50,14 +58,17 @@
           <div class="bg-surface-50 p-4 rounded-md">
             <div class="flex items-center gap-2">
               <span class="pi pi-briefcase text-xl text-clinical-teal"></span>
+
               <h3 class="font-semibold">Vínculo</h3>
             </div>
 
             <div class="flex flex-col mt-6">
-              <label class="text-xs uppercase font-semibold">Conta vinculada:</label>
-              <span class="mb-2">{{
-                enterprise()?.linkedAccountName || 'Nenhuma conta vinculada'
-              }}</span>
+              <label class="text-xs uppercase font-semibold"> Conta vinculada: </label>
+
+              <span class="mb-2">
+                {{ enterprise()?.linkedAccountName || 'Nenhuma conta vinculada' }}
+              </span>
+
               @if (canEdit()) {
                 @if (enterprise()?.linkedAccountName === null) {
                   <app-enterprise-account-vinculate-component [enterpriseId]="enterprise()!.id" />
@@ -83,40 +94,104 @@
       <div class="mt-6 w-full">
         <div class="flex items-center gap-2">
           <span class="pi pi-briefcase text-xl text-clinical-teal"></span>
+
           <h3 class="font-semibold">Resultados</h3>
         </div>
 
-        <div class="mt-4 w-full grid grid-cols-1 md:grid-cols-2 gap-6">
-          @if (results() && results()!.length > 0) {
-            @for (r of results()!; track r.id) {
-              <p-card>
-                <div class="flex w-full items-center justify-between">
-                  <div class="flex flex-col gap-2">
-                    <h4 class="font-semibold">{{ r.employeeName }}</h4>
-                    <h4 class="font-semibold">{{ r.enterpriseName }}</h4>
-                    @if (r.apt) {
-                      <span
-                        class="bg-green-50 text-green-500 uppercase p-1 rounded-sm text-center text-xs"
-                        >Apto</span
-                      >
-                    } @else {
-                      <span
-                        class="bg-red-50 text-red-500 uppercase p-1 rounded-sm text-center text-xs"
-                        >Não apto</span
-                      >
+        <div class="mt-4 w-full flex items-center justify-between flex-wrap gap-2">
+          <form (ngSubmit)="onSearch()">
+            <div class="flex items-center gap-2">
+              <p-floatlabel variant="on">
+                <input
+                  pInputText
+                  id="result-search"
+                  name="result-search"
+                  type="text"
+                  [(ngModel)]="params().search"
+                />
+
+                <label for="result-search"> Pesquisar resultados </label>
+              </p-floatlabel>
+
+              <p-button severity="secondary" icon="pi pi-search" type="submit" />
+            </div>
+          </form>
+
+          <p-select
+            [options]="aptOptions"
+            optionLabel="label"
+            optionValue="apt"
+            [(ngModel)]="params().apt"
+            placeholder="Status"
+            (onChange)="onApt($event.value)"
+          />
+        </div>
+
+        <div class="mt-4 w-full">
+          @if (resultsLoading()) {
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+              <p-skeleton height="8rem" />
+              <p-skeleton height="8rem" />
+            </div>
+          } @else if (pageableResponse() !== null) {
+            <p-dataView
+              [value]="pageableResponse()!.content"
+              [paginator]="true"
+              [rows]="pageableResponse()!.size"
+              [totalRecords]="pageableResponse()!.totalElements"
+              (onPage)="changePage($event)"
+            >
+              <ng-template #list let-items>
+                @if (items.length > 0) {
+                  <div class="w-full grid grid-cols-1 md:grid-cols-2 gap-6">
+                    @for (r of items; track r.id) {
+                      <p-card>
+                        <div class="flex w-full items-center justify-between gap-4">
+                          <div class="flex flex-col gap-2 min-w-0">
+                            <h4 class="font-semibold truncate">
+                              {{ r.employeeName }}
+                            </h4>
+
+                            <h4 class="font-semibold text-sm text-surface-500 truncate">
+                              {{ r.enterpriseName }}
+                            </h4>
+
+                            @if (r.apt) {
+                              <span
+                                class="bg-green-50 text-green-500 uppercase p-1 rounded-sm text-center text-xs"
+                              >
+                                Apto
+                              </span>
+                            } @else {
+                              <span
+                                class="bg-red-50 text-red-500 uppercase p-1 rounded-sm text-center text-xs"
+                              >
+                                Não apto
+                              </span>
+                            }
+                          </div>
+
+                          <p-button
+                            size="small"
+                            icon="pi pi-ellipsis-v"
+                            severity="secondary"
+                            [routerLink]="'/painel/resultados/' + r.id"
+                          />
+                        </div>
+                      </p-card>
                     }
                   </div>
-                  <p-button
-                    size="small"
-                    icon="pi pi-ellipsis-v"
-                    severity="secondary"
-                    [routerLink]="'/painel/resultados/' + r.id"
-                  />
-                </div>
-              </p-card>
-            }
+                } @else {
+                  <div class="py-6">
+                    <p class="text-sm text-surface-500">Nenhum resultado encontrado.</p>
+                  </div>
+                }
+              </ng-template>
+            </p-dataView>
           } @else {
-            <p>Nenhum resultado vinculado a esta empresa.</p>
+            <div class="py-6">
+              <p class="text-sm text-surface-500">Nenhum resultado vinculado a esta empresa.</p>
+            </div>
           }
         </div>
       </div>

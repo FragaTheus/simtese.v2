@@ -5,12 +5,32 @@ import lombok.AccessLevel;
 import lombok.NoArgsConstructor;
 import org.springframework.data.jpa.domain.Specification;
 
+import java.util.UUID;
+
 @NoArgsConstructor(access = AccessLevel.PRIVATE)
 public class ResultSpec {
 
     public static Specification<Result> filter(String search, Boolean apt) {
         return search(search)
                 .and(apt(apt));
+    }
+
+    public static Specification<Result> filterByEnterprise(
+            UUID enterpriseId,
+            String search,
+            Boolean apt
+    ) {
+        return enterpriseId(enterpriseId)
+                .and(search(search))
+                .and(apt(apt));
+    }
+
+    private static Specification<Result> enterpriseId(UUID enterpriseId) {
+        return (root, query, cb) ->
+                cb.equal(
+                        root.get("enterprise").get("id"),
+                        enterpriseId
+                );
     }
 
     private static Specification<Result> search(String search) {

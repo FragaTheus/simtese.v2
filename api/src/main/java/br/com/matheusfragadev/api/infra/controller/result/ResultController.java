@@ -8,6 +8,7 @@ import br.com.matheusfragadev.api.infra.controller.result.aggregates.CreateResul
 import br.com.matheusfragadev.api.infra.controller.result.aggregates.CreateResultUnlinkedRequest;
 import br.com.matheusfragadev.api.infra.controller.result.aggregates.ResultInfo;
 import br.com.matheusfragadev.api.infra.controller.result.aggregates.ResultSummary;
+import br.com.matheusfragadev.api.infra.security.details.UserDetailsImpl;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.core.io.InputStreamResource;
@@ -20,6 +21,7 @@ import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.web.bind.annotation.*;
 
 import java.io.InputStream;
@@ -120,11 +122,30 @@ public class ResultController {
     }
 
     @GetMapping("/enterprise/{enterpriseId}")
-    public ResponseEntity<List<ResultSummary>> listByEnterprise(@PathVariable UUID enterpriseId){
-        var results = resultService.findAllByEnterpriseId(enterpriseId);
-        var summaries = results.stream().map(ResultSummary::of).toList();
+    public ResponseEntity<Page<ResultSummary>> listByEnterprise(
+            @PathVariable UUID enterpriseId,
+            @RequestParam(required = false) String search,
+            @RequestParam(required = false) Boolean apt,
+            @PageableDefault(
+                    size = 20,
+                    sort = "createdAt",
+                    direction = Sort.Direction.ASC
+            ) Pageable pageable
+    ) {
+        var command = new ResultFilterCommand(
+                search,
+                apt,
+                pageable
+        );
+
+        var summaries = resultService
+                .findAllByEnterpriseId(enterpriseId, command)
+                .map(ResultSummary::of);
+
         return ResponseEntity.ok(summaries);
     }
+
+
 
 
 }

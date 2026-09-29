@@ -115,8 +115,20 @@ public class ResultService {
         fileStorageService.delete(result.getFileName());
     }
 
-    @Transactional
-    public List<Result> findAllByEnterpriseId(UUID enterpriseId) {
-        return repository.findAllByEnterpriseId(enterpriseId);
+    @Transactional(readOnly = true)
+    public Page<Result> findAllByEnterpriseId(
+            UUID enterpriseId,
+            ResultFilterCommand command
+    ) {
+        var spec = ResultSpec.filterByEnterprise(
+                enterpriseId,
+                command.search(),
+                command.apt()
+        );
+
+        return repository.findAll(
+                spec,
+                command.pageable()
+        );
     }
 }

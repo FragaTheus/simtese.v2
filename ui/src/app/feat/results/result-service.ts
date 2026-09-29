@@ -104,7 +104,29 @@ export class ResultService {
     return this.http.delete<void>(`${API_V1_URL}/results/${resultId}`);
   }
 
-  findAllByEnterpriseId(enterpriseId: string): Observable<ResultSummary[]> {
-    return this.http.get<ResultSummary[]>(`${API_V1_URL}/results/enterprise/${enterpriseId}`);
+  findAllByEnterpriseId(
+    enterpriseId: string,
+    params: ResultsParams = {},
+  ): Observable<PageableResponse<ResultSummary>> {
+    let httpParams = new HttpParams();
+
+    if (params.page !== undefined) {
+      httpParams = httpParams.set('page', params.page.toString());
+    }
+
+    if (params.apt !== undefined) {
+      httpParams = httpParams.set('apt', params.apt.toString());
+    }
+
+    if (params.search) {
+      httpParams = httpParams.set('search', params.search);
+    }
+
+    return this.http.get<PageableResponse<ResultSummary>>(
+      `${API_V1_URL}/results/enterprise/${enterpriseId}`,
+      {
+        params: httpParams,
+      },
+    );
   }
 }
