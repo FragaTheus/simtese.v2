@@ -37,14 +37,36 @@ export class HeaderComponent {
           },
         ],
       },
+      {
+        label: 'Navegação',
+        items: [
+          {
+            label: 'Início',
+            icon: 'pi pi-home',
+            url: '#hero',
+            target: '_self',
+          },
+          {
+            label: 'Sobre Nós',
+            icon: 'pi pi-users',
+            url: '#about',
+            target: '_self',
+          },
+          {
+            label: 'MVV',
+            icon: 'pi pi-compass',
+            url: '#mvv',
+            target: '_self',
+          },
+          {
+            label: 'Serviços',
+            icon: 'pi pi-briefcase',
+            url: '#services',
+            target: '_self',
+          },
+        ],
+      },
     ];
-  }
-
-  private scrollTo(id: string): void {
-    document.getElementById(id)?.scrollIntoView({
-      behavior: 'smooth',
-      block: 'start',
-    });
   }
 
   cta(): void {

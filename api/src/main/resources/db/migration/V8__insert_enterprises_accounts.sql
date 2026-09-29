@@ -1,0 +1,43 @@
+-- V8__insert_enterprise_accounts.sql
+
+INSERT INTO account (
+    id,
+    name,
+    email,
+    password,
+    role,
+    active,
+    created_at,
+    updated_at,
+    created_by,
+    updated_by
+)
+VALUES
+    ('68e9815b-dca6-484b-b42f-d0dd6a50390c', 'XGROW CONSTRUTORA E SERVICES LTDA', 'xgrow@simtese.com.br', '$argon2id$v=19$m=16384,t=2,p=1$Lrw7uMyqpQe/Ma8k+ei3cw$4CjgjWnxcgkMPp3iwScl9alAwptIh2AnPale9FrnOfA', 'ENTERPRISE', TRUE, CURRENT_TIMESTAMP, NULL, NULL, NULL),
+    ('08143d6e-5554-4f9b-99be-3aba46dfeb96', 'WEMED SAUDE OCUPACIONAL LTDA', 'wemed@simtese.com.br', '$argon2id$v=19$m=16384,t=2,p=1$+OK/OE7Y7/aM38AjRy9qJQ$TtnW5KLDDRt8z6vnv/waEtWUiLQTIvIcpF1s622BCLI', 'ENTERPRISE', TRUE, CURRENT_TIMESTAMP, NULL, NULL, NULL),
+    ('84b42ba6-d414-4b1f-984e-aaa8a19c377f', 'VITTAMED', 'vittamed@simtese.com.br', '$argon2id$v=19$m=16384,t=2,p=1$frY4eKmI7xl5RQW5VQUKrQ$c0YkQ3eyIyfjflPuB4yWPpvb0vgL4l7MPcDMVfkurLw', 'ENTERPRISE', TRUE, CURRENT_TIMESTAMP, NULL, NULL, NULL),
+    ('2e589461-3b90-496a-9499-74d4cd089f2b', 'SUPERMERCADO ALEGRIA', 'alegria@simtese.com.br', '$argon2id$v=19$m=16384,t=2,p=1$214pRHO2k9uABk0UCM6XEQ$uujvmGBcdr2yHip/feRaLRZ4aGG9FJIDB4bC5U8gyeQ', 'ENTERPRISE', TRUE, CURRENT_TIMESTAMP, NULL, NULL, NULL),
+    ('1f55e19f-8b31-4aaa-9f7d-10155119cfe0', 'SINDICATO RURAL DE MOGI DAS CRUZES', 'srmc@simtese.com.br', '$argon2id$v=19$m=16384,t=2,p=1$KVpZEoJhicSRs72rGptvuw$bsmoqchRm8FTQnjYVhW8EOy3nW/s0AwF48WywK5L/rg', 'ENTERPRISE', TRUE, CURRENT_TIMESTAMP, NULL, NULL, NULL),
+    ('7838554e-2109-41ce-900b-8414ff3749b8', 'SGEA SERVICOS E ASSESSORIA EM SEGURANCA E SAUDE OCUPACIONAL', 'sgea@simtese.com.br', '$argon2id$v=19$m=16384,t=2,p=1$4+3bbipbJBZvFAtF9voRBQ$DD/MF9K4s3W+aXiuSNgDLZcDjOofbUITIBhk7KgL0Uw', 'ENTERPRISE', TRUE, CURRENT_TIMESTAMP, NULL, NULL, NULL),
+    ('fb5187e7-e802-4d6a-9d46-b9a4e041c8e2', 'SESMT ASSESSORIA', 'sesmt@simtese.com.br', '$argon2id$v=19$m=16384,t=2,p=1$v7jAIdENxz7s0IoW4HO43A$F8wZk9Vw1SOn0FRFSh0KwP+SGRXIckw+jtZMUqO8dAw', 'ENTERPRISE', TRUE, CURRENT_TIMESTAMP, NULL, NULL, NULL),
+    ('80ab6d97-f8f7-4470-a405-83113fc29820', 'SAFE GESTAO', 'safe@simtese.com.br', '$argon2id$v=19$m=16384,t=2,p=1$sPfHaFFykik8xD/9dh44fw$qzjRhA9WdYOX6mGD3YpOIzhqXlhLZi3uxXRitlSinxI', 'ENTERPRISE', TRUE, CURRENT_TIMESTAMP, NULL, NULL, NULL),
+    ('30ad3563-de2c-4739-9234-f5a92c51d588', 'Regente Equipamentos Ltda Maestro Regente', 'regente@simtese.com.br', '$argon2id$v=19$m=16384,t=2,p=1$OrF5XBwZMy6SJVtznfhbkA$shw1aDU7uT8cryNYQKcBYyEbtxSgMoBeYQ+its/f3jo', 'ENTERPRISE', TRUE, CURRENT_TIMESTAMP, NULL, NULL, NULL),
+    ('eee1469e-e0fe-4759-8e67-9256352cfddf', 'PORTO PEDRA', 'portopedra@simtese.com.br', '$argon2id$v=19$m=16384,t=2,p=1$7b1rrbc/TRaEaU+9RjrRBA$9s1/pHZi73jg9NJX8c1to9rSV/rbAuqN4FLrsopBm5Y', 'ENTERPRISE', TRUE, CURRENT_TIMESTAMP, NULL, NULL, NULL),
+    ('cb97a411-d149-4ba3-b8bc-242e79a8bdd9', 'GRUPO MAST', 'mast@simtese.com.br', '$argon2id$v=19$m=16384,t=2,p=1$zp0Rd8abCoUq2NPwpzYVyw$TA+CE+E9LbebWhHV/cr/sRUbX4yD+ZIfnAqvcbVEq08', 'ENTERPRISE', TRUE, CURRENT_TIMESTAMP, NULL, NULL, NULL),
+    ('47014bef-6cfa-4b2b-8ef7-e0ac8f42a190', 'GT LOCACOES', 'mariaalice@simtese.com.br', '$argon2id$v=19$m=16384,t=2,p=1$4RjsSThy3eWtpfUU9cm+zw$MCnz4UZaH9pjD/YkSvH1ZJJXGtYvmVSDjSgPTVWYSGM', 'ENTERPRISE', TRUE, CURRENT_TIMESTAMP, NULL, NULL, NULL),
+    ('1772b167-5e06-4cf7-a8e0-61d252b715db', 'SIPLAN SAFETY', 'siplan@simtese.com.br', '$argon2id$v=19$m=16384,t=2,p=1$qhSq9tgQKzZrzfUc+DYtqQ$potRNk0JZLvWupAFNqQEsM0JRbRNVHEJF/LXygsdbPE', 'ENTERPRISE', TRUE, CURRENT_TIMESTAMP, NULL, NULL, NULL),
+    ('29b778aa-a530-4ef7-8fe3-e90a0153f5b6', 'LGSO LTDA', 'lgso@simtese.com.br', '$argon2id$v=19$m=16384,t=2,p=1$ZM85nQmmXNb1BIqfcu6JCQ$cX7DFpGUBGct20JFvcvLXiUFs9y1DVW9JyCVNI8AbKw', 'ENTERPRISE', TRUE, CURRENT_TIMESTAMP, NULL, NULL, NULL),
+    ('1b6b1cfa-2810-4cf1-95ca-2f7a128a1942', 'INMESTRA', 'inmestra@simtese.com.br', '$argon2id$v=19$m=16384,t=2,p=1$oooj4N4fJpVAVTX2vUC9iA$kjIzK0mb/TLDVqaxZ3jz6q7P15ieXE8OfLm03qx9EvI', 'ENTERPRISE', TRUE, CURRENT_TIMESTAMP, NULL, NULL, NULL),
+    ('8ae15ec3-dc37-4cdc-bd3a-7101d009d969', 'ILITERA', 'ilitera@simtese.com.br', '$argon2id$v=19$m=16384,t=2,p=1$9Vu3dKjsxzTGgalvGLz6QQ$1ElwfQsuQnq28uVIPTpztZ7EjR9g6uxddGLWSfurvNo', 'ENTERPRISE', TRUE, CURRENT_TIMESTAMP, NULL, NULL, NULL),
+    ('27e1e1a8-0867-4e1e-b707-04d5aa183d8f', 'HELHMST ZIELK NETO', 'helhmst@simtese.com.br', '$argon2id$v=19$m=16384,t=2,p=1$IAg0jS2v3oXB2xoAPTzbpw$zTeGNVmWefAbM1qSSXSRlNTqYfU0zyhsyEJQOZk1XG0', 'ENTERPRISE', TRUE, CURRENT_TIMESTAMP, NULL, NULL, NULL),
+    ('faa6b727-ed59-45f0-b69f-3fbad5270f14', 'GLAUCIA SOUZA DA SILVA REVESTIMENTOS REVEST EPOX', 'revest@simtese.com.br', '$argon2id$v=19$m=16384,t=2,p=1$tq5iHokIi64UX1oSiYh0zA$53IrGhDtBUk4snv1ZIUgnzOWYz6Z7nNFVeJPwCmCGUM', 'ENTERPRISE', TRUE, CURRENT_TIMESTAMP, NULL, NULL, NULL),
+    ('32d9ab1a-02e9-4c20-8a04-4b53568534d1', 'ESAME MEDICINA DO TRABALHO', 'esame@simtese.com.br', '$argon2id$v=19$m=16384,t=2,p=1$VEe50tCueiLJLCoLUlBIsQ$SUiX3fuzjuTuQAzJ8D/QZOcTDovrqar/+ZvYOqgAlL8', 'ENTERPRISE', TRUE, CURRENT_TIMESTAMP, NULL, NULL, NULL),
+    ('48edb0f5-d5f8-4ed1-bf31-1f9923b55ebd', 'APTA MED', 'apta@simtese.com.br', '$argon2id$v=19$m=16384,t=2,p=1$k+5+AwXd2GCdo8JT3eNIdA$wazTXE/rD1KC4ug9+HsWH4PnxwX7+8/Neb95XhCIJ4E', 'ENTERPRISE', TRUE, CURRENT_TIMESTAMP, NULL, NULL, NULL),
+    ('ce0d5560-1f79-4a4a-9723-cea2616f249b', 'CFE CONSTRUCOES E MONTAGENS EIRELI', 'cfe@simtese.com.br', '$argon2id$v=19$m=16384,t=2,p=1$34Tnm7F03TPxwprajwb6IQ$lH1PlSsoqsHwNi79oRMak1bxL1udNozRwOdkD/6wX08', 'ENTERPRISE', TRUE, CURRENT_TIMESTAMP, NULL, NULL, NULL),
+    ('7fad8508-102d-4307-bc92-dc2e0d888ffe', 'C2I ENGENHARIA LTDA', 'c2i@simtese.com.br', '$argon2id$v=19$m=16384,t=2,p=1$8R0nMnCY8Fh0r/HVSujRzw$pH7d9sgkQSCs2IGArod0j9wuqXhIwcCq4SMAhoHt6f0', 'ENTERPRISE', TRUE, CURRENT_TIMESTAMP, NULL, NULL, NULL),
+    ('a5f03efb-f675-47aa-b03e-ab69a55a5d7e', 'B31 GESTAO', 'btresum@simtese.com.br', '$argon2id$v=19$m=16384,t=2,p=1$tNquh9Km+ooZooYFCve96g$Ix9fzA/8Ymyn0yrd2jUm7z1PP5CmWy2iZFRbRKLvvt8', 'ENTERPRISE', TRUE, CURRENT_TIMESTAMP, NULL, NULL, NULL),
+    ('144b5709-6d2b-43a2-86a5-551c0d6bbd8c', 'D+ SAÚDE', 'dmais@simtese.com.br', '$argon2id$v=19$m=16384,t=2,p=1$SBSjJWuenimwejxBgnzLKw$lecGtY+P0UPKEPzWIfjKzpFM0vt5xCUz25mt91YIiZw', 'ENTERPRISE', TRUE, CURRENT_TIMESTAMP, NULL, NULL, NULL),
+    ('50dfdeec-1b0e-4286-87c7-598bbc6b1af7', 'ELM GESTAO DE SAUDE OCUPACIONAL', 'elm@simtese.com.br', '$argon2id$v=19$m=16384,t=2,p=1$W0fOuKDw3HKiTWVe13tnZA$b/NcGmySf1QI56zqv2iypjCee/TPX3QbU/uqO1nrktQ', 'ENTERPRISE', TRUE, CURRENT_TIMESTAMP, NULL, NULL, NULL),
+    ('9cef3754-7e4a-400a-a9a3-62351218bebe', 'AGO ASSESSORIA', 'ago@simtese.com.br', '$argon2id$v=19$m=16384,t=2,p=1$TVJS0DdvOjD4ZhEZYQbLRQ$9BeULZTk7fbSEiWZNvLEj+PS+RwlAGjLIPiD82DhIF4', 'ENTERPRISE', TRUE, CURRENT_TIMESTAMP, NULL, NULL, NULL),
+    ('e79b63ef-3a50-4816-a8f6-bc9df0c15cec', 'MEDVITTAE', 'medvittae@simtese.com.br', '$argon2id$v=19$m=16384,t=2,p=1$CVzHoWR4SFuiObImnbEehQ$/w+oGFSSuzMqJfrLWY+rXvnCPSv5ml3bxx6TXAtMRvQ', 'ENTERPRISE', TRUE, CURRENT_TIMESTAMP, NULL, NULL, NULL),
+    ('a88408c6-50cd-470c-bd81-444fadea9e84', 'ASSB Comércio de doces', 'cacaushow@simtese.com.br', '$argon2id$v=19$m=16384,t=2,p=1$+LJvc2Ko1o+f3cTNzTkTgw$H26QaP8wcoYZjv72QK13T3F93nrBN0ZKZGwjk2BgFNM', 'ENTERPRISE', TRUE, CURRENT_TIMESTAMP, NULL, NULL, NULL);

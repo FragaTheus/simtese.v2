@@ -1,5 +1,4 @@
 import { Component, inject, signal } from '@angular/core';
-import { NgTemplateOutlet } from '@angular/common';
 import { ActivatedRoute, RouterLink } from '@angular/router';
 import { HttpErrorResponse } from '@angular/common/http';
 
@@ -24,7 +23,6 @@ import { ResultInfo, ResultService } from '../result-service';
     ButtonModule,
     SkeletonModule,
     TooltipModule,
-    NgTemplateOutlet,
     RouterLink,
     DashPageLayout,
     DashPageHeaderLayout,

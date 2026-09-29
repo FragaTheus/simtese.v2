@@ -31,3 +31,7 @@ h5,
 h6 {
   font-family: 'Manrope', sans-serif;
 }
+
+html {
+  @apply scroll-smooth;
+}
