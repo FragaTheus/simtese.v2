@@ -100,15 +100,32 @@ export class ExamsListComponent {
   }
 
   loadExams() {
+    const requestParams = this.params();
+
+    console.info('[ExamsList] GET /exams request', requestParams);
     this.loading.set(true);
     this.error.set(null);
 
-    this.examService.all(this.params()).subscribe({
+    this.examService.all(requestParams).subscribe({
       next: (exams) => {
+        console.info('[ExamsList] GET /exams response', {
+          requestParams,
+          response: exams,
+          pageNumber: exams?.number,
+          totalPages: exams?.totalPages,
+          totalElements: exams?.totalElements,
+          size: exams?.size,
+          contentCount: Array.isArray(exams?.content) ? exams.content.length : null,
+        });
         this.pageableResponse.set(exams);
         this.loading.set(false);
       },
       error: (err: HttpErrorResponse) => {
+        console.error('[ExamsList] GET /exams error', {
+          requestParams,
+          status: err.status,
+          error: err.error,
+        });
         const apiError = err.error as ApiErrorResponse;
 
         this.error.set(apiError);
@@ -134,6 +151,12 @@ export class ExamsListComponent {
 
   changePage(event: DataViewPageEvent) {
     const page = event.first / event.rows;
+
+    console.info('[ExamsList] DataView page event', {
+      first: event.first,
+      rows: event.rows,
+      requestedPage: page,
+    });
 
     this.params.update((p) => ({
       ...p,
