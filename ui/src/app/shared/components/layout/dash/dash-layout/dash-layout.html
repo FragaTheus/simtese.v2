@@ -1,7 +1,7 @@
 <div class="flex w-full h-svh">
   <app-drawer-component [(visible)]="drawerVisible" />
-  <div class="flex-1 flex flex-col h-full md:ml-80">
-    <header class="w-full flex items-center gap-3 px-4 py-3 border-b border-surface-200">
+  <div class="flex-1 min-w-0 flex flex-col h-full md:ml-80">
+    <header class="w-full shrink-0 flex items-center gap-3 px-4 py-3 border-b border-surface-200">
       <p-button
         icon="pi pi-bars"
         severity="secondary"
@@ -15,7 +15,7 @@
         styleClass="border-none bg-transparent p-0"
       />
     </header>
-    <div class="flex-1 w-full p-6 overflow-auto">
+    <div class="flex-1 min-h-0 w-full p-6 pt-8 pb-12 overflow-y-auto">
       <ng-content />
     </div>
   </div>

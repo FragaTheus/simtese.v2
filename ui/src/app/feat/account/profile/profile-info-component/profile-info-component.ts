@@ -7,6 +7,9 @@ import { HttpErrorResponse } from '@angular/common/http';
 import { DashPageHeaderLayout } from '../../../../shared/components/layout/dash/dash-page-header-layout/dash-page-header-layout';
 import { ProfileChangePasswordComponent } from '../profile-change-password-component/profile-change-password-component';
 import { ProfileChangeNameComponent } from '../profile-change-name-component/profile-change-name-component';
+import { ErrorComponent } from '../../../../shared/components/ui/error-component/error-component';
+import { ButtonModule } from 'primeng/button';
+import { RouterLink } from '@angular/router';
 
 @Component({
   selector: 'app-profile-info-component',
@@ -16,6 +19,9 @@ import { ProfileChangeNameComponent } from '../profile-change-name-component/pro
     DashPageHeaderLayout,
     ProfileChangePasswordComponent,
     ProfileChangeNameComponent,
+    ErrorComponent,
+    ButtonModule,
+    RouterLink,
   ],
   templateUrl: './profile-info-component.html',
 })
