@@ -66,6 +66,7 @@ export class EnterpriseInfoComponent {
   enterprise = signal<EnterpriseInfo | undefined>(undefined);
 
   canEdit = signal<boolean>(false);
+  canCreateResult = signal<boolean>(false);
 
   id = this.actRoute.snapshot.paramMap.get('id');
 
@@ -123,6 +124,9 @@ export class EnterpriseInfoComponent {
     this.accountService.me().subscribe({
       next: (account) => {
         this.canEdit.set(account.role === 'ADMIN' || account.role === 'RECEPTIONIST');
+        this.canCreateResult.set(
+          account.role === 'ADMIN' || account.role === 'RECEPTIONIST' || account.role === 'NURSE',
+        );
       },
       error: () => {},
     });

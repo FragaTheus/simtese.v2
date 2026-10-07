@@ -67,14 +67,14 @@ public class ExamsController {
     }
 
     @PostMapping
-    @PreAuthorize("hasAuthority('ADMIN')")
+    @PreAuthorize("hasAnyAuthority('ADMIN', 'NURSE')")
     public ResponseEntity<UUID> create(@Valid @RequestBody CreateExamRequest request){
         var exam = examService.createExam(request.name());
         return ResponseEntity.status(HttpStatus.CREATED).body(exam.getId());
     }
 
     @PatchMapping("/{targetId}/name")
-    @PreAuthorize("hasAuthority('ADMIN')")
+    @PreAuthorize("hasAnyAuthority('ADMIN', 'NURSE')")
     public ResponseEntity<Void> change
             (@PathVariable("targetId") UUID targetId, @Valid @RequestBody CreateExamRequest request){
         examService.changeExam(targetId, request.name());
@@ -82,21 +82,21 @@ public class ExamsController {
     }
 
     @PutMapping("/{targetId}/deactivate")
-    @PreAuthorize("hasAuthority('ADMIN')")
+    @PreAuthorize("hasAnyAuthority('ADMIN', 'NURSE')")
     public ResponseEntity<Void> deactivate(@PathVariable("targetId") UUID targetId){
         examService.deactivate(targetId);
         return ResponseEntity.noContent().build();
     }
 
     @PutMapping("/{targetId}/activate")
-    @PreAuthorize("hasAuthority('ADMIN')")
+    @PreAuthorize("hasAnyAuthority('ADMIN', 'NURSE')")
     public ResponseEntity<Void> activate(@PathVariable("targetId") UUID targetId){
         examService.activate(targetId);
         return ResponseEntity.noContent().build();
     }
 
     @DeleteMapping("/{targetId}")
-    @PreAuthorize("hasAuthority('ADMIN')")
+    @PreAuthorize("hasAnyAuthority('ADMIN', 'NURSE')")
     public ResponseEntity<Void> delete(@PathVariable("targetId") UUID targetId){
         examService.deleteExam(targetId);
         return ResponseEntity.noContent().build();

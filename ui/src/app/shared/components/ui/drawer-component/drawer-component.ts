@@ -115,7 +115,48 @@ export class DrawerComponent {
               routerLink: `${DASH_ROUTE}/resultados`,
             },
           ]);
-        } else if (user.role === 'NURSE' || user.role === 'RECEPTIONIST') {
+        } else if (user.role === 'NURSE') {
+          this.items.set([
+            {
+              label: 'Painel',
+              icon: 'pi pi-home',
+              routerLink: `${DASH_ROUTE}`,
+            },
+            {
+              label: 'Agendamentos',
+              icon: 'pi pi-calendar',
+              routerLink: `${DASH_ROUTE}/agendamentos`,
+            },
+            {
+              label: 'Exames',
+              icon: 'pi pi-clipboard',
+              routerLink: `${DASH_ROUTE}/exames`,
+            },
+            {
+              label: 'Empresas',
+              icon: 'pi pi-building',
+              routerLink: `${DASH_ROUTE}/empresas`,
+            },
+            {
+              label: 'Resultados',
+              icon: 'pi pi-file',
+              items: [
+                {
+                  label: 'Consultar resultados',
+                  routerLink: `${DASH_ROUTE}/resultados`,
+                },
+                {
+                  label: 'Cadastrar por agendamento',
+                  routerLink: `${DASH_ROUTE}/agendamentos`,
+                },
+                {
+                  label: 'Cadastrar por empresa',
+                  routerLink: `${DASH_ROUTE}/empresas`,
+                },
+              ],
+            },
+          ]);
+        } else if (user.role === 'RECEPTIONIST') {
           this.items.set([
             {
               label: 'Painel',

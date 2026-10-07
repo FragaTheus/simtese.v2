@@ -43,7 +43,8 @@
             <div class="flex items-center gap-2">
               @if (canEdit()) {
                 <app-edit-enterprise-component [enterprise]="enterprise()!" />
-
+              }
+              @if (canCreateResult()) {
                 <app-crete-unlinked-component [enterpriseId]="enterprise()!.id" />
               }
             </div>
