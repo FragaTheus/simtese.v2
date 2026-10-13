@@ -22,14 +22,29 @@ public class EnterpriseSpec {
         }
 
         String nameValue = "%" + search.toLowerCase() + "%";
-        String documentValue = "%" + normalizeDocument(search) + "%";
+        String normalizedDocument = normalizeDocument(search);
 
         return (root, query, cb) ->
                 cb.or(
                         cb.like(cb.lower(root.get("name")), nameValue),
-                        cb.like(normalizeDocumentExpression(cb, root.get("cnpj").get("value")), documentValue),
-                        cb.like(normalizeDocumentExpression(cb, root.get("caepf").get("value")), documentValue),
-                        cb.like(normalizeDocumentExpression(cb, root.get("cpf").get("value")), documentValue)
+                        normalizedDocument.isBlank()
+                                ? cb.disjunction()
+                                : cb.like(
+                                        normalizeDocumentExpression(cb, root.get("cnpj").get("value")),
+                                        "%" + normalizedDocument + "%"
+                                ),
+                        normalizedDocument.isBlank()
+                                ? cb.disjunction()
+                                : cb.like(
+                                        normalizeDocumentExpression(cb, root.get("caepf").get("value")),
+                                        "%" + normalizedDocument + "%"
+                                ),
+                        normalizedDocument.isBlank()
+                                ? cb.disjunction()
+                                : cb.like(
+                                        normalizeDocumentExpression(cb, root.get("cpf").get("value")),
+                                        "%" + normalizedDocument + "%"
+                                )
                 );
     }
 
