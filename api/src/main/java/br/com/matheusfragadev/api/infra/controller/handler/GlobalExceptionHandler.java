@@ -5,7 +5,10 @@ import br.com.matheusfragadev.api.domain.accounts.exception.AccountException;
 import br.com.matheusfragadev.api.domain.accounts.exception.PasswordException;
 import br.com.matheusfragadev.api.domain.appointment.exception.AppointmentException;
 import br.com.matheusfragadev.api.domain.appointment.exception.EmployeeException;
+import br.com.matheusfragadev.api.domain.enterprise.exception.CAEPFException;
 import br.com.matheusfragadev.api.domain.enterprise.exception.CNPJException;
+import br.com.matheusfragadev.api.domain.enterprise.exception.CPFException;
+import br.com.matheusfragadev.api.domain.enterprise.exception.EnterpriseDocumentException;
 import br.com.matheusfragadev.api.domain.enterprise.exception.EnterpriseException;
 import br.com.matheusfragadev.api.domain.exams.exception.ExamException;
 import br.com.matheusfragadev.api.domain.result.ResultException;
@@ -125,6 +128,33 @@ public class GlobalExceptionHandler {
 
     @ExceptionHandler(CNPJException.class)
     public ResponseEntity<ApiErrorResponse> handlerCNPJ(CNPJException ex){
+        var message = ex.getMessage();
+        var status = HttpStatus.CONFLICT;
+        log.warn("Erro de RN em: {}", ex.getMessage());
+        var response = new ApiErrorResponse(status, message);
+        return ResponseEntity.status(status).body(response);
+    }
+
+    @ExceptionHandler(CAEPFException.class)
+    public ResponseEntity<ApiErrorResponse> handlerCAEPF(CAEPFException ex){
+        var message = ex.getMessage();
+        var status = HttpStatus.CONFLICT;
+        log.warn("Erro de RN em: {}", ex.getMessage());
+        var response = new ApiErrorResponse(status, message);
+        return ResponseEntity.status(status).body(response);
+    }
+
+    @ExceptionHandler(CPFException.class)
+    public ResponseEntity<ApiErrorResponse> handlerCPF(CPFException ex){
+        var message = ex.getMessage();
+        var status = HttpStatus.CONFLICT;
+        log.warn("Erro de RN em: {}", ex.getMessage());
+        var response = new ApiErrorResponse(status, message);
+        return ResponseEntity.status(status).body(response);
+    }
+
+    @ExceptionHandler(EnterpriseDocumentException.class)
+    public ResponseEntity<ApiErrorResponse> handlerEnterpriseDocument(EnterpriseDocumentException ex){
         var message = ex.getMessage();
         var status = HttpStatus.CONFLICT;
         log.warn("Erro de RN em: {}", ex.getMessage());

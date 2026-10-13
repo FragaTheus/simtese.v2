@@ -19,6 +19,7 @@ import { FooterComponent } from '../../../home/footer-component/footer-component
 import {
   AppointmentService,
   CreateAppointmentRequest,
+  EnterpriseDocumentType,
   ExamType,
   Shift,
 } from '../../appointment-service';
@@ -36,6 +37,11 @@ interface ShiftOption {
 interface ExamTypeOption {
   label: string;
   value: ExamType;
+}
+
+interface EnterpriseDocumentTypeOption {
+  label: string;
+  value: EnterpriseDocumentType;
 }
 
 @Component({
@@ -110,6 +116,12 @@ export class AtendimentoPageComponent {
     },
   ];
 
+  enterpriseDocumentTypeOptions: EnterpriseDocumentTypeOption[] = [
+    { label: 'CNPJ', value: 'CNPJ' },
+    { label: 'CAEPF', value: 'CAEPF' },
+    { label: 'CPF', value: 'CPF' },
+  ];
+
   employeeForm = this.fb.nonNullable.group({
     employeeName: ['', Validators.required],
     employeeCpf: ['', Validators.required],
@@ -117,7 +129,8 @@ export class AtendimentoPageComponent {
 
   enterpriseForm = this.fb.nonNullable.group({
     enterpriseName: ['', Validators.required],
-    enterpriseCnpj: ['', Validators.required],
+    enterpriseDocumentType: ['CNPJ' as EnterpriseDocumentType, Validators.required],
+    enterpriseDocumentValue: ['', Validators.required],
   });
 
   appointmentForm = this.fb.group({
@@ -225,6 +238,7 @@ export class AtendimentoPageComponent {
       this.employeeForm.markAllAsTouched();
       this.enterpriseForm.markAllAsTouched();
       this.appointmentForm.markAllAsTouched();
+      return;
     }
 
     const employee = this.employeeForm.getRawValue();
@@ -248,7 +262,10 @@ export class AtendimentoPageComponent {
       ...enterprise,
 
       employeeCpf: stripDocumentMask(employee.employeeCpf),
-      enterpriseCnpj: stripDocumentMask(enterprise.enterpriseCnpj),
+      enterpriseDocument: {
+        type: enterprise.enterpriseDocumentType,
+        value: stripDocumentMask(enterprise.enterpriseDocumentValue),
+      },
 
       ...(shift ? { shift } : {}),
       ...(examType ? { examType } : {}),
@@ -273,10 +290,26 @@ export class AtendimentoPageComponent {
     });
   }
 
+  get enterpriseDocumentLabel(): string {
+    return this.enterpriseForm.controls.enterpriseDocumentType.value;
+  }
+
   newAppointment(): void {
-    this.employeeForm.reset();
-    this.enterpriseForm.reset();
-    this.appointmentForm.reset();
+    this.employeeForm.reset({
+      employeeName: '',
+      employeeCpf: '',
+    });
+    this.enterpriseForm.reset({
+      enterpriseName: '',
+      enterpriseDocumentType: 'CNPJ',
+      enterpriseDocumentValue: '',
+    });
+    this.appointmentForm.reset({
+      shift: null,
+      examType: null,
+      complementaryExamIds: [],
+      observation: '',
+    });
 
     this.activeStep.set(1);
 

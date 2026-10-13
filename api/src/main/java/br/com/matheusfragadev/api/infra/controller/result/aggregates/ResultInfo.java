@@ -1,5 +1,6 @@
 package br.com.matheusfragadev.api.infra.controller.result.aggregates;
 
+import br.com.matheusfragadev.api.domain.enterprise.aggregate.EnterpriseDocumentType;
 import br.com.matheusfragadev.api.domain.result.Result;
 import lombok.Builder;
 
@@ -11,7 +12,8 @@ public record ResultInfo(
         String employeeName,
         String employeeCpf,
         String enterpriseName,
-        String enterpriseCnpj,
+        String enterpriseDocument,
+        EnterpriseDocumentType enterpriseDocumentType,
         boolean apt
 ) {
 
@@ -21,9 +23,9 @@ public record ResultInfo(
                 .employeeName(result.getEmployee().getEmployeeName())
                 .employeeCpf(result.getEmployee().getEmployeeCpf())
                 .enterpriseName(result.getEnterprise().getName())
-                .enterpriseCnpj(result.getEnterprise().getCnpj().getValue())
+                .enterpriseDocument(result.getEnterprise().getRegistrationNumber())
+                .enterpriseDocumentType(result.getEnterprise().getRegistrationType())
                 .apt(result.isApt())
                 .build();
     }
-
 }

@@ -15,7 +15,8 @@ public class EnterpriseMapper {
         return EnterpriseInfo.builder()
                 .id(enterprise.getId())
                 .name(enterprise.getName())
-                .cnpj(enterprise.getCnpj().getValue())
+                .registrationNumber(enterprise.getRegistrationNumber())
+                .registrationType(enterprise.getRegistrationType())
                 .linkedAccountName(
                         Optional.ofNullable(enterprise.getAccount())
                                 .map(Account::getName)
@@ -33,7 +34,8 @@ public class EnterpriseMapper {
         return EnterpriseSummary.builder()
                 .id(enterprise.getId())
                 .name(enterprise.getName())
-                .cnpj(enterprise.getCnpj().getValue())
+                .registrationNumber(enterprise.getRegistrationNumber())
+                .registrationType(enterprise.getRegistrationType())
                 .build();
     }
 

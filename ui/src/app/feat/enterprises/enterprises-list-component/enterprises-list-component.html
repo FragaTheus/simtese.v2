@@ -61,9 +61,9 @@
                 >
                   <div class="flex gap-4 max-w-xs flex-col">
                     <span class="font-semibold truncate max-w-sm">{{ i.name }}</span>
-                    <span class="text-sm text-surface-500 truncate max-w-sm">{{
-                      i.cnpj | documentFormat
-                    }}</span>
+                    <span class="text-sm text-surface-500 truncate max-w-sm">
+                      {{ i.registrationType }}: {{ i.registrationNumber | documentFormat }}
+                    </span>
                   </div>
                   <p-button
                     severity="secondary"

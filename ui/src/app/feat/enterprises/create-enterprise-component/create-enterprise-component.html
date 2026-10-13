@@ -18,17 +18,27 @@
         <label for="name">Nome da empresa</label>
       </p-floatlabel>
 
+      <p-select
+        [options]="documentTypeOptions"
+        optionLabel="label"
+        optionValue="value"
+        formControlName="documentType"
+        placeholder="Tipo de cadastro"
+        appendTo="body"
+        class="w-full"
+      />
+
       <p-floatlabel variant="on">
         <input
           pInputText
-          id="cnpj"
-          formControlName="cnpj"
+          id="documentValue"
+          formControlName="documentValue"
           class="w-full"
-          pTooltip="CNPJ ou CAEPF sem letras"
+          pTooltip="Documento da empresa sem letras"
           tooltipEvent="focus"
           tooltipPosition="top"
         />
-        <label for="cnpj">CNPJ / CAEPF</label>
+        <label for="documentValue">{{ documentLabel }}</label>
       </p-floatlabel>
 
       @if (error() !== null) {

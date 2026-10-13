@@ -14,7 +14,12 @@ import { MultiSelectModule } from 'primeng/multiselect';
 
 import { DialogComponent } from '../../../../shared/components/ui/dialog-component/dialog-component';
 
-import { AppointmentService, ExamType, Shift } from '../../appointment-service';
+import {
+  AppointmentService,
+  EnterpriseDocumentType,
+  ExamType,
+  Shift,
+} from '../../appointment-service';
 
 import { ExamLookup, ExamService } from '../../../exams/exam-service';
 
@@ -29,6 +34,11 @@ interface ShiftOption {
 interface ExamTypeOption {
   label: string;
   value: ExamType;
+}
+
+interface EnterpriseDocumentTypeOption {
+  label: string;
+  value: EnterpriseDocumentType;
 }
 
 @Component({
@@ -103,6 +113,12 @@ export class CreateAppointmentComponent {
     },
   ];
 
+  enterpriseDocumentTypeOptions: EnterpriseDocumentTypeOption[] = [
+    { label: 'CNPJ', value: 'CNPJ' },
+    { label: 'CAEPF', value: 'CAEPF' },
+    { label: 'CPF', value: 'CPF' },
+  ];
+
   form = this.fb.group({
     employeeName: this.fb.nonNullable.control('', Validators.required),
 
@@ -110,7 +126,12 @@ export class CreateAppointmentComponent {
 
     enterpriseName: this.fb.nonNullable.control('', Validators.required),
 
-    enterpriseCnpj: this.fb.nonNullable.control('', Validators.required),
+    enterpriseDocumentType: this.fb.nonNullable.control<EnterpriseDocumentType>(
+      'CNPJ',
+      Validators.required,
+    ),
+
+    enterpriseDocumentValue: this.fb.nonNullable.control('', Validators.required),
 
     shift: this.fb.control<Shift | null>(null, Validators.required),
 
@@ -190,13 +211,15 @@ export class CreateAppointmentComponent {
   createAppointment(): void {
     if (this.form.invalid) {
       this.form.markAllAsTouched();
+      return;
     }
 
     const {
       employeeName,
       employeeCpf,
       enterpriseName,
-      enterpriseCnpj,
+      enterpriseDocumentType,
+      enterpriseDocumentValue,
       shift,
       examType,
       complementaryExamIds,
@@ -222,7 +245,10 @@ export class CreateAppointmentComponent {
         employeeCpf: stripDocumentMask(employeeCpf),
 
         enterpriseName,
-        enterpriseCnpj: stripDocumentMask(enterpriseCnpj),
+        enterpriseDocument: {
+          type: enterpriseDocumentType,
+          value: stripDocumentMask(enterpriseDocumentValue),
+        },
 
         ...(shift ? { shift } : {}),
         ...(examType ? { examType } : {}),
@@ -246,12 +272,26 @@ export class CreateAppointmentComponent {
       });
   }
 
+  get enterpriseDocumentLabel(): string {
+    return this.form.controls.enterpriseDocumentType.value;
+  }
+
   closeDialog(): void {
     this.error.set(null);
     this.success.set(false);
     this.id.set(null);
 
-    this.form.reset();
+    this.form.reset({
+      employeeName: '',
+      employeeCpf: '',
+      enterpriseName: '',
+      enterpriseDocumentType: 'CNPJ',
+      enterpriseDocumentValue: '',
+      shift: null,
+      examType: null,
+      complementaryExamIds: [],
+      observation: '',
+    });
 
     this.visible.set(false);
   }

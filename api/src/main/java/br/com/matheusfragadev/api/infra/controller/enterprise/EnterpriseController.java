@@ -66,7 +66,7 @@ public class EnterpriseController {
 
     @PostMapping
     public ResponseEntity<UUID> create(@Valid @RequestBody CreateEnterpriseRequest request){
-        var enterprise = enterpriseService.create(request.name(), request.cnpj());
+        var enterprise = enterpriseService.create(request.name(), request.document());
         return ResponseEntity.status(HttpStatus.CREATED).body(enterprise.getId());
     }
 

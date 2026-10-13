@@ -167,18 +167,28 @@
       <label for="enterpriseName"> Nome da empresa </label>
     </p-floatlabel>
 
+    <p-select
+      [options]="enterpriseDocumentTypeOptions"
+      optionLabel="label"
+      optionValue="value"
+      formControlName="enterpriseDocumentType"
+      placeholder="Tipo de cadastro"
+      appendTo="body"
+      class="w-full"
+    />
+
     <p-floatlabel variant="on">
       <input
         pInputText
-        id="enterpriseCnpj"
-        formControlName="enterpriseCnpj"
+        id="enterpriseDocumentValue"
+        formControlName="enterpriseDocumentValue"
         class="w-full"
-        pTooltip="CNPJ ou CAEPF da empresa"
+        pTooltip="Documento da empresa"
         tooltipEvent="focus"
         tooltipPosition="top"
       />
 
-      <label for="enterpriseCnpj"> CNPJ / CAEPF </label>
+      <label for="enterpriseDocumentValue"> {{ enterpriseDocumentLabel }} </label>
     </p-floatlabel>
 
     <div class="flex pt-2 justify-between">

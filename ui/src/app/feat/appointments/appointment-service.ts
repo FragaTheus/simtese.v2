@@ -9,13 +9,24 @@ export type Shift = 'MORNING' | 'AFTERNOON';
 export type ExamStatus = 'SCHEDULED' | 'ATTENDED' | 'RELEASED';
 
 export type ExamType =
-  'PRE_EMPLOYMENT' | 'TERMINATION' | 'PERIODIC' | 'RETURN_TO_WORK' | 'SPECIFIC_EVALUATION';
+  | 'PRE_EMPLOYMENT'
+  | 'TERMINATION'
+  | 'PERIODIC'
+  | 'RETURN_TO_WORK'
+  | 'SPECIFIC_EVALUATION';
+
+export type EnterpriseDocumentType = 'CNPJ' | 'CAEPF' | 'CPF';
+
+export interface EnterpriseDocument {
+  type: EnterpriseDocumentType;
+  value: string;
+}
 
 export interface CreateAppointmentRequest {
   employeeName: string;
   employeeCpf: string;
   enterpriseName: string;
-  enterpriseCnpj: string;
+  enterpriseDocument: EnterpriseDocument;
   shift?: Shift;
   examType?: ExamType;
   examIds?: string[];
@@ -33,7 +44,8 @@ export interface AppointmentInfo {
   employeeName: string;
   employeeCpf: string;
   enterpriseName: string;
-  enterpriseCnpj: string;
+  enterpriseDocument: string;
+  enterpriseDocumentType: EnterpriseDocumentType;
   shift: Shift;
   examStatus: ExamStatus;
   examType: ExamType;

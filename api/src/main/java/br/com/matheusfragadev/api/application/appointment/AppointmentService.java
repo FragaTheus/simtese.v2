@@ -6,7 +6,7 @@ import br.com.matheusfragadev.api.domain.appointment.aggregate.Employee;
 import br.com.matheusfragadev.api.domain.appointment.entity.Appointment;
 import br.com.matheusfragadev.api.domain.appointment.exception.AppointmentException;
 import br.com.matheusfragadev.api.domain.appointment.repository.AppointmentRepository;
-import br.com.matheusfragadev.api.domain.enterprise.aggregate.CNPJ;
+import br.com.matheusfragadev.api.domain.enterprise.aggregate.EnterpriseDocument;
 import br.com.matheusfragadev.api.domain.enterprise.entity.Enterprise;
 import br.com.matheusfragadev.api.infra.repository.appointment.AppointmentSpec;
 import br.com.matheusfragadev.api.infra.repository.appointment.aggregate.AppointmentSpecCommand;
@@ -17,7 +17,6 @@ import org.springframework.data.domain.Page;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import java.util.HashSet;
 import java.util.Set;
 import java.util.UUID;
 
@@ -55,14 +54,11 @@ public class AppointmentService {
     @Transactional
     public Appointment create(CreateAppointmentCommand command){
         Employee employee = Employee.of(command.employeeName(), command.employeeCpf());
+        EnterpriseDocument enterpriseDocument = command.enterpriseDocument();
 
-        Enterprise enterprise = null;
-        if (enterpriseService.existsByCnpj(command.enterpriseCnpj())){
-            enterprise = enterpriseService.findByCnpj(command.enterpriseCnpj());
-        }else{
-            CNPJ cnpj = CNPJ.of(command.enterpriseCnpj());
-            enterprise = enterpriseService.save(new Enterprise(command.enterpriseName(), cnpj));
-        }
+        Enterprise enterprise = enterpriseService.existsByDocument(enterpriseDocument)
+                ? enterpriseService.findByDocument(enterpriseDocument)
+                : enterpriseService.create(command.enterpriseName(), enterpriseDocument);
 
         Set<Exam> exams = examService.findAllByIds(command.examIds());
 

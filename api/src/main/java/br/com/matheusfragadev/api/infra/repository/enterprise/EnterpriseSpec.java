@@ -26,7 +26,9 @@ public class EnterpriseSpec {
         return (root, query, cb) ->
                 cb.or(
                         cb.like(cb.lower(root.get("name")), value),
-                        cb.like(cb.lower(root.get("cnpj")), value)
+                        cb.like(cb.lower(root.get("cnpj").get("value")), value),
+                        cb.like(cb.lower(root.get("caepf").get("value")), value),
+                        cb.like(cb.lower(root.get("cpf").get("value")), value)
                 );
     }
 

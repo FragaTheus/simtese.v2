@@ -114,16 +114,18 @@
               </div>
             </div>
             <div class="flex flex-col mt-6">
-              <label class="text-xs uppercase font-semibold">CNPJ:</label>
+              <label class="text-xs uppercase font-semibold"
+                 >{{ appointment.enterpriseDocumentType }}:</label
+              >
               <div class="flex items-center gap-2">
-                <span>{{ appointment.enterpriseCnpj | documentFormat }}</span>
+                <span>{{ appointment.enterpriseDocument | documentFormat }}</span>
                 @if (appointment.examStatus === 'ATTENDED') {
                   <ng-container
                     *ngTemplateOutlet="
                       copyButton;
                       context: {
-                        field: 'enterpriseCnpj',
-                        value: appointment.enterpriseCnpj | documentFormat,
+                        field: 'enterpriseDocument',
+                        value: appointment.enterpriseDocument | documentFormat,
                       }
                     "
                   />

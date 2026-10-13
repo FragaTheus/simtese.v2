@@ -36,7 +36,8 @@
               </h1>
 
               <p class="text-sm text-surface-700 mt-1">
-                CNPJ: {{ enterprise()?.cnpj | documentFormat }}
+                {{ enterprise()?.registrationType }}:
+                {{ enterprise()?.registrationNumber | documentFormat }}
               </p>
             </div>
 

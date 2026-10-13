@@ -24,7 +24,6 @@ public class CNPJ {
 
     @Column(
             name = "cnpj",
-            nullable = false,
             updatable = false,
             unique = true,
             length = MIN_LENGTH
@@ -65,8 +64,8 @@ public class CNPJ {
     }
 
     private static void validateDocument(String document) {
-        if (!isValidCnpj(document) && !isValidCaepf(document)) {
-            throw new CNPJException("CNPJ/CAEPF invalido");
+        if (!isValidCnpj(document)) {
+            throw new CNPJException("CNPJ invalido");
         }
     }
 
@@ -99,31 +98,6 @@ public class CNPJ {
         int secondDigit = remainder < 2 ? 0 : 11 - remainder;
 
         return secondDigit == Character.getNumericValue(rawCnpj.charAt(13));
-    }
-
-    private static boolean isValidCaepf(String rawCaepf) {
-        int[] firstWeights = {5, 4, 3, 2, 9, 8, 7, 6, 5, 4, 3, 2};
-        int[] secondWeights = {6, 5, 4, 3, 2, 9, 8, 7, 6, 5, 4, 3, 2};
-
-        int sum = 0;
-        for (int i = 0; i < 12; i++) {
-            sum += Character.getNumericValue(rawCaepf.charAt(i)) * firstWeights[i];
-        }
-
-        int remainder = sum % 11;
-        int firstDigit = remainder < 2 ? 0 : 11 - remainder;
-        if (firstDigit != Character.getNumericValue(rawCaepf.charAt(12))) {
-            return false;
-        }
-
-        sum = 0;
-        for (int i = 0; i < 13; i++) {
-            sum += Character.getNumericValue(rawCaepf.charAt(i)) * secondWeights[i];
-        }
-
-        remainder = sum % 11;
-        int secondDigit = remainder < 2 ? 0 : 11 - remainder;
-        return secondDigit == Character.getNumericValue(rawCaepf.charAt(13));
     }
 
 }

@@ -4,11 +4,14 @@ import br.com.matheusfragadev.api.application.accounts.AccountServiceImpl;
 import br.com.matheusfragadev.api.application.enterprise.aggregate.FilterEnterprisesCommand;
 import br.com.matheusfragadev.api.domain.accounts.aggregate.Role;
 import br.com.matheusfragadev.api.domain.accounts.entity.Account;
+import br.com.matheusfragadev.api.domain.enterprise.aggregate.CAEPF;
 import br.com.matheusfragadev.api.domain.enterprise.aggregate.CNPJ;
+import br.com.matheusfragadev.api.domain.enterprise.aggregate.CPF;
+import br.com.matheusfragadev.api.domain.enterprise.aggregate.EnterpriseDocument;
+import br.com.matheusfragadev.api.domain.enterprise.aggregate.EnterpriseDocumentType;
 import br.com.matheusfragadev.api.domain.enterprise.entity.Enterprise;
 import br.com.matheusfragadev.api.domain.enterprise.exception.EnterpriseException;
 import br.com.matheusfragadev.api.domain.enterprise.repository.EnterpriseRepository;
-import br.com.matheusfragadev.api.domain.exams.entity.Exam;
 import br.com.matheusfragadev.api.infra.repository.enterprise.EnterpriseSpec;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -16,7 +19,6 @@ import org.springframework.data.domain.Page;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
-import java.util.Set;
 import java.util.UUID;
 
 @Slf4j
@@ -24,11 +26,9 @@ import java.util.UUID;
 @RequiredArgsConstructor
 public class EnterpriseService {
 
-    //Atributos da classe
     private final EnterpriseRepository repository;
     private final AccountServiceImpl accountService;
 
-    //Metodos CRUD
     public Enterprise findById(UUID targetId){
         return repository.findById(targetId).orElseThrow(() -> new EnterpriseException("Empresa não encontrada"));
     }
@@ -38,9 +38,10 @@ public class EnterpriseService {
     }
 
     public Page<Enterprise> findAll(FilterEnterprisesCommand command){
-        return repository.findAll
-                (EnterpriseSpec.enterpriseFilter
-                        (command.search(), command.active()), command.pageable());
+        return repository.findAll(
+                EnterpriseSpec.enterpriseFilter(command.search(), command.active()),
+                command.pageable()
+        );
     }
 
     public List<Enterprise> findAllByAccountId(UUID accountId){
@@ -57,22 +58,40 @@ public class EnterpriseService {
         repository.delete(enterprise);
     }
 
-    public boolean existsByCnpj(String rawCnpj){
-        CNPJ cnpj = CNPJ.of(rawCnpj);
-        return repository.existsByCnpj(cnpj);
+    public boolean existsByDocument(EnterpriseDocument document){
+        return switch (document.type()) {
+            case CNPJ -> repository.existsByCnpj(CNPJ.of(document.value()));
+            case CAEPF -> repository.existsByCaepf(CAEPF.of(document.value()));
+            case CPF -> repository.existsByCpf(CPF.of(document.value()));
+        };
     }
 
-    public Enterprise findByCnpj(String cnpj){
-        CNPJ cnpjObj = CNPJ.of(cnpj);
-        return repository.findByCnpj(cnpjObj).orElseThrow(() -> new EnterpriseException("Empresa não encontrada"));
+    public Enterprise findByDocument(EnterpriseDocument document){
+        var enterprise = switch (document.type()) {
+            case CNPJ -> repository.findByCnpj(CNPJ.of(document.value()));
+            case CAEPF -> repository.findByCaepf(CAEPF.of(document.value()));
+            case CPF -> repository.findByCpf(CPF.of(document.value()));
+        };
+
+        return enterprise.orElseThrow(() -> new EnterpriseException("Empresa não encontrada"));
     }
 
-    //Metodos da classe
-    public Enterprise create(String name, String rawCnpj){
-        CNPJ cnpj = CNPJ.of(rawCnpj);
-        if (existsByCnpj(rawCnpj)) throw new EnterpriseException("CNPJ já cadastrado");
-        Enterprise enterprise = new Enterprise(name, cnpj);
+    public Enterprise create(String name, EnterpriseDocument document){
+        if (existsByDocument(document)) {
+            throw new EnterpriseException(document.type().name() + " ja cadastrado");
+        }
+
+        Enterprise enterprise = switch (document.type()) {
+            case CNPJ -> Enterprise.withCnpj(name, CNPJ.of(document.value()));
+            case CAEPF -> Enterprise.withCaepf(name, CAEPF.of(document.value()));
+            case CPF -> Enterprise.withCpf(name, CPF.of(document.value()));
+        };
+
         return repository.save(enterprise);
+    }
+
+    public Enterprise create(String name, EnterpriseDocumentType type, String value) {
+        return create(name, new EnterpriseDocument(type, value));
     }
 
     public Enterprise updateName(UUID targetId, String newName){
@@ -107,5 +126,4 @@ public class EnterpriseService {
         enterprise.deactivate();
         return repository.save(enterprise);
     }
-
 }

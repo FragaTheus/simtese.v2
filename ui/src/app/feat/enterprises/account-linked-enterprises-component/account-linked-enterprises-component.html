@@ -30,7 +30,7 @@
                 <div class="flex flex-col gap-4">
                   <span class="font-semibold text-sm">{{ i.name }}</span>
                   <span class="font-light text-xs text-surface-700 mt-2">{{
-                    i.cnpj | documentFormat
+                    i.registrationType + ': ' + (i.registrationNumber | documentFormat)
                   }}</span>
                 </div>
 

@@ -28,7 +28,8 @@ export interface ResultInfo {
   employeeName: string;
   employeeCpf: string;
   enterpriseName: string;
-  enterpriseCnpj: string;
+  enterpriseDocument: string;
+  enterpriseDocumentType: 'CNPJ' | 'CAEPF' | 'CPF';
   apt: boolean;
 }
 

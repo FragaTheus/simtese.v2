@@ -3,11 +3,10 @@ package br.com.matheusfragadev.api.infra.controller.appointment.aggregate;
 import br.com.matheusfragadev.api.domain.appointment.aggregate.ExamStatus;
 import br.com.matheusfragadev.api.domain.appointment.aggregate.ExamType;
 import br.com.matheusfragadev.api.domain.appointment.aggregate.Shift;
-import br.com.matheusfragadev.api.domain.exams.entity.Exam;
+import br.com.matheusfragadev.api.domain.enterprise.aggregate.EnterpriseDocumentType;
 import lombok.Builder;
 
 import java.time.Instant;
-import java.util.Set;
 import java.util.UUID;
 
 @Builder
@@ -16,7 +15,8 @@ public record AppointmentInfo(
         String employeeName,
         String employeeCpf,
         String enterpriseName,
-        String enterpriseCnpj,
+        String enterpriseDocument,
+        EnterpriseDocumentType enterpriseDocumentType,
         Shift shift,
         ExamStatus examStatus,
         ExamType examType,

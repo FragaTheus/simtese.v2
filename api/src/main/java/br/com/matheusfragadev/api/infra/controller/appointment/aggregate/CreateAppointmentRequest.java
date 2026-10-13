@@ -1,8 +1,9 @@
 package br.com.matheusfragadev.api.infra.controller.appointment.aggregate;
 
-
 import br.com.matheusfragadev.api.domain.appointment.aggregate.ExamType;
 import br.com.matheusfragadev.api.domain.appointment.aggregate.Shift;
+import br.com.matheusfragadev.api.domain.enterprise.aggregate.EnterpriseDocument;
+import jakarta.validation.Valid;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.Size;
 
@@ -16,8 +17,8 @@ public record CreateAppointmentRequest(
         String employeeCpf,
         @NotBlank(message = "Nome da empresa é obrigatório")
         String enterpriseName,
-        @NotBlank(message = "CNPJ da empresa é obrigatório")
-        String enterpriseCnpj,
+        @Valid
+        EnterpriseDocument enterpriseDocument,
         Shift shift,
         ExamType examType,
         Set<UUID> examIds,

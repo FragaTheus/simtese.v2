@@ -4,9 +4,16 @@ import { Observable } from 'rxjs';
 import { API_V1_URL } from '../../shared/api/config/api.config';
 import { PageableResponse } from '../../shared/api/type/api.type';
 
+export type EnterpriseDocumentType = 'CNPJ' | 'CAEPF' | 'CPF';
+
+export interface EnterpriseDocument {
+  type: EnterpriseDocumentType;
+  value: string;
+}
+
 interface CreateEnterpriseRequest {
   name: string;
-  cnpj: string;
+  document: EnterpriseDocument;
 }
 
 interface ChangeEnterpriseNameRequest {
@@ -16,13 +23,15 @@ interface ChangeEnterpriseNameRequest {
 export interface EnterpriseSummary {
   id: string;
   name: string;
-  cnpj: string;
+  registrationNumber: string;
+  registrationType: EnterpriseDocumentType;
 }
 
 export interface EnterpriseInfo {
   id: string;
   name: string;
-  cnpj: string;
+  registrationNumber: string;
+  registrationType: EnterpriseDocumentType;
   linkedAccountName: string | null;
   active: boolean;
   createdAt: string;
@@ -68,7 +77,6 @@ export class EnterpriseService {
   }
 
   info(targetId: string): Observable<EnterpriseInfo> {
-    console.log(targetId);
     return this.http.get<EnterpriseInfo>(`${API_V1_URL}/enterprises/${targetId}`);
   }
 
@@ -97,7 +105,6 @@ export class EnterpriseService {
   }
 
   linkedAccounts(accountId: string): Observable<EnterpriseSummary[]> {
-    console.log('Id enviado para o endpoint de contas vinculadas: ' + accountId);
     return this.http.get<EnterpriseSummary[]>(`${API_V1_URL}/enterprises/account/${accountId}`);
   }
 }

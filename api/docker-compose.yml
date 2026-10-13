@@ -40,8 +40,9 @@ services:
     ports:
       - "8082:8080"
     volumes:
-      - .:/jar:ro
+      - ./build/libs:/jar:ro
       - api-logs:/app/logs
+      - api-results-data:/data/results
     depends_on:
       postgres:
         condition: service_healthy
@@ -52,3 +53,4 @@ volumes:
   api-postgres-data:
   api-redis-data:
   api-logs:
+  api-results-data:
