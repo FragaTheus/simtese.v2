@@ -14,6 +14,7 @@ public interface ExamRepository extends JpaRepository<Exam, UUID>, JpaSpecificat
 
     boolean existsByName(String name);
 
+
     @Query("""
     SELECT DISTINCT e
     FROM Appointment a
@@ -21,4 +22,6 @@ public interface ExamRepository extends JpaRepository<Exam, UUID>, JpaSpecificat
     WHERE a.id = :appointmentId
     """)
     Set<Exam> findAllByAppointmentId(UUID appointmentId);
+
+    Set<Exam> findAllByActiveTrue();
 }

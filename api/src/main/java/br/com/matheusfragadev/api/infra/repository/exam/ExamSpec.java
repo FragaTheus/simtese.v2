@@ -13,7 +13,7 @@ public class ExamSpec {
                 .and(isActive(active));
     }
 
-    private static Specification<Exam> search(String search) {
+    public static Specification<Exam> search(String search) {
         if (search == null || search.isBlank()) {
             return Specification.unrestricted();
         }

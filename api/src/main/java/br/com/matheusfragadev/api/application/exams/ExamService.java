@@ -11,6 +11,7 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import java.util.HashSet;
+import java.util.List;
 import java.util.Set;
 import java.util.UUID;
 
@@ -81,6 +82,10 @@ public class ExamService {
         Exam exam = findExamById(targetId);
         if (exam.isActive()) throw new ExamException("Para deletar um exame, ele precisa estar inativo");
         repository.delete(exam);
+    }
+
+    public List<Exam> findAllActiveExams(String search){
+        return repository.findAll(ExamSpec.search(search).and(ExamSpec.examFilter(null, true)));
     }
 
     //Metodos auxiliares

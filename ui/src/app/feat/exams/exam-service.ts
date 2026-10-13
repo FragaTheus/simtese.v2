@@ -14,6 +14,11 @@ export interface ExamSummary {
   active: boolean;
 }
 
+export interface ExamLookup {
+  id: string;
+  name: string;
+}
+
 export interface ExamInfo {
   id: string;
   name: string;
@@ -56,6 +61,18 @@ export class ExamService {
     }
 
     return this.http.get<PageableResponse<ExamSummary>>(`${API_V1_URL}/exams`, {
+      params: httpParams,
+    });
+  }
+
+  lookup(search?: string): Observable<ExamLookup[]> {
+    let httpParams = new HttpParams();
+
+    if (search) {
+      httpParams = httpParams.set('search', search);
+    }
+
+    return this.http.get<ExamLookup[]>(`${API_V1_URL}/exams/lookup`, {
       params: httpParams,
     });
   }

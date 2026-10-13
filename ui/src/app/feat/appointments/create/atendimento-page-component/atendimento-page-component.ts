@@ -23,7 +23,7 @@ import {
   Shift,
 } from '../../appointment-service';
 
-import { ExamService, ExamSummary } from '../../../exams/exam-service';
+import { ExamLookup, ExamService } from '../../../exams/exam-service';
 
 import { ApiErrorResponse } from '../../../../shared/api/type/api.type';
 import { stripDocumentMask } from '../../../../shared/pipes/document-format-pipe';
@@ -68,14 +68,13 @@ export class AtendimentoPageComponent {
 
   activeStep = signal(1);
 
-  loading = signal(false);
   error = signal<string | null>(null);
   success = signal(false);
 
-  examOptions = signal<ExamSummary[]>([]);
-  complementaryExamOptions = signal<ExamSummary[]>([]);
+  examOptions = signal<ExamLookup[]>([]);
+  complementaryExamOptions = signal<ExamLookup[]>([]);
 
-  clinicalExam = signal<ExamSummary | null>(null);
+  clinicalExam = signal<ExamLookup | null>(null);
 
   shiftOptions: ShiftOption[] = [
     {
@@ -147,10 +146,8 @@ export class AtendimentoPageComponent {
   }
 
   loadExams(): void {
-    this.examService.all({ active: true }).subscribe({
-      next: (response) => {
-        const exams = response.content;
-
+    this.examService.lookup().subscribe({
+      next: (exams) => {
         this.examOptions.set(exams);
 
         const clinicalExam = exams.find(
@@ -228,16 +225,6 @@ export class AtendimentoPageComponent {
       this.employeeForm.markAllAsTouched();
       this.enterpriseForm.markAllAsTouched();
       this.appointmentForm.markAllAsTouched();
-
-      return;
-    }
-
-    const clinicalExam = this.clinicalExam();
-
-    if (!clinicalExam) {
-      this.error.set(`O exame obrigatório "${this.CLINICAL_EXAM_NAME}" não foi encontrado.`);
-
-      return;
     }
 
     const employee = this.employeeForm.getRawValue();
@@ -246,14 +233,15 @@ export class AtendimentoPageComponent {
     const { shift, examType, complementaryExamIds, observation } =
       this.appointmentForm.getRawValue();
 
-    if (!shift || !examType) {
-      return;
-    }
-
-    const examIds =
-      shift === 'MORNING'
-        ? [clinicalExam.id, ...complementaryExamIds.filter((examId) => examId !== clinicalExam.id)]
-        : [clinicalExam.id];
+    const clinicalExam = this.clinicalExam();
+    const examIds = clinicalExam
+      ? shift === 'MORNING'
+        ? [
+            clinicalExam.id,
+            ...complementaryExamIds.filter((examId) => examId !== clinicalExam.id),
+          ]
+        : [clinicalExam.id]
+      : complementaryExamIds;
 
     const request: CreateAppointmentRequest = {
       ...employee,
@@ -262,8 +250,8 @@ export class AtendimentoPageComponent {
       employeeCpf: stripDocumentMask(employee.employeeCpf),
       enterpriseCnpj: stripDocumentMask(enterprise.enterpriseCnpj),
 
-      shift,
-      examType,
+      ...(shift ? { shift } : {}),
+      ...(examType ? { examType } : {}),
       observation,
 
       examIds,
@@ -271,11 +259,9 @@ export class AtendimentoPageComponent {
 
     this.error.set(null);
     this.success.set(false);
-    this.loading.set(true);
 
     this.appointmentService.create(request).subscribe({
       next: () => {
-        this.loading.set(false);
         this.success.set(true);
       },
 
@@ -283,8 +269,6 @@ export class AtendimentoPageComponent {
         const apiError = err.error as ApiErrorResponse;
 
         this.error.set(apiError?.message ?? 'Não foi possível realizar o agendamento.');
-
-        this.loading.set(false);
       },
     });
   }

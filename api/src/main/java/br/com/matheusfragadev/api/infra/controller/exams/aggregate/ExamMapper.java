@@ -29,4 +29,11 @@ public class ExamMapper {
                 .build();
     }
 
+    public static ExamLookup toExamLookup(Exam exam){
+        return ExamLookup.builder()
+                .id(exam.getId())
+                .name(exam.getName())
+                .build();
+    }
+
 }

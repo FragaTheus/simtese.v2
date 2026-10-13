@@ -6,6 +6,7 @@ import br.com.matheusfragadev.api.domain.exams.entity.Exam;
 import br.com.matheusfragadev.api.infra.auditory.AuditingResolver;
 import br.com.matheusfragadev.api.infra.controller.exams.aggregate.CreateExamRequest;
 import br.com.matheusfragadev.api.infra.controller.exams.aggregate.ExamInfo;
+import br.com.matheusfragadev.api.infra.controller.exams.aggregate.ExamLookup;
 import br.com.matheusfragadev.api.infra.controller.exams.aggregate.ExamMapper;
 import br.com.matheusfragadev.api.infra.controller.exams.aggregate.ExamSummary;
 import br.com.matheusfragadev.api.infra.security.ratelimit.RateLimited;
@@ -63,6 +64,17 @@ public class ExamsController {
     ){
         Page<Exam> exams = examService.findAllExams(new ExamFilterCommand(search, active, pageable));
         Page<ExamSummary> response = exams.map(ExamMapper::toExamSummary);
+        return ResponseEntity.ok(response);
+    }
+
+    @GetMapping("/lookup")
+    @PreAuthorize("permitAll()")
+    @RateLimited(limit = 30, windowSeconds = 60)
+    public ResponseEntity<Set<ExamLookup>> lookup(@RequestParam(required = false) String search){
+        Set<ExamLookup> response = examService.findAllActiveExams(search)
+                .stream()
+                .map(ExamMapper::toExamLookup)
+                .collect(Collectors.toSet());
         return ResponseEntity.ok(response);
     }
 
