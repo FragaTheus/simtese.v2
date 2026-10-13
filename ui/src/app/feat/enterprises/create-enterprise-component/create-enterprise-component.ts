@@ -7,7 +7,6 @@ import { EnterpriseService } from '../enterprise-service';
 import { HttpErrorResponse } from '@angular/common/http';
 import { FloatLabelModule } from 'primeng/floatlabel';
 import { InputTextModule } from 'primeng/inputtext';
-import { InputMaskModule } from 'primeng/inputmask';
 import { ApiErrorResponse } from '../../../shared/api/type/api.type';
 import { RouterLink } from '@angular/router';
 import { stripDocumentMask } from '../../../shared/pipes/document-format-pipe';
@@ -20,7 +19,6 @@ import { stripDocumentMask } from '../../../shared/pipes/document-format-pipe';
     ReactiveFormsModule,
     FloatLabelModule,
     InputTextModule,
-    InputMaskModule,
     TooltipModule,
     RouterLink,
   ],
