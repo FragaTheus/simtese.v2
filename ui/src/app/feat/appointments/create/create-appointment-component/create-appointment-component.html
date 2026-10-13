@@ -59,12 +59,12 @@
           id="enterpriseCnpj"
           formControlName="enterpriseCnpj"
           class="w-full"
-          pTooltip="CNPJ da empresa"
+          pTooltip="CNPJ ou CAEPF da empresa"
           tooltipEvent="focus"
           tooltipPosition="top"
         />
 
-        <label for="enterpriseCnpj"> CNPJ da empresa </label>
+        <label for="enterpriseCnpj"> CNPJ / CAEPF </label>
       </p-floatlabel>
 
       <!-- Turno -->
@@ -172,11 +172,7 @@
       <div class="flex items-center gap-2 w-full justify-end">
         <p-button label="Cancelar" type="button" severity="danger" (click)="closeDialog()" />
 
-        <p-button
-          label="Cadastrar"
-          type="submit"
-          severity="success"
-        />
+        <p-button label="Cadastrar" type="submit" severity="success" />
       </div>
     </div>
   </form>
