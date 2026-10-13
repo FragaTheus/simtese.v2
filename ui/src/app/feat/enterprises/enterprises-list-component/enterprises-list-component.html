@@ -48,6 +48,8 @@
           <p-dataView
             [value]="page.content"
             [paginator]="true"
+            [lazy]="true"
+            [first]="(params().page ?? 0) * page.size"
             [rows]="page.size"
             [totalRecords]="page.totalElements"
             (onPage)="changePage($event)"

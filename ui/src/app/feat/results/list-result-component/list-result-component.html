@@ -48,6 +48,8 @@
           <p-dataView
             [value]="pageableResponse()!.content"
             [paginator]="true"
+            [lazy]="true"
+            [first]="(params().page ?? 0) * pageableResponse()!.size"
             [rows]="pageableResponse()!.size"
             [totalRecords]="pageableResponse()!.totalElements"
             (onPage)="changePage($event)"
