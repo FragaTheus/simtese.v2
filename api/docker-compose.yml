@@ -36,11 +36,13 @@ services:
     environment:
       SPRING_PROFILES_ACTIVE: prod
     entrypoint: >
-      sh -c "java -jar $(ls /jar/*.jar | grep -v -- '-plain.jar' | head -n1)"
+      sh -c "JAR_FILE=$$(find /jar -maxdepth 1 -type f -name '*.jar' ! -name '*-plain.jar' | head -n1) &&
+      test -n \"$$JAR_FILE\" &&
+      exec java -jar \"$$JAR_FILE\""
     ports:
       - "8082:8080"
     volumes:
-      - ./build/libs:/jar:ro
+      - ./:/jar:ro
       - api-logs:/app/logs
       - api-results-data:/data/results
     depends_on:

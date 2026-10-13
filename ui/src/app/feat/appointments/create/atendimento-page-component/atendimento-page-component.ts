@@ -290,6 +290,17 @@ export class AtendimentoPageComponent {
     });
   }
 
+  get enterpriseDocumentMask(): string {
+    switch (this.enterpriseForm.controls.enterpriseDocumentType.value) {
+      case 'CPF':
+        return '999.999.999-99';
+      case 'CAEPF':
+        return '999.999.999/999-99';
+      default:
+        return '99.999.999/9999-99';
+    }
+  }
+
   get enterpriseDocumentLabel(): string {
     return this.enterpriseForm.controls.enterpriseDocumentType.value;
   }

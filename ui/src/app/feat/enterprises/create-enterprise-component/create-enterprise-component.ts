@@ -13,6 +13,7 @@ import { InputTextModule } from 'primeng/inputtext';
 import { ApiErrorResponse } from '../../../shared/api/type/api.type';
 import { RouterLink } from '@angular/router';
 import { stripDocumentMask } from '../../../shared/pipes/document-format-pipe';
+import { InputMaskModule } from 'primeng/inputmask';
 import { SelectModule } from 'primeng/select';
 
 interface EnterpriseDocumentTypeOption {
@@ -31,6 +32,7 @@ interface EnterpriseDocumentTypeOption {
     TooltipModule,
     RouterLink,
     SelectModule,
+    InputMaskModule,
   ],
   templateUrl: './create-enterprise-component.html',
 })
@@ -93,6 +95,17 @@ export class CreateEnterpriseComponent {
 
   get documentLabel(): string {
     return this.form.controls.documentType.value;
+  }
+
+  get documentMask(): string {
+    switch (this.form.controls.documentType.value) {
+      case 'CPF':
+        return '999.999.999-99';
+      case 'CAEPF':
+        return '999.999.999/999-99';
+      default:
+        return '99.999.999/9999-99';
+    }
   }
 
   closeDialog() {

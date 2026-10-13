@@ -65,28 +65,40 @@ public class CAEPF {
     }
 
     private static void validateDocument(String rawCaepf) {
-        int[] firstWeights = {5, 4, 3, 2, 9, 8, 7, 6, 5, 4, 3, 2};
-        int[] secondWeights = {6, 5, 4, 3, 2, 9, 8, 7, 6, 5, 4, 3, 2};
+
+        int[] firstWeights = {
+                6, 7, 8, 9, 2, 3, 4, 5, 6, 7, 8, 9
+        };
+
+        int[] secondWeights = {
+                5, 6, 7, 8, 9, 2, 3, 4, 5, 6, 7, 8, 9
+        };
 
         int sum = 0;
+
         for (int i = 0; i < 12; i++) {
-            sum += Character.getNumericValue(rawCaepf.charAt(i)) * firstWeights[i];
+            sum += Character.getNumericValue(rawCaepf.charAt(i))
+                    * firstWeights[i];
         }
 
-        int remainder = sum % 11;
-        int firstDigit = remainder < 2 ? 0 : 11 - remainder;
-        if (firstDigit != Character.getNumericValue(rawCaepf.charAt(12))) {
-            throw new CAEPFException("CAEPF invalido");
-        }
+        int firstDigit = (sum % 11) % 10;
 
         sum = 0;
-        for (int i = 0; i < 13; i++) {
-            sum += Character.getNumericValue(rawCaepf.charAt(i)) * secondWeights[i];
+
+        for (int i = 0; i < 12; i++) {
+            sum += Character.getNumericValue(rawCaepf.charAt(i))
+                    * secondWeights[i];
         }
 
-        remainder = sum % 11;
-        int secondDigit = remainder < 2 ? 0 : 11 - remainder;
-        if (secondDigit != Character.getNumericValue(rawCaepf.charAt(13))) {
+        sum += firstDigit * secondWeights[12];
+
+        int secondDigit = (sum % 11) % 10;
+
+        int verifier = (firstDigit * 10 + secondDigit + 12) % 100;
+
+        int informedVerifier = Integer.parseInt(rawCaepf.substring(12));
+
+        if (verifier != informedVerifier) {
             throw new CAEPFException("CAEPF invalido");
         }
     }

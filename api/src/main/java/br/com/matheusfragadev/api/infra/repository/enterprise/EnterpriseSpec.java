@@ -21,14 +21,15 @@ public class EnterpriseSpec {
             return Specification.unrestricted();
         }
 
-        String value = "%" + search.toLowerCase() + "%";
+        String nameValue = "%" + search.toLowerCase() + "%";
+        String documentValue = "%" + normalizeDocument(search) + "%";
 
         return (root, query, cb) ->
                 cb.or(
-                        cb.like(cb.lower(root.get("name")), value),
-                        cb.like(cb.lower(root.get("cnpj").get("value")), value),
-                        cb.like(cb.lower(root.get("caepf").get("value")), value),
-                        cb.like(cb.lower(root.get("cpf").get("value")), value)
+                        cb.like(cb.lower(root.get("name")), nameValue),
+                        cb.like(normalizeDocumentExpression(cb, root.get("cnpj").get("value")), documentValue),
+                        cb.like(normalizeDocumentExpression(cb, root.get("caepf").get("value")), documentValue),
+                        cb.like(normalizeDocumentExpression(cb, root.get("cpf").get("value")), documentValue)
                 );
     }
 
@@ -39,5 +40,23 @@ public class EnterpriseSpec {
 
         return (root, query, cb) ->
                 cb.equal(root.get("active"), active);
+    }
+
+    private static String normalizeDocument(String value) {
+        return value.replaceAll("[^\\d]", "");
+    }
+
+    private static jakarta.persistence.criteria.Expression<String> normalizeDocumentExpression(
+            jakarta.persistence.criteria.CriteriaBuilder cb,
+            jakarta.persistence.criteria.Path<String> document
+    ) {
+        return cb.function(
+                "regexp_replace",
+                String.class,
+                cb.lower(document),
+                cb.literal("[^0-9]"),
+                cb.literal(""),
+                cb.literal("g")
+        );
     }
 }
