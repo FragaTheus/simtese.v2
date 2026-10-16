@@ -111,6 +111,10 @@ export class CreateAppointmentComponent {
       label: 'Avaliação Específica',
       value: 'SPECIFIC_EVALUATION',
     },
+    {
+      label: 'Mudança de Risco',
+      value: 'CHANGE_OF_RISK',
+    },
   ];
 
   enterpriseDocumentTypeOptions: EnterpriseDocumentTypeOption[] = [

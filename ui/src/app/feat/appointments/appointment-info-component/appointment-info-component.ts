@@ -34,6 +34,7 @@ const EXAM_TYPE_LABELS: Record<ExamType, string> = {
   PERIODIC: 'Periódico',
   RETURN_TO_WORK: 'Retorno ao Trabalho',
   SPECIFIC_EVALUATION: 'Avaliação Específica',
+  CHANGE_OF_RISK: 'Mudança de Risco',
 };
 
 const EXAM_STATUS_LABELS: Record<ExamStatus, string> = {

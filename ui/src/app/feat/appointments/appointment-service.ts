@@ -13,7 +13,8 @@ export type ExamType =
   | 'TERMINATION'
   | 'PERIODIC'
   | 'RETURN_TO_WORK'
-  | 'SPECIFIC_EVALUATION';
+  | 'SPECIFIC_EVALUATION'
+  | 'CHANGE_OF_RISK';
 
 export type EnterpriseDocumentType = 'CNPJ' | 'CAEPF' | 'CPF';
 
