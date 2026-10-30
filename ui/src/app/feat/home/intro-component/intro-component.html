@@ -32,8 +32,8 @@
             <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
               <img
                 [ngSrc]="bullet.image"
-                width="1200"
-                height="1600"
+                [width]="bullet.imageWidth"
+                [height]="bullet.imageHeight"
                 sizes="(max-width: 767px) calc(100vw - 3rem), (max-width: 1023px) 33vw, 16vw"
                 alt=""
                 class="min-w-34 w-full h-34 rounded-sm object-cover"

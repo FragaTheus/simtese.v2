@@ -10,6 +10,8 @@ interface ICardBulletItem {
   title: string;
   bullet: string;
   image: string;
+  imageWidth: number;
+  imageHeight: number;
 }
 
 @Component({
@@ -24,14 +26,18 @@ export class IntroComponent {
       title: 'Um jeito próprio de trabalhar',
       bullet:
         'Desenvolvemos protocolos próprios de conferência e triagem para tornar os atendimentos mais ágeis, organizados e seguros.',
-      image: '/attend-img.jpeg',
+      image: '/attend-img.webp',
+      imageWidth: 600,
+      imageHeight: 800,
     },
     {
       icon: 'pi pi-building',
       title: 'Crescemos junto com nossos serviços',
       bullet:
         'Mudamos de endereço três vezes, ampliamos nossa estrutura, incorporamos novos exames e hoje contamos também com laboratório próprio.',
-      image: '/reception-img.jpeg',
+      image: '/reception-img.webp',
+      imageWidth: 600,
+      imageHeight: 800,
     },
     {
       icon: 'pi pi-users',
@@ -39,6 +45,8 @@ export class IntroComponent {
       bullet:
         'Nosso crescimento foi construído por profissionais fixos e comprometidos que cresceram conosco e compartilham o mesmo cuidado com cada empresa.',
       image: '/intro-img.webp',
+      imageWidth: 600,
+      imageHeight: 450,
     },
   ];
 
