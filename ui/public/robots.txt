@@ -1,0 +1,8 @@
+User-agent: *
+Allow: /
+Disallow: /entrar
+Disallow: /painel
+Disallow: /401
+Disallow: /403
+
+Sitemap: https://www.simtese.com.br/sitemap.xml
