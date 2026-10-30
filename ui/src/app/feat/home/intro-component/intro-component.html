@@ -1,12 +1,12 @@
-<section id="about">
+<section id="about" aria-labelledby="about-title">
   <app-home-page-layout>
     <div class="grid grid-cols-1 gap-4 lg:grid-cols-2">
       <div class="max-w-lg">
-        <label class="text-xs uppercase font-semibold text-clinical-teal"> Nossa história </label>
+        <p class="text-xs uppercase font-semibold text-clinical-teal">Nossa história</p>
 
-        <h1 class="mt-2 text-xl font-semibold tracking-tighter lg:text-3xl">
+        <h2 id="about-title" class="mt-2 text-xl font-semibold tracking-tighter lg:text-3xl">
           Uma história construída para fazer diferente
-        </h1>
+        </h2>
 
         <div class="mt-4 flex flex-col gap-4 text-sm font-light leading-6 text-surface-700">
           <p>
@@ -31,14 +31,17 @@
           <p-card>
             <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
               <img
-                src="{{ bullet.image }}"
-                alt="{{ bullet.bullet }}"
+                [ngSrc]="bullet.image"
+                width="1200"
+                height="1600"
+                sizes="(max-width: 767px) calc(100vw - 3rem), (max-width: 1023px) 33vw, 16vw"
+                alt=""
                 class="min-w-34 w-full h-34 rounded-sm object-cover"
               />
               <div class="flex flex-col gap-2 justify-around flex-wrap md:col-span-2">
                 <div>
                   <span class="{{ bullet.icon }} text-xl text-clinical-teal"></span>
-                  <h2 class="font-semibold text-surface-900 mt-2">{{ bullet.title }}</h2>
+                  <h3 class="font-semibold text-surface-900 mt-2">{{ bullet.title }}</h3>
                 </div>
                 <p class="text-sm font-light text-surface-700">{{ bullet.bullet }}</p>
               </div>

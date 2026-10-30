@@ -7,14 +7,25 @@
 >
   <div class="w-full max-w-6xl py-4 px-6 grid grid-cols-6 m-auto">
     <img
-      src="icon-logo.png"
+      ngSrc="/icon-logo.png"
+      width="362"
+      height="90"
+      priority
+      alt="SIMT&SE Medicina do Trabalho"
       class="max-w-30 md:max-w-40 h-auto relative top-1/2 -translate-y-1/2 col-span-1"
     />
     <div class="col-span-3"></div>
     <div class="flex items-center gap-2 col-span-2 justify-self-end">
-      <p-button icon="pi pi-whatsapp" severity="success" size="small" (click)="cta()" />
+      <p-button
+        icon="pi pi-whatsapp"
+        ariaLabel="Fale conosco pelo WhatsApp"
+        severity="success"
+        size="small"
+        (click)="cta()"
+      />
       <p-button
         icon="pi pi-bars"
+        ariaLabel="Abrir menu de navegação"
         severity="secondary"
         size="small"
         class="justify-self-end"
@@ -24,4 +35,4 @@
   </div>
 </header>
 
-<p-menu #menu [model]="items" [popup]="true" />
+<p-menu #menu [model]="items" [popup]="true" ariaLabel="Menu de navegação" />

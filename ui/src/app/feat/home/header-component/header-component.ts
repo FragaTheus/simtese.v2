@@ -1,4 +1,5 @@
 import { Component, HostListener, signal } from '@angular/core';
+import { NgOptimizedImage } from '@angular/common';
 import { ButtonModule } from 'primeng/button';
 import { MenuModule } from 'primeng/menu';
 import { MenuItem } from 'primeng/api';
@@ -6,7 +7,7 @@ import { RECEPCAO_E_AGENDAMENTOS } from '../links';
 
 @Component({
   selector: 'app-header-component',
-  imports: [ButtonModule, MenuModule],
+  imports: [NgOptimizedImage, ButtonModule, MenuModule],
   templateUrl: './header-component.html',
 })
 export class HeaderComponent {

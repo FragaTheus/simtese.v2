@@ -1,18 +1,23 @@
 <section
   id="hero"
+  aria-labelledby="hero-title"
   class="relative overflow-hidden bg-radial-[at_65%_25%] from-background from-20% via-[#eaf1f4] via-55% to-[#dcebe3] to-100%"
 >
   <app-home-page-layout
     [class]="'relative block h-svh max-h-[90svh] lg:max-h-[55svh] mx-auto w-full max-w-6xl'"
   >
     <img
-      src="/hero-img.webp"
+      ngSrc="/hero-img.webp"
+      width="1536"
+      height="1024"
+      sizes="(max-width: 768px) 100vw, 60vw"
+      priority
       alt="Equipe SIMT&SE"
       class="absolute right-0 -bottom-4 md:-bottom-8 w-full md:max-w-160 xl:max-w-180 object-contain"
     />
 
     <div class="relative z-10 flex flex-col gap-4 max-w-md pt-16">
-      <h1 class="font-black text-3xl md:text-4xl xl:text-5xl tracking-tighter">
+      <h1 id="hero-title" class="font-black text-3xl md:text-4xl xl:text-5xl tracking-tighter">
         Mais do que exames, cuidamos de quem faz sua empresa acontecer
       </h1>
 

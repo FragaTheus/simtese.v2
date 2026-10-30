@@ -1,4 +1,5 @@
 import { Component } from '@angular/core';
+import { NgOptimizedImage } from '@angular/common';
 import { HomePageLayout } from '../../../shared/components/layout/home/home-page-layout/home-page-layout';
 import { CardModule } from 'primeng/card';
 
@@ -10,7 +11,7 @@ interface Structure {
 
 @Component({
   selector: 'app-structure-component',
-  imports: [HomePageLayout, CardModule],
+  imports: [NgOptimizedImage, HomePageLayout, CardModule],
   templateUrl: './structure-component.html',
 })
 export class StructureComponent {

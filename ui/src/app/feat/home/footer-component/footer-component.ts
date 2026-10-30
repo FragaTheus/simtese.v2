@@ -1,4 +1,5 @@
 import { Component } from '@angular/core';
+import { NgOptimizedImage } from '@angular/common';
 
 import { HomePageLayout } from '../../../shared/components/layout/home/home-page-layout/home-page-layout';
 import { ButtonModule } from 'primeng/button';
@@ -19,6 +20,7 @@ import {
 
 interface Social {
   icon: string;
+  label: string;
   link: string;
 }
 
@@ -49,7 +51,7 @@ interface ServiceInfo {
 
 @Component({
   selector: 'app-footer-component',
-  imports: [HomePageLayout, ButtonModule],
+  imports: [NgOptimizedImage, HomePageLayout, ButtonModule],
   templateUrl: './footer-component.html',
 })
 export class FooterComponent {
@@ -160,18 +162,22 @@ export class FooterComponent {
   socials: Social[] = [
     {
       icon: 'pi pi-map-marker',
+      label: 'Ver localização no Google Maps',
       link: GOOGLE_MAPS,
     },
     {
       icon: 'pi pi-facebook',
+      label: 'Facebook',
       link: FACEBOOK,
     },
     {
       icon: 'pi pi-instagram',
+      label: 'Instagram',
       link: INSTAGRAM,
     },
     {
       icon: 'pi pi-linkedin',
+      label: 'LinkedIn',
       link: LINKEDIN,
     },
   ];

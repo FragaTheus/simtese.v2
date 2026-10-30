@@ -1,38 +1,42 @@
 <footer id="footer" class="bg-primary text-white">
   <app-home-page-layout>
     <div class="grid grid-cols-1 gap-10 py-12 sm:grid-cols-2 lg:grid-cols-4">
-      <!-- Logo -->
       <div class="flex flex-col gap-4">
-        <img src="/icon-logo.png" alt="SIMT&SE Medicina do Trabalho" class="w-32" />
+        <img
+          ngSrc="/icon-logo.png"
+          width="362"
+          height="90"
+          sizes="8rem"
+          alt="SIMT&SE Medicina do Trabalho"
+          class="w-32"
+        />
 
         <p class="max-w-xs text-sm leading-relaxed opacity-70">
           Medicina e Segurança do Trabalho com qualidade, agilidade e responsabilidade.
         </p>
       </div>
 
-      <!-- Acesso rápido -->
       <div class="flex flex-col gap-3">
-        <label class="text-xs font-semibold uppercase tracking-wide opacity-60">
+        <h2 class="text-xs font-semibold uppercase tracking-wide opacity-60">
           {{ access.label }}
-        </label>
+        </h2>
 
         @for (item of access.items; track item.label) {
           <a
             class="flex items-center gap-2 text-sm opacity-80 transition-opacity hover:opacity-100"
             [href]="item.link"
           >
-            <span [class]="item.icon"></span>
+            <span aria-hidden="true" [class]="item.icon"></span>
 
             <span>{{ item.label }}</span>
           </a>
         }
       </div>
 
-      <!-- Contatos administrativos -->
       <div class="flex flex-col gap-3">
-        <label class="text-xs font-semibold uppercase tracking-wide opacity-60">
+        <h2 class="text-xs font-semibold uppercase tracking-wide opacity-60">
           {{ administrativeContacts.label }}
-        </label>
+        </h2>
 
         @for (item of administrativeContacts.items; track item.label) {
           <a
@@ -41,7 +45,7 @@
             [attr.target]="item.link.startsWith('https') ? '_blank' : null"
             [attr.rel]="item.link.startsWith('https') ? 'noopener noreferrer' : null"
           >
-            <span [class]="item.icon + ' mt-1'"></span>
+            <span aria-hidden="true" [class]="item.icon + ' mt-1'"></span>
 
             <div class="flex flex-col">
               <span class="text-sm font-medium">
@@ -56,11 +60,10 @@
         }
       </div>
 
-      <!-- Contatos ocupacionais -->
       <div class="flex flex-col gap-3">
-        <label class="text-xs font-semibold uppercase tracking-wide opacity-60">
+        <h2 class="text-xs font-semibold uppercase tracking-wide opacity-60">
           {{ occupationalContacts.label }}
-        </label>
+        </h2>
 
         @for (item of occupationalContacts.items; track item.label) {
           <a
@@ -69,7 +72,7 @@
             target="_blank"
             rel="noopener noreferrer"
           >
-            <span [class]="item.icon + ' mt-1'"></span>
+            <span aria-hidden="true" [class]="item.icon + ' mt-1'"></span>
 
             <div class="flex flex-col">
               <span class="text-sm font-medium">
@@ -88,7 +91,7 @@
     <div class="grid grid-cols-1 md:grid-cols-3 gap-6 border-y border-white/10 py-8">
       @for (item of serviceInfo; track item.label) {
         <div class="flex items-start gap-4">
-          <span [class]="item.icon" class="mt-1 text-xl text-white"></span>
+          <span aria-hidden="true" [class]="item.icon" class="mt-1 text-xl text-white"></span>
 
           <div class="flex flex-col gap-1">
             <span class="text-sm font-semibold">
@@ -109,6 +112,7 @@
       @for (social of socials; track social.icon) {
         <p-button
           [icon]="social.icon"
+          [ariaLabel]="social.label"
           [rounded]="true"
           [text]="true"
           severity="secondary"

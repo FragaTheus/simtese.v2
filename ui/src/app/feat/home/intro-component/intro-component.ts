@@ -1,4 +1,5 @@
 import { Component } from '@angular/core';
+import { NgOptimizedImage } from '@angular/common';
 import { HomePageLayout } from '../../../shared/components/layout/home/home-page-layout/home-page-layout';
 import { CardModule } from 'primeng/card';
 import { ButtonModule } from 'primeng/button';
@@ -13,7 +14,7 @@ interface ICardBulletItem {
 
 @Component({
   selector: 'app-intro-component',
-  imports: [HomePageLayout, CardModule, ButtonModule],
+  imports: [NgOptimizedImage, HomePageLayout, CardModule, ButtonModule],
   templateUrl: './intro-component.html',
 })
 export class IntroComponent {
