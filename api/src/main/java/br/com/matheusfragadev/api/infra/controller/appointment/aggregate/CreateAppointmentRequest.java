@@ -15,6 +15,8 @@ public record CreateAppointmentRequest(
         String employeeName,
         @NotBlank(message = "CPF do funcionário é obrigatório")
         String employeeCpf,
+        @Size(max = 100, message = "Função deve ter no máximo 100 caracteres")
+        String employeeRole,
         @NotBlank(message = "Nome da empresa é obrigatório")
         String enterpriseName,
         @Valid

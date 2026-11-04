@@ -1,0 +1,5 @@
+ALTER TABLE appointment
+    ADD COLUMN employee_role VARCHAR(100) NOT NULL DEFAULT 'N/A';
+
+ALTER TABLE result
+    ADD COLUMN employee_role VARCHAR(100) NOT NULL DEFAULT 'N/A';

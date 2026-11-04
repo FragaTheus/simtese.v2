@@ -53,7 +53,7 @@ public class AppointmentService {
     //Metodos da classe
     @Transactional
     public Appointment create(CreateAppointmentCommand command){
-        Employee employee = Employee.of(command.employeeName(), command.employeeCpf());
+        Employee employee = Employee.of(command.employeeName(), command.employeeCpf(), command.employeeRole());
         EnterpriseDocument enterpriseDocument = command.enterpriseDocument();
 
         Enterprise enterprise = enterpriseService.existsByDocument(enterpriseDocument)

@@ -1,59 +1,53 @@
-# Ui
+# Simtese UI
 
-This project was generated using [Angular CLI](https://github.com/angular/angular-cli) version 21.2.21.
+Frontend do Simtese, em **Angular 21** com componentes **PrimeNG** e **Tailwind CSS**.
 
-## Development server
+## Stack
 
-To start a local development server, run:
+- Angular 21 (standalone components, signals, formulários reativos)
+- PrimeNG 21 + `@primeuix/themes` + Tailwind CSS 4
+- RxJS, `HttpClient` com interceptor de autenticação (JWT)
 
-```bash
-ng serve
+## Estrutura
+
+```
+src/app
+├── feat/        # funcionalidades: appointments, enterprises, exams, results, auth, dash…
+└── shared/      # componentes, pipes e configuração de API reutilizáveis
 ```
 
-Once the server is running, open your browser and navigate to `http://localhost:4200/`. The application will automatically reload whenever you modify any of the source files.
+### Agendamento
 
-## Code scaffolding
+Há dois formulários, ambos com o campo opcional **Função do funcionário**:
 
-Angular CLI includes powerful code scaffolding tools. To generate a new component, run:
+- `create-appointment-component`: modal usado no painel (recepção);
+- `atendimento-page-component`: fluxo público em etapas (Funcionário → Empresa → Agendamento).
 
-```bash
-ng generate component component-name
-```
+A tela de detalhes mostra a função, ou `N/A` quando não informada.
 
-For a complete list of available schematics (such as `components`, `directives`, or `pipes`), run:
-
-```bash
-ng generate --help
-```
-
-## Building
-
-To build the project run:
+## Desenvolvimento
 
 ```bash
-ng build
+npm ci
+npm start          # http://localhost:4200
+npm run build      # build de produção
 ```
 
-This will compile your project and store the build artifacts in the `dist/` directory. By default, the production build optimizes your application for performance and speed.
-
-## Running unit tests
-
-To execute unit tests with the [Vitest](https://vitest.dev/) test runner, use the following command:
+## Testes
 
 ```bash
-ng test
+npm test -- --watch=false
 ```
 
-## Running end-to-end tests
+Executados com **Vitest** (runner do `ng test`) em ambiente `jsdom`, usando `TestBed` e
+`HttpTestingController` para validar chamadas HTTP, formulários e regras dos componentes.
 
-For end-to-end (e2e) testing, run:
+## Deploy
 
-```bash
-ng e2e
-```
+Publicado como aplicação estática (configuração em `vercel.json`, com rewrite de
+todas as rotas para `index.html`). O consumo da API aponta para o backend hospedado em
+AWS EC2.
 
-Angular CLI does not come with an end-to-end testing framework by default. You can choose one that suits your needs.
+## Licença
 
-## Additional Resources
-
-For more information on using the Angular CLI, including detailed command references, visit the [Angular CLI Overview and Command Reference](https://angular.dev/tools/cli) page.
+Software proprietário. Veja [LICENSE](../LICENSE).

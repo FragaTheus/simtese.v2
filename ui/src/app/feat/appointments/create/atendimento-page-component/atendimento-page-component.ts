@@ -129,6 +129,7 @@ export class AtendimentoPageComponent {
   employeeForm = this.fb.nonNullable.group({
     employeeName: ['', Validators.required],
     employeeCpf: ['', Validators.required],
+    employeeRole: ['', Validators.maxLength(100)],
   });
 
   enterpriseForm = this.fb.nonNullable.group({
@@ -245,7 +246,7 @@ export class AtendimentoPageComponent {
       return;
     }
 
-    const employee = this.employeeForm.getRawValue();
+    const { employeeRole, ...employee } = this.employeeForm.getRawValue();
     const enterprise = this.enterpriseForm.getRawValue();
 
     const { shift, examType, complementaryExamIds, observation } =
@@ -266,6 +267,7 @@ export class AtendimentoPageComponent {
       ...enterprise,
 
       employeeCpf: stripDocumentMask(employee.employeeCpf),
+      ...(employeeRole.trim() ? { employeeRole: employeeRole.trim() } : {}),
       enterpriseDocument: {
         type: enterprise.enterpriseDocumentType,
         value: stripDocumentMask(enterprise.enterpriseDocumentValue),
@@ -313,6 +315,7 @@ export class AtendimentoPageComponent {
     this.employeeForm.reset({
       employeeName: '',
       employeeCpf: '',
+      employeeRole: '',
     });
     this.enterpriseForm.reset({
       enterpriseName: '',

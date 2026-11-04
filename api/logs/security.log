@@ -1,1 +1,6 @@
-2026-09-11 10:52:48.875 [http-nio-8080-exec-1] WARN  SECURITY - Requisicao nao autenticada | ip=127.0.0.1 uri=/api/v1/auth motivo=Full authentication is required to access this resource
+2026-11-04 15:11:27.926 [Test worker] WARN  SECURITY - Requisicao nao autenticada | ip=127.0.0.1 uri=/api/v1/appointments motivo=Full authentication is required to access this resource
+2026-11-04 15:12:35.407 [Test worker] WARN  SECURITY - Requisicao nao autenticada | ip=127.0.0.1 uri=/api/v1/appointments motivo=Full authentication is required to access this resource
+2026-11-04 15:49:08.349 [Test worker] WARN  SECURITY - Requisicao nao autenticada | ip=127.0.0.1 uri=/api/v1/appointments motivo=Full authentication is required to access this resource
+2026-11-04 15:50:22.687 [Test worker] WARN  SECURITY - Requisicao nao autenticada | ip=127.0.0.1 uri=/api/v1/appointments motivo=Full authentication is required to access this resource
+2026-11-04 16:04:23.907 [Test worker] WARN  SECURITY - Requisicao nao autenticada | ip=127.0.0.1 uri=/api/v1/appointments motivo=Full authentication is required to access this resource
+2026-11-04 16:06:05.295 [Test worker] WARN  SECURITY - Requisicao nao autenticada | ip=127.0.0.1 uri=/api/v1/appointments motivo=Full authentication is required to access this resource

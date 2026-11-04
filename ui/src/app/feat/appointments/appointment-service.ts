@@ -26,6 +26,7 @@ export interface EnterpriseDocument {
 export interface CreateAppointmentRequest {
   employeeName: string;
   employeeCpf: string;
+  employeeRole?: string;
   enterpriseName: string;
   enterpriseDocument: EnterpriseDocument;
   shift?: Shift;
@@ -44,6 +45,7 @@ export interface AppointmentInfo {
   id: string;
   employeeName: string;
   employeeCpf: string;
+  employeeRole: string;
   enterpriseName: string;
   enterpriseDocument: string;
   enterpriseDocumentType: EnterpriseDocumentType;

@@ -137,6 +137,21 @@
       <label for="employeeCpf"> CPF do funcionário </label>
     </p-floatlabel>
 
+    <p-floatlabel variant="on">
+      <input
+        pInputText
+        id="employeeRole"
+        formControlName="employeeRole"
+        maxlength="100"
+        class="w-full"
+        pTooltip="Função do funcionário (opcional)"
+        tooltipEvent="focus"
+        tooltipPosition="top"
+      />
+
+      <label for="employeeRole"> Função do funcionário (opcional) </label>
+    </p-floatlabel>
+
     <div class="flex pt-2 justify-end">
       <p-button
         label="Próximo"

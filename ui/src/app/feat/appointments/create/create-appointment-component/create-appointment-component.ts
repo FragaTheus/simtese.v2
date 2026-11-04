@@ -128,6 +128,7 @@ export class CreateAppointmentComponent {
 
     employeeCpf: this.fb.nonNullable.control('', Validators.required),
 
+    employeeRole: this.fb.nonNullable.control('', Validators.maxLength(100)),
     enterpriseName: this.fb.nonNullable.control('', Validators.required),
 
     enterpriseDocumentType: this.fb.nonNullable.control<EnterpriseDocumentType>(
@@ -221,6 +222,7 @@ export class CreateAppointmentComponent {
     const {
       employeeName,
       employeeCpf,
+      employeeRole,
       enterpriseName,
       enterpriseDocumentType,
       enterpriseDocumentValue,
@@ -247,6 +249,7 @@ export class CreateAppointmentComponent {
       .create({
         employeeName,
         employeeCpf: stripDocumentMask(employeeCpf),
+        ...(employeeRole.trim() ? { employeeRole: employeeRole.trim() } : {}),
 
         enterpriseName,
         enterpriseDocument: {
@@ -299,6 +302,7 @@ export class CreateAppointmentComponent {
     this.form.reset({
       employeeName: '',
       employeeCpf: '',
+      employeeRole: '',
       enterpriseName: '',
       enterpriseDocumentType: 'CNPJ',
       enterpriseDocumentValue: '',

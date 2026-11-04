@@ -14,6 +14,7 @@ public record AppointmentInfo(
         UUID id,
         String employeeName,
         String employeeCpf,
+        String employeeRole,
         String enterpriseName,
         String enterpriseDocument,
         EnterpriseDocumentType enterpriseDocumentType,

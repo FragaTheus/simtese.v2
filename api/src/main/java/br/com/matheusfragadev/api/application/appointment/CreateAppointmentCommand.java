@@ -12,6 +12,7 @@ import java.util.UUID;
 public record CreateAppointmentCommand(
         String employeeName,
         String employeeCpf,
+        String employeeRole,
         String enterpriseName,
         EnterpriseDocument enterpriseDocument,
         Shift shift,

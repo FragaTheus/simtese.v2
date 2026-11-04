@@ -41,6 +41,21 @@
       <p-floatlabel variant="on">
         <input
           pInputText
+          id="employeeRole"
+          formControlName="employeeRole"
+          maxlength="100"
+          class="w-full"
+          pTooltip="Função do funcionário (opcional)"
+          tooltipEvent="focus"
+          tooltipPosition="top"
+        />
+
+        <label for="employeeRole"> Função do funcionário (opcional) </label>
+      </p-floatlabel>
+
+      <p-floatlabel variant="on">
+        <input
+          pInputText
           id="enterpriseName"
           formControlName="enterpriseName"
           class="w-full"

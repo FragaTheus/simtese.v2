@@ -29,6 +29,11 @@ public class Employee {
     private static final String CPF_REGEX = "^[0-9.-]+$";
     private static final Pattern CPF_PATTERN = Pattern.compile(CPF_REGEX);
 
+    //Constantes para função
+    private static final int ROLE_MAX_LENGTH = 100;
+    private static final String ROLE_DEFAULT = "N/A";
+    private static final Pattern ROLE_PATTERN = Pattern.compile("^[\\p{L}0-9 .,/&()-]+$");
+
     //Atributos da classe
     @Column(
             name = "employee_name",
@@ -46,13 +51,25 @@ public class Employee {
     )
     private String employeeCpf;
 
+    @Column(
+            name = "employee_role",
+            nullable = false,
+            updatable = false,
+            length = ROLE_MAX_LENGTH
+    )
+    private String employeeRole;
+
     //Factory da classe
     public static Employee of(String employeeName, String employeeCpf){
+        return of(employeeName, employeeCpf, null);
+    }
+
+    public static Employee of(String employeeName, String employeeCpf, String employeeRole){
         validateIfInputNameIsValid(employeeName);
         verifyIfInputCpfIsValid(employeeCpf);
         var formattedCpf = formatedCpf(employeeCpf);
         calculateCpf(formattedCpf);
-        return new Employee(employeeName, formattedCpf);
+        return new Employee(employeeName, formattedCpf, normalizeRole(employeeRole));
     }
 
     //Metodos auxiliares
@@ -97,6 +114,25 @@ public class Employee {
         if (formatted.chars().distinct().count() == 1) {
             throw new EmployeeException("CPF inválido.");
         }
+    }
+
+    //Função é opcional; quando ausente assume o valor padrão
+    private static String normalizeRole(String employeeRole){
+        if (employeeRole == null || employeeRole.isBlank()) return ROLE_DEFAULT;
+
+        var role = employeeRole.trim();
+
+        if (role.length() > ROLE_MAX_LENGTH) {
+            throw new EmployeeException
+                    ("Função do colaborador deve ter no máximo " + ROLE_MAX_LENGTH + " caracteres.");
+        }
+
+        if (!ROLE_PATTERN.matcher(role).matches()) {
+            throw new EmployeeException
+                    ("Função do colaborador contém caracteres inválidos.");
+        }
+
+        return role;
     }
 
     //Calcula CPF
