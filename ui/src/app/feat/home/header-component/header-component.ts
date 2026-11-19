@@ -3,11 +3,11 @@ import { NgOptimizedImage } from '@angular/common';
 import { ButtonModule } from 'primeng/button';
 import { MenuModule } from 'primeng/menu';
 import { MenuItem } from 'primeng/api';
-import { RECEPCAO_E_AGENDAMENTOS } from '../links';
+import { RouterLink } from '@angular/router';
 
 @Component({
   selector: 'app-header-component',
-  imports: [NgOptimizedImage, ButtonModule, MenuModule],
+  imports: [NgOptimizedImage, ButtonModule, MenuModule, RouterLink],
   templateUrl: './header-component.html',
 })
 export class HeaderComponent {
@@ -68,9 +68,5 @@ export class HeaderComponent {
         ],
       },
     ];
-  }
-
-  cta(): void {
-    window.open(RECEPCAO_E_AGENDAMENTOS, '_blank');
   }
 }
