@@ -81,11 +81,18 @@ export class ResultInfoComponent {
       next: (file) => {
         const url = URL.createObjectURL(file);
 
-        window.open(url, '_blank');
+        const previewWindow = window.open(url, '_blank');
 
-        setTimeout(() => {
+        if (previewWindow) {
+          const closeCheck = window.setInterval(() => {
+            if (previewWindow.closed) {
+              window.clearInterval(closeCheck);
+              URL.revokeObjectURL(url);
+            }
+          }, 250);
+        } else {
           URL.revokeObjectURL(url);
-        }, 1000);
+        }
 
         this.fileLoading.set(false);
       },
